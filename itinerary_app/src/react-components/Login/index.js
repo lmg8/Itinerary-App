@@ -8,7 +8,7 @@ import Card from '@material-ui/core/Card';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import HomeIcon from '@material-ui/icons/Home';
+import HomeIcon from '@material-ui/icons/HomeOutlined';
 
 import "./styles.css";
 
@@ -21,13 +21,11 @@ class Login extends React.Component {
         <div className="login-background">
              <AppBar color="primary" position="static">
                     <Toolbar variant={"dense"}>
-                        <Container>
-                            <ButtonGroup size='small' variant="text" className="home__button">
-                                <Link className="home__button-link" to={"./../"}>
-                                    <Button><HomeIcon fontSize="small"/></Button>
-                                </Link>
-                            </ButtonGroup>
-                        </Container>
+                        <ButtonGroup size='small' variant="text" className="home__button">
+                            <Link edge="start" className="home__button-link" to={"./../"}>
+                                <Button><HomeIcon fontSize="small"/></Button>
+                            </Link>
+                        </ButtonGroup>
                     </Toolbar>
                 </AppBar>
             <Container component="main" maxWidth="xs">
