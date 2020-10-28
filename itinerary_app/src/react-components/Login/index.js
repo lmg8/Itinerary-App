@@ -8,12 +8,11 @@ import Card from '@material-ui/core/Card';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import HomeIcon from '@material-ui/icons/HomeOutlined';
+import HomeIcon from '@material-ui/icons/Home';
 
 import "./styles.css";
 
 /* Component for the Home page */
-let preventDefault =(event)=>event.preventDefault(); 
 
 class Login extends React.Component {
   render() {
@@ -21,9 +20,9 @@ class Login extends React.Component {
         <div className="login-background">
              <AppBar color="primary" position="static">
                     <Toolbar variant={"dense"}>
-                        <ButtonGroup size='small' variant="text" className="home__button">
-                            <Link edge="start" className="home__button-link" to={"./../"}>
-                                <Button><HomeIcon fontSize="small"/></Button>
+                        <ButtonGroup size='small' variant="text">
+                            <Link edge="start" to={"./../"}>
+                                <Button><HomeIcon fontSize="large"/></Button>
                             </Link>
                         </ButtonGroup>
                     </Toolbar>
@@ -39,7 +38,7 @@ class Login extends React.Component {
                             <TextField variant="outlined" id="password-input" label="Enter Password" type="password" fullWidth margin="normal"/>
                         </form>
                         <Button className="submit-button" type="submit" fullWidth variant="contained" color="primary"> Submit </Button>
-                        <Link id="create-account" to={"./../Signup"} onClick={preventDefault}>No account? Create one now!</Link> 
+                        <Link id="create-account" to={"./../Signup"}>No account? Create one now!</Link> 
                     </Card>
                 </div>
             </Container>
