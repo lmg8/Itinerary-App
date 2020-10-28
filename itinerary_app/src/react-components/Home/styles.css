@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.home__bg-image {
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    background-image: url("./static/back.jpg");
+    overflow:hidden;
+}
+
+.home__button-link{
+    text-decoration: none;
+}
+
+.MuiButtonGroup-root.home__button {
+    display: flex;
+    float: right;
+    align-items: center;
+}
+
+.home__button .MuiButton-label {
+    color:white;
+    font-weight: 600;
+}
+
+.home__button .MuiButton-contained {
+    background-color: crimson;
+}
+
+.MuiContainer-maxWidthLg {
+    min-width: 100%;
+}
+
+.MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary {
+    background-color: #282c34;
+}
+
+.TitleContainer {
+    position: fixed;
+    top: 50%;
+    left: 30%;
+}
+.Title.MuiTypography-h1{
+    color: floralwhite;
+    font-size: 11rem;
+    font-family: 'Fredoka One', cursive;
+    padding-left: 5px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.TitleIcon.MuiSvgIcon-root{
+    font-size: 8rem;
+    color: crimson;
+}
+

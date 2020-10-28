@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar , Container} from "@material-ui/core"
+import { AppBar, Toolbar , Container, Paper} from "@material-ui/core"
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
@@ -10,20 +10,20 @@ import NavigationIcon from '@material-ui/icons/Navigation'
 
 import "./styles.css";
 
-class Home extends React.Component {
+class About extends React.Component {
 
     render() {
         return (
             <div className="home__bg-image center">
-                <Container className={"TitleContainer"}>
-                    { /* Using the global state variable from App.js */}
-                    <Typography className={"Title"} variant="h1"  gutterBottom>
-                        <RoomIcon className="TitleIcon" fontSize={"large"}/>ITINERARY
-                    </Typography>
-                </Container>
+
                 <AppBar color="primary" position="static">
                     <Toolbar variant={"dense"}>
-                        <Container>
+                        <Container className="home__container">
+                            <Link className="home__button-link" to={"./../"}>
+                                <Button className={"backhome__button"} size={"small"} variant="contained">
+                                    <RoomIcon className="home__Icon" />
+                                </Button>
+                            </Link>
                             <ButtonGroup size='small' variant="text" className="home__button">
                                 <Link className="home__button-link" to={"./../About"}>
                                     <Button><InfoOutlinedIcon fontSize="small"/></Button>
@@ -38,9 +38,16 @@ class Home extends React.Component {
                         </Container>
                     </Toolbar>
                 </AppBar>
+                <div >
+                    <Paper className="about__section" elevation={24}>
+                        About
+                    </Paper>
+                </div>;
+
             </div>
+
         );
     }
 }
 
-export default Home;
+export default About;
