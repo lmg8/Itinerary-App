@@ -1,13 +1,13 @@
+import React from 'react';
 import logo from './logo.svg';
-import React from "react";
-
-import {Route, Switch, BrowserRouter} from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
 
 import Home from './react-components/Home';
 import Login from './react-components/Login';
 import Signup from './react-components/Signup';
-import About from './react-components/About'
+import Search from './react-components/Search';
+import About from './react-components/About';
 
 class App extends React.Component {
   state = {
@@ -17,7 +17,7 @@ class App extends React.Component {
   render(){
     return(
       <div>
-        <BrowserRouter>
+        {<BrowserRouter>
           <Switch>
             <Route exact path='/' render={() => 
               (<Home appState={this.state}/>)}/>
@@ -27,8 +27,10 @@ class App extends React.Component {
               (<Signup appState={this.state}/>)}/>
             <Route exact path='/about' render={() =>
                 (<About appState={this.state}/>)}/>
+            <Route exact path='/search' render={() =>
+              (<Search appState={this.state}/>)}/>
           </Switch>
-        </BrowserRouter>
+        </BrowserRouter>}
       </div>
     );
   }
