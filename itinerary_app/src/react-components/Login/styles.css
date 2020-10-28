@@ -1,25 +1,30 @@
 /* Styles for the Login React component */
-.center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+    .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 
-  .MuiButton-root.username-text{
-      padding-top:50px;
-      padding-bottom:50px;
+    .login-background {
+        background-size: cover;
+        width: 100%;
+        height: 100vh;
+        background-image: url("./static/blackcomb.jpg");
+        overflow: hidden;
+    }
 
-  }
-  .MuiButton-root.password-text{
-      padding-top:50px;
-      padding-bottom:50px;
-  }
-  
-  
-  
-  .MuiButton-root.submit-button {
-    width: 250px;
-    height: 40px;
-    margin: 10px;
-  }
+    .MuiCard-root.login-card {
+        opacity: 0.85;
+        padding-right: 5px;
+        padding-left: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+   
+    
+    .MuiButton-root.submit-button {
+        width: 250px;
+        height: 40px;
+        margin: 10px;
+    }
