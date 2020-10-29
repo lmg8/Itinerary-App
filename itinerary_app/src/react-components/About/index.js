@@ -8,6 +8,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import RoomIcon from '@material-ui/icons/Room';
 import NavigationIcon from '@material-ui/icons/Navigation'
 
+import AboutTabs from '.././AboutTabs';
 import "./styles.css";
 
 class About extends React.Component {
@@ -16,7 +17,7 @@ class About extends React.Component {
         return (
             <div className="home__bg-image center">
 
-                <AppBar color="primary" position="static">
+                <AppBar className={"home__appBar"} color="primary" position="static">
                     <Toolbar variant={"dense"}>
                         <Container className="home__container">
                             <Link className="home__button-link" to={"./../"}>
@@ -40,7 +41,7 @@ class About extends React.Component {
                 </AppBar>
                 <div >
                     <Paper className="about__section" elevation={24}>
-                        About
+                        <AboutTabs className="AboutTabs"/>
                     </Paper>
                 </div>;
 

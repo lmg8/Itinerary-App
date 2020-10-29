@@ -21,7 +21,7 @@ class Home extends React.Component {
                         <RoomIcon className="TitleIcon" fontSize={"large"}/>ITINERARY
                     </Typography>
                 </Container>
-                <AppBar color="primary" position="static">
+                <AppBar className={"home__appBar"} color="primary" position="static">
                     <Toolbar variant={"dense"}>
                         <Container>
                             <ButtonGroup size='small' variant="text" className="home__button">
