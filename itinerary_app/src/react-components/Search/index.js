@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Header from '../Header';
 import SearchCard from '../SearchCard';
 import { Container, Grid, TextField, Box, Button, FormControl } from '@material-ui/core';
@@ -10,29 +11,28 @@ class Search extends React.Component {
     SearchValue: '', 
     filteredUsers: [],
     users: [
-        { 
-          firstName: "James", 
-          lastName: "Naismith", 
-          profilePic:"./SearchPics/profilePic1.jpeg", 
-          location: "Toronto", 
-          quote:"“You only live once, but if you do it right, once is enough.”",
-          banner:"./SearchPics/banner1.jpg"
-      },
-        { 
-          firstName: "Kate", 
-          lastName: "Park", 
-          profilePic: "./SearchPics/profilePic2.jpeg",
-          location: "Montreal",
-          quote: "“Laugh, even when you feel too sick or too worn out or tired.”",
-          banner: "./SearchPics/banner2.jpg" },
-        { 
-          firstName: "Andrew", 
-          lastName: "Johnson", 
-          profilePic: "./SearchPics/profilePic3.jpg",
-          location: "Seattle",
-          quote: "“Hello, nice to meet you.”",
-          banner: "./SearchPics/banner3.jpg" }
-      ],
+      { 
+        firstName: "James", 
+        lastName: "Naismith", 
+        profilePic:"./SearchPics/profilePic1.jpeg", 
+        location: "Toronto", 
+        quote:"“You only live once, but if you do it right, once is enough.”",
+        banner:"./SearchPics/banner1.jpg" },
+      { 
+        firstName: "Kate", 
+        lastName: "Park", 
+        profilePic: "./SearchPics/profilePic2.jpeg",
+        location: "Montreal",
+        quote: "“Laugh, even when you feel too sick or too worn out or tired.”",
+        banner: "./SearchPics/banner2.jpg" },
+      { 
+        firstName: "Andrew", 
+        lastName: "Johnson", 
+        profilePic: "./SearchPics/profilePic3.jpg",
+        location: "Seattle",
+        quote: "“Hello, nice to meet you.”",
+        banner: "./SearchPics/banner3.jpg" 
+      }],
   };
 
   handleChange = stateVar => event => {
@@ -46,16 +46,19 @@ class Search extends React.Component {
       this.setState({
         [stateVar]: event.target.value
       });
-      let filteredUsers = this.state.users.filter(
+      let newFilteredUsers = this.state.users.filter(
         user => user.firstName.toUpperCase().includes(this.state.SearchValue.toUpperCase()) 
         || user.lastName.toUpperCase().includes(this.state.SearchValue.toUpperCase()));
-      this.state.filteredUsers = filteredUsers;
-      console.log(filteredUsers);
+      this.setState({
+        filteredUsers: newFilteredUsers
+      });
+      console.log(newFilteredUsers);
     }
   }
 
   renderPeopleCards = users => {
     let userCards = [];
+    // there would be a database query for users here
     for (let i = 0; i < users.length; i++){
       userCards.push(<SearchCard 
         firstName={users[i].firstName}
@@ -66,7 +69,7 @@ class Search extends React.Component {
         banner={users[i].banner}>
         </SearchCard>)
     }
-    return userCards;
+    return (userCards);
   }
 
   render() {
@@ -76,28 +79,27 @@ class Search extends React.Component {
           <Header />
           <Grid xs="false" sm={1}></Grid>
             <Grid container item xs={12} sm={10}>
-              <Grid xs={6}>
-                <Container>
-                  <FormControl>
-                    <TextField className="search-bar" 
-                    id="search-box" 
-                    label="Search" 
-                    variant="outlined" 
-                    fullWidth 
-                    value={this.state.SearchValue} 
-                    onChange={this.handleChange("SearchValue")}
-                    onKeyDown={this.handleKeyDown("SearchValue")}
-                    />
-                  </FormControl>
-                </Container>
+              <Grid item xs={4}>
+                <Box mt={3} ml={3}>
+                <TextField
+                label="Search" 
+                variant="filled" 
+                fullWidth
+                value={this.state.SearchValue} 
+                onChange={this.handleChange("SearchValue")}
+                onKeyDown={this.handleKeyDown("SearchValue")}
+                />
+                </Box>
               </Grid>
-              <Grid xs={12}>
-                <Container>
-                  <Box mt={2}>
-                      <Button variant="contained" color="primary">PEOPLE</Button>
-                      <Button variant="contained" color="primary">PLACES</Button>
-                  </Box>
-                </Container>
+              <Grid container xs={12} sm={10}>
+                <Box mt={1} ml={3} mr={1}>
+                  <Button className="searchButton" variant="contained" color="primary">PEOPLE</Button>
+                </Box>
+                <Box mt={1} ml={1} mr={1}>
+                  <Link to={"../search-places"}>
+                    <Button className="searchButton" variant="contained" color="primary">PLACES</Button>
+                  </Link>
+                </Box>
               </Grid>
               {this.renderPeopleCards(this.state.filteredUsers)}
             </Grid>

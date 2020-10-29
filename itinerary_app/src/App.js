@@ -7,6 +7,7 @@ import Home from './react-components/Home';
 import Login from './react-components/Login';
 import Signup from './react-components/Signup';
 import Search from './react-components/Search';
+import PlaceSearch from './react-components/PlaceSearch';
 import About from './react-components/About';
 
 class App extends React.Component {
@@ -29,6 +30,8 @@ class App extends React.Component {
                 (<About appState={this.state}/>)}/>
             <Route exact path='/search' render={() =>
               (<Search appState={this.state}/>)}/>
+            <Route exact path='/search-places' render={() =>
+              (<PlaceSearch appState={this.state}/>)}/>
           </Switch>
         </BrowserRouter>}
       </div>

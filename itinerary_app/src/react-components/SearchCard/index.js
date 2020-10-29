@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Avatar, Box, Card, CardActions, CardContent, CardHeader, CardMedia, Button, IconButton, Typography, Grid} from '@material-ui/core';
+import {Avatar, Box, Card, CardActions, CardContent, CardHeader, CardMedia, Button, Container, IconButton, Typography, Grid} from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles({
@@ -52,9 +52,15 @@ const SearchCard = props => {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small">View Profile</Button>
-                  <Button size="small">Add As Friend</Button>
-                  <Button size="small">Block</Button>
+                  <Grid container>
+                    <Grid xs={4}>
+                      <Button size="small" color="primary">View Profile</Button>
+                      </Grid><Grid xs={4}>
+                      <Button size="small" color="primary">Add Friend</Button>
+                      </Grid><Grid xs={4}>
+                      <Button size="small" color="secondary">Block User</Button>
+                      </Grid>
+                  </Grid>
                 </CardActions>
               </Card>
               </Box>
