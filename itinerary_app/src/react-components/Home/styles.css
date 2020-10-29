@@ -37,7 +37,7 @@
     min-width: 100%;
 }
 
-.MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary {
+.MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary.home__appBar {
     background-color: #282c34;
 }
 
