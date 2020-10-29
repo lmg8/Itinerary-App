@@ -9,43 +9,76 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import HomeIcon from '@material-ui/icons/Home';
+import {Redirect} from 'react-router-dom';
 
 import "./styles.css";
 
 /* Component for the Home page */
 
 class Login extends React.Component {
-  render() {
-    return (
-        <div className="login-background">
-             <AppBar color="primary" position="static">
-                    <Toolbar variant={"dense"}>
-                        <ButtonGroup size='small' variant="text">
-                            <Link edge="start" to={"./../"}>
-                                <Button><HomeIcon fontSize="large"/></Button>
-                            </Link>
-                        </ButtonGroup>
-                    </Toolbar>
-                </AppBar>
-            <Container component="main" maxWidth="xs">
-                <div className="center">
-                    <Card className="login-card" elevation="24" variant = "elevated">
-                        <Typography component="h1" variant="h5">
-                            Sign in
-                        </Typography>
-                        <form>
-                            <TextField variant="outlined" required id ="username-input" label = "Enter Username" autoComplete="username" fullWidth margin="normal"/>
-                            <TextField variant="outlined" id="password-input" label="Enter Password" type="password" fullWidth margin="normal"/>
-                        </form>
-                        <Button className="submit-button" type="submit" fullWidth variant="contained" color="primary"> Submit </Button>
-                        <Link id="create-account" to={"./../Signup"}>No account? Create one now!</Link> 
-                    </Card>
-                </div>
-            </Container>
-        </div>
-    );
-    
-  }
+
+    constructor(props){
+        super(props);
+        this.state={
+            username:"",
+            password:"",
+            authenticated: false
+        }
+    }
+
+    handleUserNameChange = (e)=>{
+        this.setState({username: e.target.value})
+    }
+
+    handlePasswordChange = (e)=>{
+        this.setState({password: e.target.value})
+    }
+
+    handleOnClick = () =>{
+        
+        if ((this.state.username == "user" && this.state.password == "user") || (this.state.username == "admin" && this.state.password == "admin")){
+            this.setState({authenticated:true});
+        } else {
+            alert("Wrong username or password");
+        }
+    }
+
+
+    render() {
+        const redirect = this.state.authenticated;
+        if (redirect){
+            return <Redirect to="./../"/>;
+        }
+        return (
+            <div className="login-background">
+                <AppBar color="primary" position="static">
+                        <Toolbar variant={"dense"}>
+                            <ButtonGroup size='small' variant="text">
+                                <Link edge="start" to={"./../"}>
+                                    <Button><HomeIcon fontSize="large"/></Button>
+                                </Link>
+                            </ButtonGroup>
+                        </Toolbar>
+                    </AppBar>
+                <Container component="main" maxWidth="xs">
+                    <div className="center">
+                        <Card className="login-card" elevation="24" variant = "elevated">
+                            <Typography component="h1" variant="h5">
+                                Sign in
+                            </Typography>
+                            <form>
+                                <TextField variant="outlined" required id ="username-input" label = "Enter Username" autoComplete="username" fullWidth margin="normal" onChange={this.handleUserNameChange} value={this.state.username}/>
+                                <TextField variant="outlined" id="password-input" label="Enter Password" type="password" fullWidth margin="normal" onChange={this.handlePasswordChange} value={this.state.password}/>
+                            </form>
+                            <Button className="submit-button" type="submit" fullWidth variant="contained" onClick={this.handleOnClick} color="primary"> Submit </Button>
+                            <Link id="create-account" to={"./../Signup"}>No account? Create one now!</Link> 
+                        </Card>
+                    </div>
+                </Container>
+            </div>
+        );
+        
+    }
 }
 
 export default Login;
