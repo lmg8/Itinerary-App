@@ -1,0 +1,12 @@
+/* Styles for the User React component */
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary.user-appBar {
+    background-color: #282c34;
+}

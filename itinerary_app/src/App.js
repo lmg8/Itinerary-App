@@ -9,6 +9,7 @@ import Signup from './react-components/Signup';
 import Search from './react-components/Search';
 import PlaceSearch from './react-components/PlaceSearch';
 import About from './react-components/About';
+import User from './react-components/User';
 
 class App extends React.Component {
   state = {
@@ -32,6 +33,8 @@ class App extends React.Component {
               (<Search appState={this.state}/>)}/>
             <Route exact path='/search-places' render={() =>
               (<PlaceSearch appState={this.state}/>)}/>
+            <Route exact path='/User' render={() =>
+              (<User appState={this.state}/>)}/>
           </Switch>
         </BrowserRouter>}
       </div>
