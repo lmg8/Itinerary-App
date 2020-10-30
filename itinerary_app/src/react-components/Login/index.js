@@ -13,7 +13,7 @@ import {Redirect} from 'react-router-dom';
 
 import "./styles.css";
 
-/* Component for the Home page */
+/* Component for the Login page */
 
 class Login extends React.Component {
 
@@ -47,11 +47,11 @@ class Login extends React.Component {
     render() {
         const redirect = this.state.authenticated;
         if (redirect){
-            return <Redirect to="./../"/>;
+            return <Redirect to="./../User"/>;
         }
         return (
             <div className="login-background">
-                <AppBar color="primary" position="static">
+                <AppBar className="login-appBar" color="primary" position="static">
                         <Toolbar variant={"dense"}>
                             <ButtonGroup size='small' variant="text">
                                 <Link edge="start" to={"./../"}>

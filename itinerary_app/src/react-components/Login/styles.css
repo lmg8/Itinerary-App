@@ -28,3 +28,7 @@
         height: 40px;
         margin: 10px;
     }
+
+    .MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary.login-appBar {
+        background-color: #282c34;
+    }
