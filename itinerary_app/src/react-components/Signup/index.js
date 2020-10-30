@@ -19,7 +19,7 @@ class Signup extends React.Component {
   render() {
     return (
         <div className="signup-background">
-             <AppBar color="primary" position="static">
+             <AppBar className="signup-appBar" color="primary" position="static">
                     <Toolbar variant={"dense"}>
                         <ButtonGroup size='small' variant="text">
                             <Link edge="start" to={"./../"}>

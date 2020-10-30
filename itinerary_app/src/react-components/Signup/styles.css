@@ -34,3 +34,7 @@
     height: 40px;
     margin: 10px;
 }
+
+.MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary.signup-appBar {
+    background-color: #282c34;
+}
