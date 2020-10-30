@@ -23,6 +23,6 @@
     width: '100%';
     min-width: 600px;
     max-width: 600px;
-    background-color: papayawhip;
+    background-color: rgba(250,250,250,0.9);
     border-radius: 2%;
   }
