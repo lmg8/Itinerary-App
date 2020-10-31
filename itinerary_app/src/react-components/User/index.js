@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
@@ -10,22 +10,63 @@ import Toolbar from '@material-ui/core/Toolbar';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import HomeIcon from '@material-ui/icons/Home';
 import Avatar from '@material-ui/core/Avatar';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box'
+import { Tabs, Tab } from "@material-ui/core";
+
 
 import "./styles.css";
 
 /* Component for the User page */
 
+function allyProps(index){
+    return {
+        id: 'full-width-tab-${index}',
+        'aria-controls': 'full-width-tabpanel-${index}',
+    };
+}
+
+TabPanel.propTypes ={
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+}
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`full-width-tabpanel-${index}`}
+            aria-labelledby={`full-width-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box p={3}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
 class User extends React.Component {
+
+    handleChange(event, value) {
+        this.setState({value});
+    }
 
     constructor(props){
         super(props);
         this.state={
-            username:"",
-            password:"",
-            authenticated: false
+            username:"user",
+            password:"user",
         }
+        this.handleChange = this.handleChange.bind(this);
     }
+
 
     render() {
         return (
@@ -37,18 +78,47 @@ class User extends React.Component {
                                     <Button><HomeIcon fontSize="large"/></Button>
                                 </Link>
                             </ButtonGroup>
+                            <ButtonGroup size='small' variant="text">
+                                <Link to={"./../"}>
+                                    <Button variant="contained">Sign out</Button>
+                                </Link>
+                            </ButtonGroup>
                         </Toolbar>
                     </AppBar>
-                <Container component="main" maxWidth="xl">
-                    <div className="center">
-                        <Avatar src="/static/avatar.jpg"/>
-                        <Typography component="h1" variant="h5"> Welcome Adam</Typography>
+                    <div>
+                        <Avatar className="user-avatar" src="/static/avatar.jpg"/>
+                        <div>
+                            <Typography align="center" component="h1" variant="h5"> Adam Smith </Typography>
+
+                        </div>
+                        <Paper>
+                            <Tabs value={this.state.value} onChange={this.handleChange} indicatorColor="primary" textcolor="primary" centered>
+                                <Tab label="Itineraries" {...allyProps(0)}/>
+                                <Tab label="Favourites" {...allyProps(1)}/>
+                                <Tab label="Friends" {...allyProps(2)}/>
+                            </Tabs>
+                        </Paper>
+                        <TabPanel value={this.state.value} index={0}>
+                            Itineraries
+                        </TabPanel>
+                        <TabPanel value={this.state.value} index={1}>
+                            Favourites
+                        </TabPanel>
+                        <TabPanel value={this.state.value} index={2}>
+                            Friends
+                        </TabPanel>
                     </div>
-                </Container>
+                    
             </div>
         );
         
     }
 }
+
+User.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
+};
+
 
 export default User;

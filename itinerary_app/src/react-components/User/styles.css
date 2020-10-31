@@ -6,6 +6,13 @@
     transform: translate(-50%, -50%);
 }
 
+.MuiAvatar-root.user-avatar{
+    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-left:8px;
+    left: 49%;
+}
+
 
 .MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary.user-appBar {
     background-color: #282c34;
