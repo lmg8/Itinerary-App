@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,8 +11,10 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import HomeIcon from '@material-ui/icons/Home';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box'
-import { Tabs, Tab } from "@material-ui/core";
+import Box from '@material-ui/core/Box';
+import CardActions from '@material-ui/core/CardActions';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import { Tabs, Tab, CardContent } from "@material-ui/core";
 
 
 import "./styles.css";
@@ -99,10 +101,118 @@ class User extends React.Component {
                             </Tabs>
                         </Paper>
                         <TabPanel value={this.state.value} index={0}>
-                            Itineraries
+                            <Grid container spacing = {5}>
+                                <Grid item md={3}>
+                                    <Card>
+                                        <CardActionArea>
+                                                <CardContent>
+                                                    <Typography variant="h5" component="h2">
+                                                        Itinerary 1
+                                                    </Typography>
+                                                    <Typography>
+                                                        Starting location: Los Angeles
+                                                    </Typography>
+                                                    <Typography>
+                                                        Destination: Berlin
+                                                    </Typography>
+                                                </CardContent>
+                                        </CardActionArea>
+                                        <CardActions>
+                                            <Button size="small" color="primary">Favourite this itinerary</Button>
+                                            <Button size="small" color="secondary">Delete this itinerary</Button>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                                <Grid item md={3}>
+                                    <Card>
+                                        <CardActionArea>
+                                                <CardContent>
+                                                    <Typography variant="h5" component="h2">
+                                                        Itinerary 2
+                                                    </Typography>
+                                                    <Typography>
+                                                        Starting location: Toronto
+                                                    </Typography>
+                                                    <Typography>
+                                                        Destination: New York City
+                                                    </Typography>
+                                                </CardContent>
+                                        </CardActionArea>
+                                        <CardActions>
+                                            <Button size="small" color="primary">Favourite this itinerary</Button>
+                                            <Button size="small" color="secondary">Delete this itinerary</Button>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                                <Grid item md={3}>
+                                    <Card>
+                                        <CardActionArea>
+                                                <CardContent>
+                                                    <Typography variant="h5" component="h2">
+                                                        Itinerary 3
+                                                    </Typography>
+                                                    <Typography>
+                                                        Starting location: Toronto
+                                                    </Typography>
+                                                    <Typography>
+                                                        Destination: Tokyo
+                                                    </Typography>
+                                                </CardContent>
+                                                
+                                        </CardActionArea>
+
+                                        <CardActions>
+                                            <Button size="small" color="primary">Favourite this itinerary</Button>
+                                            <Button size="small" color="secondary">Delete this itinerary</Button>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                            </Grid>
                         </TabPanel>
                         <TabPanel value={this.state.value} index={1}>
-                            Favourites
+                        <Grid container spacing = {5}>
+                                <Grid item md={3}>
+                                    <Card>
+                                        <CardActionArea>
+                                                <CardContent>
+                                                    <Typography variant="h5" component="h2">
+                                                        Favourite 1
+                                                    </Typography>
+                                                    <Typography>
+                                                        Starting location: Los Angeles
+                                                    </Typography>
+                                                    <Typography>
+                                                        Destination: Berlin
+                                                    </Typography>
+                                                </CardContent>
+                                        </CardActionArea>
+                                        <CardActions>
+                                            <Button size="small" color="secondary">Remove this itinerary from favourites</Button>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                                <Grid item md={3}>
+                                    <Card>
+                                        <CardActionArea>
+                                                <CardContent>
+                                                    <Typography variant="h5" component="h2">
+                                                        Favourite 2
+                                                    </Typography>
+                                                    <Typography>
+                                                        Starting location: Toronto
+                                                    </Typography>
+                                                    <Typography>
+                                                        Destination: Tokyo
+                                                    </Typography>
+                                                </CardContent>
+                                                
+                                        </CardActionArea>
+                                        <CardActions>
+                                            <Button size="small" color="secondary">Remove this itinerary from favourites</Button>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                            </Grid>
                         </TabPanel>
                         <TabPanel value={this.state.value} index={2}>
                             Friends

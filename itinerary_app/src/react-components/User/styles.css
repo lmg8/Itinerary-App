@@ -13,6 +13,9 @@
     left: 49%;
 }
 
+.MuiCardMedia-root.itinerary-image{
+    height: 140px;
+}
 
 .MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary.user-appBar {
     background-color: #282c34;
