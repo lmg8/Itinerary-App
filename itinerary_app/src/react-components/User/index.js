@@ -8,12 +8,13 @@ import Card from '@material-ui/core/Card';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import HomeIcon from '@material-ui/icons/Home';
+import SettingsIcon from '@material-ui/icons/Settings';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import CardHeader from '@material-ui/core/CardHeader';
 import { Tabs, Tab, CardContent } from "@material-ui/core";
 
 
@@ -76,8 +77,8 @@ class User extends React.Component {
                 <AppBar className="user-appBar" color="primary" position="static">
                         <Toolbar variant={"dense"}>
                             <ButtonGroup size='small' variant="text">
-                                <Link edge="start" to={"./../"}>
-                                    <Button><HomeIcon fontSize="large"/></Button>
+                                <Link to={"./../"}>
+                                    <Button><SettingsIcon fontSize="large"/></Button>
                                 </Link>
                             </ButtonGroup>
                             <ButtonGroup size='small' variant="text">
@@ -91,8 +92,13 @@ class User extends React.Component {
                         <Avatar className="user-avatar" src="/static/avatar.jpg"/>
                         <div>
                             <Typography align="center" component="h1" variant="h5"> Adam Smith </Typography>
-
                         </div>
+                        <Box textAlign='center'>
+                            <Link to ={"./../"}>
+                                <Button variant="contained"> Create a new itinerary!</Button>
+                            </Link>
+                        </Box>
+
                         <Paper>
                             <Tabs value={this.state.value} onChange={this.handleChange} indicatorColor="primary" textcolor="primary" centered>
                                 <Tab label="Itineraries" {...allyProps(0)}/>
@@ -215,7 +221,32 @@ class User extends React.Component {
                             </Grid>
                         </TabPanel>
                         <TabPanel value={this.state.value} index={2}>
-                            Friends
+                            <Grid container spacing = {5}>
+                                <Grid item md={3}>
+                                    <Card>
+                                        <CardHeader
+                                            Avatar={
+                                                <Avatar className="friend-avatar" src="/static/avatar.jpg"/>
+                                            }/>
+                                        <CardActionArea>
+                                                <CardContent>
+                                                    <Typography variant="h5" component="h2">
+                                                        Angela Jamieson
+                                                    </Typography>
+                                                    <Typography>
+                                                        Location: Toronto
+                                                    </Typography>
+                                                    <Typography>
+                                                        Username: Angie123
+                                                    </Typography>
+                                                </CardContent>
+                                        </CardActionArea>
+                                        <CardActions>
+                                            <Button size="small" color="secondary">Remove this friend</Button>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                            </Grid>
                         </TabPanel>
                     </div>
                     
