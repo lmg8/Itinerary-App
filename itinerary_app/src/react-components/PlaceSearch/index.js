@@ -1,31 +1,53 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Header from '../Header';
-import SearchCard from '../SearchCard';
-import { Container, Grid, TextField, Box, Button, FormControl, Card } from '@material-ui/core';
+import PlaceCard from '../PlaceCard';
+import { Grid, TextField, Box, Button } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import StreetviewIcon from '@material-ui/icons/Streetview';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
 import './styles.css'; 
 
-class Search extends React.Component {
+class PlaceSearch extends React.Component {
 // Allows us to keep track of changing data in this component.
   state = { 
     SearchValue: '',
     selectedIndex: -1,
     filteredPlaces: [],
-    Places: ["CN Tower", "First Canadian Place", "The St. Regis Toronto", "Scotia Plaza", "Aura", "TD Canada Trust Tower"]
+    Places: [
+      {
+      name: "CN Tower",
+      address: "290 Bremner Blvd, Toronto, ON M5V 3L9",
+      banner: "./SearchPics/banner1.jpg"
+    },
+    {
+      name: "First Canadian Place",
+      address: "100 King St W, Toronto, ON M5X 1A9",
+      banner: "./SearchPics/banner2.jpg"
+    },
+    {
+      name: "The St. Regis Toronto",
+      address: "325 Bay St, Toronto, ON M5H 4G3",
+      banner: "./SearchPics/banner3.jpg"
+    },
+    {
+      name: "Scotia Plaza",
+      address: "40 King Street West",
+      banner: "./SearchPics/banner1.jpg"
+    },
+    {
+      name: "Aura",
+      address: "386 Yonge St",
+      banner: "./SearchPics/banner2.jpg"
+    },
+    {
+      name: "TD Canada Trust Tower",
+      address: "161 and 181 Bay Street",
+      banner: "./SearchPics/banner3.jpg"
+    }
+  ]
   };
 
   handleListItemClick = index => event => {
@@ -55,7 +77,7 @@ class Search extends React.Component {
       });
 
       let newFilteredPlaces = this.state.Places.filter(
-        place => place.toUpperCase().includes(this.state.SearchValue.toUpperCase()));
+        place => place.name.toUpperCase().includes(this.state.SearchValue.toUpperCase()));
       
       this.setState({
         filteredPlaces: newFilteredPlaces
@@ -64,34 +86,11 @@ class Search extends React.Component {
   }
 
   renderPlaceCard = () => {
-    return (
-    <Card>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="place"
-          height="140"
-          image="./SearchPics/banner1.jpg"
-          title="place"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {this.state.filteredPlaces[this.state.selectedIndex]}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {this.state.filteredPlaces[this.state.selectedIndex]}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>)
+    if (this.state.selectedIndex != -1){
+      return (<PlaceCard place={this.state.filteredPlaces[this.state.selectedIndex]}
+        ></PlaceCard>
+        )
+    }
   }
 
   renderPlaceList = places => {
@@ -101,7 +100,7 @@ class Search extends React.Component {
       listItems.push(<ListItem>
         <ListItemText 
         button 
-        primary={places[i]}
+        primary={places[i].name}
         selected={this.state.selectedIndex === i}
         onClick={this.handleListItemClick(i)} />
         <Button
@@ -147,7 +146,7 @@ class Search extends React.Component {
               </Grid>
               <Grid container xs={12} sm={10}>
                 <Box mt={1} ml={3}>
-                  <Link to={"../Search"}>
+                  <Link to={"../search"}>
                     <Button className="searchButton" variant="contained" color="primary">PEOPLE</Button>
                   </Link>
                 </Box>
@@ -182,4 +181,4 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+export default PlaceSearch;

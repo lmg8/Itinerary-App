@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Header from '../Header';
-import SearchCard from '../SearchCard';
+import PeopleCard from '../PeopleCard';
 import { Container, Grid, TextField, Box, Button, FormControl } from '@material-ui/core';
 import './styles.css'; 
 
@@ -60,14 +60,14 @@ class Search extends React.Component {
     let userCards = [];
     // there would be a database query for users here
     for (let i = 0; i < users.length; i++){
-      userCards.push(<SearchCard 
+      userCards.push(<PeopleCard
         firstName={users[i].firstName}
         lastName={users[i].lastName}
         profilePic={users[i].profilePic}
         location={users[i].location}
         quote={users[i].quote}
         banner={users[i].banner}>
-        </SearchCard>)
+        </PeopleCard>)
     }
     return (userCards);
   }
@@ -92,10 +92,12 @@ class Search extends React.Component {
                 </Box>
               </Grid>
               <Grid container xs={12} sm={10}>
-                <Box mt={1} ml={3} mr={1}>
-                  <Button className="searchButton" variant="contained" color="primary">PEOPLE</Button>
+                <Box mt={1} ml={3}>
+                  <Link>
+                    <Button className="searchButton" variant="contained" color="primary">PEOPLE</Button>
+                  </Link>
                 </Box>
-                <Box mt={1} ml={1} mr={1}>
+                <Box mt={1} ml={1}>
                   <Link to={"../search-places"}>
                     <Button className="searchButton" variant="contained" color="primary">PLACES</Button>
                   </Link>
