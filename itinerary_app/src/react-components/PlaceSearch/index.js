@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from '../Header';
 import PlaceCard from '../PlaceCard';
-import { Grid, TextField, Box, Button } from '@material-ui/core';
+import { Container, Grid, TextField, Box, Button } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -154,23 +154,26 @@ class PlaceSearch extends React.Component {
                     <Button className="searchButton" variant="contained" color="primary">PLACES</Button>
                 </Box>
               </Grid>
-              
-              
               <Grid container xs={12} sm={10}>
                 
               <Box m={3}>
-                <Grid item xs={4}>
-                    <List className="placeList">
-                      {this.renderPlaceList(this.state.filteredPlaces)}
-                    </List>
+                <Grid container>
+
+                <Grid item xs={12}>
+                  <h1 className="searchHeader">Search Results</h1>
+                </Grid>
+                
+                  <Grid item xs={6}>
+                      <List className="placeList">
+                        {this.renderPlaceList(this.state.filteredPlaces)}
+                      </List>
+                  </Grid>
+                  <Grid item xs={6}>
+                      {this.renderPlaceCard(this.state.filteredPlaces[this.state.selectedIndex])}
+                  </Grid>
                 </Grid>
               </Box>
-                
-                <Grid item xs={6}>
-                  <Box m={3}>
-                    {this.renderPlaceCard(this.state.filteredPlaces[this.state.selectedIndex])}
-                  </Box>
-                </Grid>
+              
               </Grid>
                 
             </Grid>

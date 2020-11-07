@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 .search-places-background-image {
     background-color: rgba(34, 34, 34, 0.2);
     background-size: cover;
     width: 100%;
     height: 100%;
     /* background-image: url("./static/bg2_1.png"); */
-    overflow:hidden;
+    background-attachment: scroll;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -25,4 +27,8 @@
     max-width: 600px;
     background-color: rgba(250,250,250,0.9);
     border-radius: 2%;
+  }
+  
+  .searchHeader{
+      font-family: 'Fredoka One';
   }

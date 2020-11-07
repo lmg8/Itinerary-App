@@ -32,7 +32,15 @@ class Search extends React.Component {
         location: "Seattle",
         quote: "“Hello, nice to meet you.”",
         banner: "./SearchPics/banner3.jpg" 
-      }],
+      },
+      { 
+        firstName: "Andrew", 
+        lastName: "Johnson", 
+        profilePic: "./SearchPics/profilePic3.jpg",
+        location: "Seattle",
+        quote: "“Hello, nice to meet you.”",
+        banner: "./SearchPics/banner3.jpg" 
+      }]
   };
 
   handleChange = stateVar => event => {
@@ -78,7 +86,7 @@ class Search extends React.Component {
         <Grid container>
           <Header />
           <Grid xs="false" sm={1}></Grid>
-            <Grid container item xs={12} sm={10}>
+            <Grid container xs={12} sm={10}>
               <Grid item xs={4}>
                 <Box mt={3} ml={3}>
                 <TextField
@@ -103,7 +111,17 @@ class Search extends React.Component {
                   </Link>
                 </Box>
               </Grid>
-              {this.renderPeopleCards(this.state.filteredUsers)}
+              
+              <Box mx={3} mt={3}>
+              <Grid container>
+                <Grid item xs={12}>
+                    <h1 className="searchHeader">Search Results</h1>
+                </Grid>
+              </Grid>
+              </Box>
+              <Grid container>
+                  {this.renderPeopleCards(this.state.filteredUsers)}
+              </Grid>
             </Grid>
           <Grid xs="false" sm={1}></Grid>
         </Grid>

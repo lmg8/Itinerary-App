@@ -26,8 +26,8 @@ const useStyles = makeStyles({
 const PeopleCard = props => {
     const classes = useStyles();
     const {firstName, lastName, profilePic, location, quote, banner} = props;
-    return (<Grid xs={12} sm={3}>
-            <Box m={3}>
+    return (<Grid item xs={12} sm={3}>
+              <Box mx={3}>
               <Card variant="outlined">
                   <CardHeader
                       avatar={
@@ -66,7 +66,7 @@ const PeopleCard = props => {
                   </Grid>
                 </CardActions>
               </Card>
-              </Box>
+            </Box>
             </Grid>
     );
 };
