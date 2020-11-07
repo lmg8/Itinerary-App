@@ -10,6 +10,7 @@ import Search from './react-components/Search';
 import PlaceSearch from './react-components/PlaceSearch';
 import About from './react-components/About';
 import User from './react-components/User';
+import CreateItinerary from './react-components/CreateItinerary';
 
 class App extends React.Component {
   state = {
@@ -35,6 +36,8 @@ class App extends React.Component {
               (<PlaceSearch appState={this.state}/>)}/>
             <Route exact path='/User' render={() =>
               (<User appState={this.state}/>)}/>
+            <Route exact path='/create-itinerary' render={() =>
+                (<CreateItinerary appState={this.state}/>)}/>
           </Switch>
         </BrowserRouter>}
       </div>

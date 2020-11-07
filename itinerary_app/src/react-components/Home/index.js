@@ -16,9 +16,8 @@ class Home extends React.Component {
         return (
             <div className="home__bg-image center">
                 <Container className={"TitleContainer"}>
-                    { /* Using the global state variable from App.js */}
                     <Typography className={"Title"} variant="h1"  gutterBottom>
-                        <RoomIcon className="TitleIcon" fontSize={"large"}/>ITINERARY
+                        <RoomIcon className="TitleIcon shadow" fontSize={"large"}/>ITINERARY
                     </Typography>
                 </Container>
                 <AppBar className={"home__appBar"} color="primary" position="static">

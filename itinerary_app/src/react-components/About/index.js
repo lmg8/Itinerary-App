@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { AppBar, Toolbar , Container, Paper} from "@material-ui/core"
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from "@material-ui/core/Button";
-import Typography from '@material-ui/core/Typography';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import RoomIcon from '@material-ui/icons/Room';
 import NavigationIcon from '@material-ui/icons/Navigation'
+import HomeIcon from '@material-ui/icons/Home';
 
 import AboutTabs from '.././AboutTabs';
 import "./styles.css";
@@ -22,7 +21,7 @@ class About extends React.Component {
                         <Container className="home__container">
                             <Link className="home__button-link" to={"./../"}>
                                 <Button className={"backhome__button"} size={"small"} variant="contained">
-                                    <RoomIcon className="home__Icon" />
+                                    <HomeIcon className="home__Icon" />
                                 </Button>
                             </Link>
                             <ButtonGroup size='small' variant="text" className="home__button">
@@ -43,7 +42,7 @@ class About extends React.Component {
                     <Paper className="about__section" elevation={24}>
                         <AboutTabs className="AboutTabs"/>
                     </Paper>
-                </div>;
+                </div>
 
             </div>
 

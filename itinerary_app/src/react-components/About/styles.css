@@ -41,9 +41,12 @@
     background-color: #282c34;
 }
 
+
 .MuiButton-contained.backhome__button{
     background-color: crimson;
     font-size: small;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 .home__Icon.MuiSvgIcon-root{
