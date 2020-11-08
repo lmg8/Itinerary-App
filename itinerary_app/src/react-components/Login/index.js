@@ -22,7 +22,8 @@ class Login extends React.Component {
         this.state={
             username:"",
             password:"",
-            authenticated: false
+            userAuthenticated: false,
+            adminAuthenticated: false,
         }
     }
 
@@ -36,18 +37,26 @@ class Login extends React.Component {
 
     handleOnClick = () =>{
         //This should actually check with the database on the server for authentication
-        if ((this.state.username == "user" && this.state.password == "user") || (this.state.username == "admin" && this.state.password == "admin")){
-            this.setState({authenticated:true});
-        } else {
+        if (this.state.username == "user" && this.state.password == "user"){
+            this.setState({userAuthenticated:true});
+        } 
+        else if (this.state.username == "admin" && this.state.password == "admin"){
+            this.setState({adminAuthenticated:true});
+        } 
+        else {
             alert("Wrong username or password");
         }
     }
 
 
     render() {
-        const redirect = this.state.authenticated;
-        if (redirect){
+        const userRedirect = this.state.userAuthenticated;
+        const adminRedirect = this.state.adminAuthenticated;
+        if (userRedirect){
             return <Redirect to="./../user"/>;
+        }
+        else if (adminRedirect){
+            return <Redirect to="./../admin"/>;
         }
         return (
             <div className="login-background">
