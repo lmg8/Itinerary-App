@@ -10,7 +10,7 @@ import Search from './react-components/Search';
 import PlaceSearch from './react-components/PlaceSearch';
 import About from './react-components/About';
 import UserRoutes from "./react-components/UserRoutes";
-
+import Admin from './react-components/Admin';
 
 class App extends React.Component {
   state = {
@@ -28,12 +28,14 @@ class App extends React.Component {
               (<Login appState={this.state}/>)}/>
             <Route exact path='/signup' render={() => 
               (<Signup appState={this.state}/>)}/>
-            <Route exact path='/About' render={() =>
+            <Route exact path='/about' render={() =>
                 (<About appState={this.state}/>)}/>
             <Route exact path='/search' render={() =>
               (<Search appState={this.state}/>)}/>
             <Route exact path='/search-places' render={() =>
               (<PlaceSearch appState={this.state}/>)}/>
+            <Route exact path='/admin' render={() =>
+              (<Admin appState={this.state}/>)}/>
             <Route path='/user' component={UserRoutes}/>
           </Switch>
         </BrowserRouter>}

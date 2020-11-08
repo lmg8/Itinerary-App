@@ -1,0 +1,30 @@
+.userCard{
+    margin: 0px 24px 32px 24px;
+    border: 10px;
+}
+
+.deleteButton{
+    margin-bottom: 24px;
+}
+
+.nameText{
+    margin-bottom: 0px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.200);
+}
+
+.profilePicture{
+    /* max-height: "100px";
+    padding-top: '56.25%'; */
+    border-color: rgba(29, 29, 34, 0.856);
+    box-sizing: border-box;
+    border-radius: 2%;
+    margin-bottom: 8px;
+}
+
+.deleteButtonContainer{
+    padding: 16px 0px 24px 0px;
+}
+
+.locationText{
+    padding: 0px 0px 24px 0px;
+}
