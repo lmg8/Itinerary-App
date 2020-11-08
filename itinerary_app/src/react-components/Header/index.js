@@ -1,9 +1,10 @@
 import React from "react";
-import { ButtonGroup, Container, AppBar, Toolbar, Link, Button } from "@material-ui/core"
+import { Link  } from "react-router-dom";
+import { ButtonGroup, Container, AppBar, Toolbar, Button } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles'
-import InfoIcon from '@material-ui/icons/Info';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import NavigationIcon from '@material-ui/icons/Navigation'
+
+import SettingsIcon from '@material-ui/icons/Settings';
+import SearchIcon from '@material-ui/icons/Search';
 import "./styles.css"
 
 
@@ -16,22 +17,27 @@ const useStyles = makeStyles(() => ({
 const Header = () => {
   const classes = useStyles();
   return (
-    <AppBar className={"home__appBar"} color="primary" position="static">
-      <Toolbar variant={"dense"}>
-          <Container>
-              <ButtonGroup size='small' variant="text" className="home__button">
-                  <Link className="home__button-link" to={"./../About"}>
-                      <Button><InfoOutlinedIcon fontSize="small"/></Button>
-                  </Link>
-                  <Link className="home__button-link" to={"./../Signup"}>
-                      <Button>SIGN UP</Button>
-                  </Link>
-                  <Link className="home__button-link" to={"./../Login"}>
-                      <Button variant="contained">SIGN IN <NavigationIcon fontSize={"small"}/></Button>
-                  </Link>
-              </ButtonGroup>
-          </Container>
-      </Toolbar>
+    <AppBar className="generic-appBar" color="primary" position="static">
+        <Toolbar variant={"dense"}>
+            <Container>
+                <ButtonGroup size='small' variant="text">
+                    <Link to={"./../search"}>
+                        <Button> <SearchIcon fontSize="large"/> </Button>
+                    </Link>
+                </ButtonGroup>
+                <ButtonGroup size='small' variant="text" className="signout_button_group">
+                    <Link to={"/"}>
+                        <Button variant="contained">Sign out</Button>
+                    </Link>
+                </ButtonGroup>
+                <ButtonGroup size='small' variant="text" className="generic_button_group">
+                    <Link to={"user/settings" }>
+                        <Button><SettingsIcon fontSize="large"/></Button>
+                    </Link>
+                </ButtonGroup>
+                            
+            </Container>
+        </Toolbar>
     </AppBar>
     );
 };

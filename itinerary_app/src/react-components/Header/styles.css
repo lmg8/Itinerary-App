@@ -5,3 +5,20 @@
 .header-appbar{
     margin-bottom: 10px;
 }
+
+.MuiButtonGroup-root.generic_button_group {
+    display: flex;
+    float: right;
+    align-items: center;
+}
+
+.MuiButtonGroup-root.signout_button_group {
+    margin-top: 5px;
+    display: flex;
+    float: right;
+    align-items: center;
+}
+
+.MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary.generic-appBar {
+    background-color: #282c34;
+}
