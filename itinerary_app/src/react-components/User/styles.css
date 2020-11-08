@@ -19,6 +19,19 @@
     margin-bottom: 30px;
 }
 
+.MuiButtonGroup-root.user_button_group {
+    display: flex;
+    float: right;
+    align-items: center;
+}
+
+.MuiButtonGroup-root.signout_button_group {
+    margin-top: 5px;
+    display: flex;
+    float: right;
+    align-items: center;
+}
+
 .MuiCardMedia-root.itinerary-image{
     height: 140px;
 }

@@ -8,14 +8,17 @@ import Card from '@material-ui/core/Card';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import SettingsIcon from '@material-ui/icons/Settings';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
-import { Tabs, Tab, CardContent } from "@material-ui/core";
+import { Tabs, Tab, CardContent, Container } from "@material-ui/core";
+
+
+import SettingsIcon from '@material-ui/icons/Settings';
+import SearchIcon from '@material-ui/icons/Search';
 
 import "./styles.css";
 
@@ -164,19 +167,27 @@ class User extends React.Component {
         return (
             <div >
                 <AppBar className="user-appBar" color="primary" position="static">
-                        <Toolbar variant={"dense"}>
+                    <Toolbar variant={"dense"}>
+                        <Container>
                             <ButtonGroup size='small' variant="text">
+                                <Link to={"./../search"}>
+                                    <Button> <SearchIcon fontSize="large"/> </Button>
+                                </Link>
+                            </ButtonGroup>
+                            <ButtonGroup size='small' variant="text" className="signout_button_group">
+                                <Link to={"/"}>
+                                    <Button variant="contained">Sign out</Button>
+                                 </Link>
+                            </ButtonGroup>
+                            <ButtonGroup size='small' variant="text" className="user_button_group">
                                 <Link to={"user/settings" }>
                                     <Button><SettingsIcon fontSize="large"/></Button>
                                 </Link>
                             </ButtonGroup>
-                            <ButtonGroup size='small' variant="text">
-                                <Link to={"/"}>
-                                    <Button variant="contained">Sign out</Button>
-                                </Link>
-                            </ButtonGroup>
-                        </Toolbar>
-                    </AppBar>
+                            
+                        </Container>
+                    </Toolbar>
+                </AppBar>
                     <div>
                         <Avatar className="user-avatar" src="./../SearchPics/profilePic1.jpeg"/>
                         <div>
