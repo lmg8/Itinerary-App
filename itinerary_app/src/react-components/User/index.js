@@ -54,6 +54,21 @@ function TabPanel(props) {
     );
 }
 
+//Below are two hardcoded items to fill the state arrays. In the full release, the server should populate the arrays
+// and these should be removed
+const hardCodedItinerary = {id:1,
+    starting:"Los Angeles",
+    ending:'Berlin',
+    destinations: [],
+    startDate:'August 12, 2020'
+}
+
+const hardCodedFriend = {userId:1,
+    name: "Angela Smith",
+    currLocation: "Tokyo, Japan",
+    username: "AngelS"
+}
+
 class User extends React.Component {
 
     handleChange(event, value) {
@@ -65,11 +80,85 @@ class User extends React.Component {
         this.state={
             username:"user",
             password:"user",
+            newFavourite:{
+                id:'',
+                starting:'',
+                ending:'',
+                destinations: [],
+                startDate:''
+            },
+            currentItinerary:{
+                id:'',
+                starting:'',
+                ending:'',
+                destinations: [],
+                startDate:''
+            },
+            
+            //The below lists should be populated by the server (e.g. itineraryList: <itineraryList that is on the server>)
+            itineraryList:[hardCodedItinerary],
+            favouritesList:[],
+            friendsList:[hardCodedFriend]
         }
         this.handleChange = this.handleChange.bind(this);
 
     }
 
+    addToFavourites(){
+        //This should send information to the server so that the server knows what a user's favourites are, right now it just updates a local array
+        // In the full release, an additional array on the server should be updated as well.
+        const newFavourite = {
+            id: hardCodedItinerary.id,
+            starting: hardCodedItinerary.starting,
+            ending: hardCodedItinerary.ending,
+            destinations: hardCodedItinerary.destinations,
+            startDate:hardCodedItinerary.startdate
+        }
+
+        const favouritesList = [...this.state.favouritesList];
+        let flag = true
+        for (var i=0; i < favouritesList.length; i++){
+            if(favouritesList[i].id == newFavourite.id){
+                flag = false;
+            }
+        }
+        if (flag == true){
+            favouritesList.push(newFavourite);
+        }
+
+        //reset the state
+        this.setState({
+            favouritesList,
+            newFavourite:{
+                id:'',
+                starting:'',
+                ending:'',
+                destinations: [],
+                startDate:''
+            }
+        })
+    }
+
+    removeItinerary(id){
+        //Code below should make a server call and update the itinerary section of the database on the server as well
+        const itineraryList=[...this.state.itineraryList];
+        const updatedItineraryList = itineraryList.filter(currentItinerary => currentItinerary.id !== id)
+        this.setState({itineraryList: updatedItineraryList})
+    }
+
+    removeFriend(id){
+        //Code below should make a server call and update the friends section of the database on the server as well
+        const friendsList=[...this.state.friendsList];
+        const updatedFriendList = friendsList.filter(currentFriend => currentFriend.id !== id)
+        this.setState({friendsList: updatedFriendList})
+    }
+
+    removeFromFavourites(id){
+        //Code below should make a server call and update the favourites section of the database on the server as well
+        const favList=[...this.state.favouritesList];
+        const updatedList = favList.filter(currentItinerary => currentItinerary.id !== id)
+        this.setState({favouritesList: updatedList})
+    }
 
     render() {
         return (
@@ -82,7 +171,6 @@ class User extends React.Component {
                                 </Link>
                             </ButtonGroup>
                             <ButtonGroup size='small' variant="text">
-
                                 <Link to={"/"}>
                                     <Button variant="contained">Sign out</Button>
                                 </Link>
@@ -109,144 +197,90 @@ class User extends React.Component {
                         </Paper>
                         <TabPanel value={this.state.value} index={0}>
                             <Grid container spacing = {5}>
-                                <Grid item md={3}>
+                            {this.state.itineraryList.map(itinerary => {
+                                return (
+                                <Grid item key={itinerary.id} md={3}>
                                     <Card>
                                         <CardActionArea>
                                                 <CardContent>
                                                     <Typography variant="h5" component="h2">
-                                                        Itinerary 1
+                                                        Itinerary: {this.state.itineraryList[0].id}
                                                     </Typography>
                                                     <Typography>
-                                                        Starting location: Los Angeles
+                                                        Starting Location:{this.state.itineraryList[0].starting}
                                                     </Typography>
                                                     <Typography>
-                                                        Destination: Berlin
+                                                        Destination: {this.state.itineraryList[0].ending}
                                                     </Typography>
                                                 </CardContent>
                                         </CardActionArea>
                                         <CardActions>
-                                            <Button size="small" color="primary">Favourite this itinerary</Button>
-                                            <Button size="small" color="secondary">Delete this itinerary</Button>
+                                            <Button size="small" color="primary" onClick={()=>this.addToFavourites()}>Favourite this itinerary</Button>
+                                            <Button size="small" color="secondary" onClick={()=>this.removeItinerary(itinerary.id)}>Delete this itinerary</Button>
                                         </CardActions>
                                     </Card>
-                                </Grid>
-                                <Grid item md={3}>
-                                    <Card>
-                                        <CardActionArea>
-                                                <CardContent>
-                                                    <Typography variant="h5" component="h2">
-                                                        Itinerary 2
-                                                    </Typography>
-                                                    <Typography>
-                                                        Starting location: Toronto
-                                                    </Typography>
-                                                    <Typography>
-                                                        Destination: New York City
-                                                    </Typography>
-                                                </CardContent>
-                                        </CardActionArea>
-                                        <CardActions>
-                                            <Button size="small" color="primary">Favourite this itinerary</Button>
-                                            <Button size="small" color="secondary">Delete this itinerary</Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                                <Grid item md={3}>
-                                    <Card>
-                                        <CardActionArea>
-                                                <CardContent>
-                                                    <Typography variant="h5" component="h2">
-                                                        Itinerary 3
-                                                    </Typography>
-                                                    <Typography>
-                                                        Starting location: Toronto
-                                                    </Typography>
-                                                    <Typography>
-                                                        Destination: Tokyo
-                                                    </Typography>
-                                                </CardContent>
-                                                
-                                        </CardActionArea>
-
-                                        <CardActions>
-                                            <Button size="small" color="primary">Favourite this itinerary</Button>
-                                            <Button size="small" color="secondary">Delete this itinerary</Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
+                                </Grid>)
+                                })}
                             </Grid>
                         </TabPanel>
                         <TabPanel value={this.state.value} index={1}>
                         <Grid container spacing = {5}>
-                                <Grid item md={3}>
-                                    <Card>
-                                        <CardActionArea>
-                                                <CardContent>
-                                                    <Typography variant="h5" component="h2">
-                                                        Favourite 1
-                                                    </Typography>
-                                                    <Typography>
-                                                        Starting location: Los Angeles
-                                                    </Typography>
-                                                    <Typography>
-                                                        Destination: Berlin
-                                                    </Typography>
-                                                </CardContent>
-                                        </CardActionArea>
-                                        <CardActions>
-                                            <Button size="small" color="secondary">Remove this itinerary from favourites</Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                                <Grid item md={3}>
-                                    <Card>
-                                        <CardActionArea>
-                                                <CardContent>
-                                                    <Typography variant="h5" component="h2">
-                                                        Favourite 2
-                                                    </Typography>
-                                                    <Typography>
-                                                        Starting location: Toronto
-                                                    </Typography>
-                                                    <Typography>
-                                                        Destination: Tokyo
-                                                    </Typography>
-                                                </CardContent>
-                                                
-                                        </CardActionArea>
-                                        <CardActions>
-                                            <Button size="small" color="secondary">Remove this itinerary from favourites</Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
+                            {this.state.favouritesList.map(itinerary => {
+                                return (
+                                    <Grid item key={itinerary.id} md={3}>
+                                        <Card>
+                                            <CardActionArea>
+                                                    {<CardContent>
+                                                        <Typography variant="h5" component="h2">
+                                                            {this.state.favouritesList[0].id}
+                                                        </Typography>
+                                                        <Typography>
+                                                            Starting location: {this.state.favouritesList[0].starting}
+                                                        </Typography>
+                                                        <Typography>
+                                                            Destination: {this.state.favouritesList[0].ending}
+                                                        </Typography>
+                                                    </CardContent>}
+                                            </CardActionArea>
+                                            <CardActions>
+                                                <Button size="small" color="secondary" onClick={()=>this.removeFromFavourites(itinerary.id)}>Remove this itinerary from favourites</Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>)
+                            })}
+                                
                             </Grid>
                         </TabPanel>
                         <TabPanel value={this.state.value} index={2}>
                             <Grid container spacing = {5}>
-                                <Grid item md={3}>
-                                    <Card>
-                                        <CardHeader
-                                            Avatar={
-                                                <Avatar className="friend-avatar" src="/static/avatar.jpg"/>
-                                            }/>
-                                        <CardActionArea>
-                                                <CardContent>
-                                                    <Typography variant="h5" component="h2">
-                                                        Angela Jamieson
-                                                    </Typography>
-                                                    <Typography>
-                                                        Location: Toronto
-                                                    </Typography>
-                                                    <Typography>
-                                                        Username: Angie123
-                                                    </Typography>
-                                                </CardContent>
-                                        </CardActionArea>
-                                        <CardActions>
-                                            <Button size="small" color="secondary">Remove this friend</Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
+                                {this.state.friendsList.map(friend => {
+                                    return (
+                                        <Grid item md={3}>
+                                            <Card>
+                                                <CardHeader
+                                                    Avatar={
+                                                        <Avatar className="friend-avatar" src="/static/avatar.jpg"/>
+                                                    }/>
+                                                <CardActionArea>
+                                                        <CardContent>
+                                                            <Typography variant="h5" component="h2">
+                                                                Name: {this.state.friendsList[0].name}
+                                                            </Typography>
+                                                            <Typography>
+                                                                Location: {this.state.friendsList[0].currLocation}
+                                                            </Typography>
+                                                            <Typography>
+                                                                Username: {this.state.friendsList[0].username}
+                                                            </Typography>
+                                                        </CardContent>
+                                                </CardActionArea>
+                                                <CardActions>
+                                                    <Button size="small" color="secondary" onClick={()=>this.removeFriend(friend.id)}>Remove this friend</Button>
+                                                </CardActions>
+                                            </Card>
+                                        </Grid>)
+                                    })}
+
                             </Grid>
                         </TabPanel>
                     </div>

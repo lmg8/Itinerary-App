@@ -35,7 +35,7 @@ class Login extends React.Component {
     }
 
     handleOnClick = () =>{
-        
+        //This should actually check with the database on the server for authentication
         if ((this.state.username == "user" && this.state.password == "user") || (this.state.username == "admin" && this.state.password == "admin")){
             this.setState({authenticated:true});
         } else {

@@ -15,6 +15,8 @@ import "./styles.css";
 
 /* Component for the Home page */
 
+//Right now starting on line 23, it just leads the user back to the home page. In the full release, it should save the new account in the database under users
+//Of course, this will require a server call
 class Signup extends React.Component {
   render() {
     return (
