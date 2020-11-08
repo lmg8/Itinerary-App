@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Avatar, Box, Card, CardActions, CardContent, CardHeader, CardMedia, Button, IconButton, Typography, Grid} from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { Link } from "react-router-dom";
 import './styles.css';
 
@@ -15,7 +15,7 @@ const AdminUserCard = props => {
                         <Grid container xs={12}>
                             <Grid item xs={1}></Grid>
                             <Grid className="deleteButtonContainer" item xs={10} onClick={deleteOnClick(user.userID)}>
-                                <Button fullWidth variant="contained" color="secondary">
+                                <Button fullWidth startIcon={<DeleteIcon />} variant="contained" color="secondary">
                                     Delete
                                 </Button>
                             </Grid>
