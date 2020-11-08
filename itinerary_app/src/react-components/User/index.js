@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link  } from "react-router-dom";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -17,12 +17,11 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
 import { Tabs, Tab, CardContent } from "@material-ui/core";
 
-
 import "./styles.css";
 
 /* Component for the User page */
 
-function allyProps(index){
+function allyProps(){
     return {
         id: 'full-width-tab-${index}',
         'aria-controls': 'full-width-tabpanel-${index}',
@@ -68,6 +67,7 @@ class User extends React.Component {
             password:"user",
         }
         this.handleChange = this.handleChange.bind(this);
+
     }
 
 
@@ -77,12 +77,13 @@ class User extends React.Component {
                 <AppBar className="user-appBar" color="primary" position="static">
                         <Toolbar variant={"dense"}>
                             <ButtonGroup size='small' variant="text">
-                                <Link to={"./../"}>
+                                <Link to={"user/settings" }>
                                     <Button><SettingsIcon fontSize="large"/></Button>
                                 </Link>
                             </ButtonGroup>
                             <ButtonGroup size='small' variant="text">
-                                <Link to={"./../"}>
+
+                                <Link to={"/"}>
                                     <Button variant="contained">Sign out</Button>
                                 </Link>
                             </ButtonGroup>
@@ -94,7 +95,7 @@ class User extends React.Component {
                             <Typography align="center" component="h1" variant="h5"> Adam Smith </Typography>
                         </div>
                         <Box textAlign='center'>
-                            <Link to ={"./../"}>
+                            <Link to ={"user/create-itinerary" }>
                                 <Button variant="contained"> Create a new itinerary!</Button>
                             </Link>
                         </Box>
@@ -249,7 +250,6 @@ class User extends React.Component {
                             </Grid>
                         </TabPanel>
                     </div>
-                    
             </div>
         );
         

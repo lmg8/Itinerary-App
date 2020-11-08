@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import {IconButton} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const removeDestination = (itinerary, index) => {
     const list = [...itinerary.state.destinations];
@@ -35,14 +36,16 @@ class NewDestination extends React.Component
                         />
                      </Grid>
                     <Grid item xs={1}>
-                        <IconButton
-                            onClick={
-                                () => removeDestination(itinerary, index)
-                            }>
-                            <DeleteRoundedIcon color={"secondary"} fontSize={"small"}
+                        <Tooltip title="Remove" arrow>
+                            <IconButton
+                                onClick={
+                                    () => removeDestination(itinerary, index)
+                                }>
+                                <DeleteRoundedIcon color={"secondary"} fontSize={"small"}
 
-                            />
-                        </IconButton>
+                                />
+                            </IconButton>
+                        </Tooltip>
 
                     </Grid>
                 </Grid>

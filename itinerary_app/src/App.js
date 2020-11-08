@@ -9,8 +9,8 @@ import Signup from './react-components/Signup';
 import Search from './react-components/Search';
 import PlaceSearch from './react-components/PlaceSearch';
 import About from './react-components/About';
-import User from './react-components/User';
-import CreateItinerary from './react-components/CreateItinerary';
+import UserRoutes from "./react-components/UserRoutes";
+
 
 class App extends React.Component {
   state = {
@@ -22,22 +22,19 @@ class App extends React.Component {
       <div>
         {<BrowserRouter>
           <Switch>
-            <Route exact path='/' render={() => 
+            <Route exact path='/' render={() =>
               (<Home appState={this.state}/>)}/>
             <Route exact path='/login' render={() => 
               (<Login appState={this.state}/>)}/>
             <Route exact path='/signup' render={() => 
               (<Signup appState={this.state}/>)}/>
-            <Route exact path='/about' render={() =>
+            <Route exact path='/About' render={() =>
                 (<About appState={this.state}/>)}/>
             <Route exact path='/search' render={() =>
               (<Search appState={this.state}/>)}/>
             <Route exact path='/search-places' render={() =>
               (<PlaceSearch appState={this.state}/>)}/>
-            <Route exact path='/User' render={() =>
-              (<User appState={this.state}/>)}/>
-            <Route exact path='/create-itinerary' render={() =>
-                (<CreateItinerary appState={this.state}/>)}/>
+            <Route path='/user' component={UserRoutes}/>
           </Switch>
         </BrowserRouter>}
       </div>

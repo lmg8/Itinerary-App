@@ -2,7 +2,6 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import TextField from '@material-ui/core/TextField';
 import AddLocationRoundedIcon from '@material-ui/icons/AddLocationRounded';
-import Button from "@material-ui/core/Button";
 import DoneIcon from '@material-ui/icons/Done';
 import { uid } from "react-uid";
 
@@ -12,6 +11,8 @@ import Grid from "@material-ui/core/Grid";
 import HomeRounded from '@material-ui/icons/Home';
 import PlaceRoundedIcon from '@material-ui/icons/PlaceRounded';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
+import {IconButton} from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
 
 
 class CreateItinerary extends React.Component {
@@ -120,12 +121,17 @@ class CreateItinerary extends React.Component {
 
                                 </Grid>
 
-                                <Grid item xs={6} >
-                                    <Button onClick={this.handleAddClick} color={"primary"}><AddLocationRoundedIcon/> Add Destination... </Button>
+                                <Grid item xs={12} >
+                                    <div>
+                                        <Tooltip title="Submit" arrow>
+                                            <IconButton className={"create__Button"} variant={"contained"} >  <DoneIcon fontSize={"small"}/> </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title="Add destination..." arrow>
+                                            <IconButton className={"create__Button"} onClick={this.handleAddClick} variant={"contained"} ><AddLocationRoundedIcon/> </IconButton>
+                                        </Tooltip>
+                                    </div>
                                 </Grid>
-                                <Grid item xs={6} >
-                                    <Button className={"create__Button"} variant={"contained"} color={"secondary"}>  <DoneIcon fontSize={"small"}/> </Button>
-                                </Grid>
+
 
                             </Grid>
                         </form>
