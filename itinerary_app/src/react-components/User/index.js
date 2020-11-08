@@ -60,16 +60,17 @@ function TabPanel(props) {
 //Below are two hardcoded items to fill the state arrays. In the full release, the server should populate the arrays
 // and these should be removed
 const hardCodedItinerary = {id:1,
-    starting:"Los Angeles",
-    ending:'Berlin',
+    name:"Beach Trip",
+    starting:"Adam's home, Toronto",
+    ending:'Centre Island Beach, Toronto',
     destinations: [],
     startDate:'August 12, 2020'
 }
 
 const hardCodedFriend = {userId:1,
-    name: "Angela Smith",
-    currLocation: "Tokyo, Japan",
-    username: "AngelS"
+    name: "Kate Park",
+    currLocation: "Montreal",
+    username: "KateP"
 }
 
 class User extends React.Component {
@@ -85,6 +86,7 @@ class User extends React.Component {
             password:"user",
             newFavourite:{
                 id:'',
+                name:'',
                 starting:'',
                 ending:'',
                 destinations: [],
@@ -92,6 +94,7 @@ class User extends React.Component {
             },
             currentItinerary:{
                 id:'',
+                name:'',
                 starting:'',
                 ending:'',
                 destinations: [],
@@ -112,6 +115,7 @@ class User extends React.Component {
         // In the full release, an additional array on the server should be updated as well.
         const newFavourite = {
             id: hardCodedItinerary.id,
+            name: hardCodedItinerary.name,
             starting: hardCodedItinerary.starting,
             ending: hardCodedItinerary.ending,
             destinations: hardCodedItinerary.destinations,
@@ -134,6 +138,7 @@ class User extends React.Component {
             favouritesList,
             newFavourite:{
                 id:'',
+                name:'',
                 starting:'',
                 ending:'',
                 destinations: [],
@@ -215,7 +220,7 @@ class User extends React.Component {
                                         <CardActionArea>
                                                 <CardContent>
                                                     <Typography variant="h5" component="h2">
-                                                        Itinerary: {this.state.itineraryList[0].id}
+                                                        Itinerary: {this.state.itineraryList[0].name}
                                                     </Typography>
                                                     <Typography>
                                                         Starting Location:{this.state.itineraryList[0].starting}
@@ -243,7 +248,7 @@ class User extends React.Component {
                                             <CardActionArea>
                                                     {<CardContent>
                                                         <Typography variant="h5" component="h2">
-                                                            {this.state.favouritesList[0].id}
+                                                            {this.state.favouritesList[0].name}
                                                         </Typography>
                                                         <Typography>
                                                             Starting location: {this.state.favouritesList[0].starting}
