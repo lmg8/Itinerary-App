@@ -178,7 +178,7 @@ class User extends React.Component {
                         </Toolbar>
                     </AppBar>
                     <div>
-                        <Avatar className="user-avatar" src="/static/avatar.jpg"/>
+                        <Avatar className="user-avatar" src="./../SearchPics/profilePic1.jpeg"/>
                         <div>
                             <Typography align="center" component="h1" variant="h5"> Adam Smith </Typography>
                         </div>

@@ -9,8 +9,9 @@
 .MuiAvatar-root.user-avatar{
     margin-bottom: 30px;
     margin-top: 30px;
-    margin-left:8px;
-    left: 49%;
+    left: 48%;
+    height: 90px;
+    width: 90px;
 }
 
 .MuiAvatar-root.friend-avatar{
