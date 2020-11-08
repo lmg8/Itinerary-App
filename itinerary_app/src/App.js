@@ -11,6 +11,7 @@ import PlaceSearch from './react-components/PlaceSearch';
 import About from './react-components/About';
 import User from './react-components/User';
 import CreateItinerary from './react-components/CreateItinerary';
+import Admin from './react-components/Admin';
 
 class App extends React.Component {
   state = {
@@ -38,6 +39,8 @@ class App extends React.Component {
               (<User appState={this.state}/>)}/>
             <Route exact path='/create-itinerary' render={() =>
                 (<CreateItinerary appState={this.state}/>)}/>
+            <Route exact path='/admin' render={() =>
+              (<Admin appState={this.state}/>)}/>
           </Switch>
         </BrowserRouter>}
       </div>

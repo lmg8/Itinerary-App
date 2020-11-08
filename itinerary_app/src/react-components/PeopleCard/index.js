@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Avatar, Box, Card, CardActions, CardContent, CardHeader, CardMedia, Button, IconButton, Typography, Grid} from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Link } from "react-router-dom";
+import { borders } from '@material-ui/system';
 
 const useStyles = makeStyles({
   root: {

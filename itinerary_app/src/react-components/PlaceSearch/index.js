@@ -158,11 +158,9 @@ class PlaceSearch extends React.Component {
                 
               <Box m={3}>
                 <Grid container>
-
-                <Grid item xs={12}>
-                  <h1 className="searchHeader">Search Results</h1>
-                </Grid>
-                
+                  <Grid item xs={12}>
+                    <h1 className="searchHeader">Search Results</h1>
+                  </Grid>
                   <Grid item xs={6}>
                       <List className="placeList">
                         {this.renderPlaceList(this.state.filteredPlaces)}

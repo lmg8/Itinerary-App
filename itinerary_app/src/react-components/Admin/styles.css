@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+.adminPageHeader{
+    font-size: 400%;
+    text-align: center;
+    font-family: "Fredoka One";
+}
+
+.background{
+    background-color: rgb(241, 241, 241);
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: repeat;
+    height: 100vh;
+}
+
+.pageContainer{
+    position: absolute;
+    background-color: rgb(241, 241, 241);
+}
