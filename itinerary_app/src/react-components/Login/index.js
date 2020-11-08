@@ -47,7 +47,7 @@ class Login extends React.Component {
     render() {
         const redirect = this.state.authenticated;
         if (redirect){
-            return <Redirect to="./../User"/>;
+            return <Redirect to="./../user"/>;
         }
         return (
             <div className="login-background">
