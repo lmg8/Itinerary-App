@@ -38,7 +38,7 @@ class CreateItinerary extends React.Component {
 
     handleStartingChange = (e) => {
         let itinerary = this.state.itinerary;
-        itinerary["starting"] = e.target.value.toUTCString();
+        itinerary["starting"] = e.target.value;
         this.setState({itinerary});
     }
 
@@ -50,7 +50,7 @@ class CreateItinerary extends React.Component {
 
     handleDateChange = (e) => {
         let itinerary = this.state.itinerary;
-        itinerary["startDate"] = e.target.value;
+        itinerary["startDate"] = e.target.value.toUTCString();
         this.setState({itinerary});
     }
 
