@@ -67,4 +67,6 @@ After a user has been searched, they can view their profile, add them as a frien
 
 Here, the user can change their profile picture, name, email, location and password.
 
-### Additional libraries used: material ui
+### Additional libraries/frameworks used: 
+- material ui
+- simple-react-comments
