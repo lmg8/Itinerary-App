@@ -7,6 +7,7 @@ import AdminItineraryCard from "../AdminItineraryCard";
 
 class Admin extends React.Component {
   state = {switchTo: "itineraries",
+    // Hardcoded itinerary data, will be stored in a database in the final app
     itineraries: [
         {
             itineraryID: 0,
@@ -50,6 +51,7 @@ class Admin extends React.Component {
             timeOfDay: "13:00",
             banner:"./SearchPics/banner3.jpg",
         }],
+    // Hardcoded user data, will be stored in a database in the final app
     users: [
       { 
         userID: 0,
@@ -102,7 +104,9 @@ class Admin extends React.Component {
         banner: "./SearchPics/banner3.jpg" 
       }]
   };
-
+    
+    // deletes user matching given user ID
+    // this will be a database update instead of a state update in the final app
     handleUserDelete = IDToDelete => event => {
         let remainingUsers = this.state.users.filter(
             user => user.userID != IDToDelete);
@@ -112,6 +116,8 @@ class Admin extends React.Component {
         });
     }
 
+    // deletes user matching given user ID
+    // this will be a database update instead of a state update in the final app
     handleItineraryDelete = IDToDelete => event => {
         let remainingItineraries = this.state.itineraries.filter(
             itinerary => itinerary.itineraryID != IDToDelete);
@@ -121,11 +127,13 @@ class Admin extends React.Component {
         });
     }
 
+    // returns cards displaying all user information
     renderUserCards = users => {
         if (this.state.switchTo === "users"){
             return;
         }
         let userCards = [];
+        // this will be a database query
         for (let i = 0; i < users.length; i++){
             userCards.push(<AdminUserCard
             user={users[i]}
@@ -135,11 +143,13 @@ class Admin extends React.Component {
         return userCards;
     }
 
+    // returns cards displaying all itinerary information
     renderItineraryCards = itineraries => {
         if (this.state.switchTo === "itineraries"){
             return;
         }
         let itineraryCards = [];
+        // this will be a database query
         for (let i = 0; i < itineraries.length; i++){
             itineraryCards.push(<AdminItineraryCard
             itinerary={itineraries[i]}
@@ -149,6 +159,7 @@ class Admin extends React.Component {
         return itineraryCards;
     }
 
+    // updates whether users or itineraries are displayed
     handleSwitch = () =>{
         if (this.state.switchTo === "users"){
             this.setState({

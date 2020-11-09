@@ -15,7 +15,9 @@ class PlaceSearch extends React.Component {
   state = { 
     SearchValue: '',
     selectedIndex: -1,
+    // Stores filtered places in state, unnecessary in final app 
     filteredPlaces: [],
+    // Hardcoded place data, would be stored in a database in the final app
     Places: [
       {
       name: "CN Tower",
@@ -50,32 +52,35 @@ class PlaceSearch extends React.Component {
   ]
   };
 
+  // Updates which list item has been clicked
   handleListItemClick = index => event => {
     this.setState({
       selectedIndex: index,
     })
-    console.log(this.state.selectedIndex);
   };
 
+  // Updates a specified state variable to the event target value
   handleChange = stateVar => event => {
     this.setState({
       [stateVar]: event.target.value,
     });
   };
 
+  // Updates which list item has been clicked
   handleViewClick = index => event => {
     this.setState({
       selectedIndex: index,
     });
-    console.log(this.state.selectedIndex);
   }
 
+  // Stores filtered places in state based on user input when enter is pressed in the search bar
   handleKeyDown = stateVar => event => {
     if (event.keyCode === 13){
       this.setState({
         [stateVar]: event.target.value
       });
-
+      
+      // This will be a select from _ where _ database query in the final app
       let newFilteredPlaces = this.state.Places.filter(
         place => place.name.toUpperCase().includes(this.state.SearchValue.toUpperCase()));
       
@@ -85,6 +90,7 @@ class PlaceSearch extends React.Component {
     }
   }
 
+  // Returns a card displaying place information based on which place was selected
   renderPlaceCard = () => {
     if (this.state.selectedIndex != -1){
       return (<PlaceCard place={this.state.filteredPlaces[this.state.selectedIndex]}
@@ -93,6 +99,7 @@ class PlaceSearch extends React.Component {
     }
   }
 
+  // Returns a list displaying all given places
   renderPlaceList = places => {
     let listItems = [];
     // there would be a database query for places here
