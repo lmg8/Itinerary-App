@@ -124,14 +124,16 @@ class Itinerary extends React.Component {
                         </IconButton>
                         </Tooltip>
 
-                        <Tooltip title={"Edit Itinerary"}>
+
                             <Link to={{pathname:`/user/edit-itinerary/${this.state.itinerary["id"]}`}}>
+                                <Tooltip title={"Edit Itinerary"}>
                                 <IconButton className={"editDrawerButton"}>
                                     <EditRoundedIcon fontSize={"medium"}/>
                                 </IconButton>
+                                </Tooltip>
+
                             </Link>
 
-                        </Tooltip>
 
                     <h1 className={"ItineraryName__h1"}>{this.state.itinerary["name"]}</h1>
                     </div>
