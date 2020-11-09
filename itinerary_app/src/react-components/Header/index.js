@@ -22,20 +22,20 @@ const Header = () => {
         <Toolbar variant={"dense"}>
             <Container>
                 <ButtonGroup size='small' variant="text">
-                    <Link to={"./../user"}>
+                    <Link to={{pathname: "/user"}}>
                         <Button> <HomeIcon fontSize="large"/> </Button>
                     </Link>
-                    <Link to={"./../search"}>
+                    <Link to={{pathname: "/search"}}>
                         <Button> <SearchIcon fontSize="large"/> </Button>
                     </Link>
                 </ButtonGroup>
                 <ButtonGroup size='small' variant="text" className="signout_button_group">
-                    <Link to={"/"}>
+                    <Link to={{pathname: "/"}}>
                         <Button variant="contained">Sign out</Button>
                     </Link>
                 </ButtonGroup>
                 <ButtonGroup size='small' variant="text" className="generic_button_group">
-                    <Link to={"user/settings" }>
+                    <Link to={{pathname: "/user/settings"}}>
                         <Button><SettingsIcon fontSize="large"/></Button>
                     </Link>
                 </ButtonGroup>

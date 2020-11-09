@@ -13,9 +13,8 @@
     text-align:center;
 }
 
-.profilePic.MuiAvatar-root {
-    width:100px;
-    height: 100px;
+.profilePic {
+    height: 200px;
 }
 
 .imageUpload{
