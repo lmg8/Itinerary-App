@@ -5,7 +5,7 @@
 1. navigate to `./../itinerary_app' in your console
 1. `npm install`
 1. `npm start`
-1. You should see that the website loads on http://localhost:3000
+1. You should see that the website loads on http://localhost:3000 (Use Google Chrome for the best experience)
 1. Top right, there are three buttons. One to pop up an about card, one to sign in and one to sign up.
 1. Sign in details are as follows (Make sure to press the submit button when signing on):
     1. Regular user: 
