@@ -6,10 +6,12 @@ import Grid from "@material-ui/core/Grid";
 import Tooltip from "@material-ui/core/Tooltip";
 
 const removeDestination = (itinerary, index) => {
-    const list = [...itinerary.state.destinations];
+    let i = itinerary.state.itinerary
+    const list = [...itinerary.state.itinerary["destinations"]];
     list.splice(index, 1);
+    i["destinations"] = list;
     itinerary.setState({
-       destinations: list
+       i
     });
 }
 
