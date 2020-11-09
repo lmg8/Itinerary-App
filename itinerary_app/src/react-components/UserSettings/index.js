@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import InputBase from "@material-ui/core/InputBase";
 import {ArrowForwardIos} from "@material-ui/icons";
 import UserSettingsChange from "../UserSettingsChange";
+import Header from "../Header";
 
 
 class UserSettings extends React.Component {
@@ -60,18 +61,17 @@ class UserSettings extends React.Component {
         const user = this.state.user;
         user["open"][i] = false;
         user[type] = this.state.value;
-        console.log(user)
         this.setState({user})
     }
     handleSettingsChange(e){
         this.setState({value:e.target.value})
-        console.log(this.state.value);
     }
 
     render() {
         const userKeys= Object.keys(this.state.user);
         return (
             <div>
+                <Header/>
                 <Container maxWidth="md" justify="center">
                     <div className={"settings__body"}>
                         <h1 className={"settingsHeader"}> Settings</h1>
@@ -89,10 +89,9 @@ class UserSettings extends React.Component {
 
                                     <CardActionArea>
                                         <label htmlFor="contained-button-file">
-                                            <CardMedia
+                                            <CardMedia className={"profilePic"}
                                                 component="img"
                                                 alt="profile picture"
-                                                height="140"
                                                 defaultValue={this.state.imagePreviewUrl}
                                                 image={this.state.imagePreviewUrl}
                                                 title="profile picture"

@@ -51,7 +51,7 @@ class Signup extends React.Component {
                             <TextField variant="outlined" id="repeated-password-input" label="Enter Password Again" type="password" fullWidth margin="normal"/>
                         </form>
                         <ButtonGroup>
-                            <Link to={"./../"}>
+                            <Link to={"./../user"}>
                                 <Button className="submit-button" type="submit" fullWidth variant="contained" color="primary"> Create Account </Button>
                             </Link>
                             <Link to={"./../Login"}>

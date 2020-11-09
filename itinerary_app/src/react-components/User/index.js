@@ -242,6 +242,9 @@ class User extends React.Component {
                                                     </CardContent>
                                             </CardActionArea>
                                             <CardActions>
+                                                <Link to={{pathname:"/user/itinerary/0"}}>
+                                                <Button size="small" color="primary">View</Button>
+                                                </Link>
                                                 <Button size="small" color="primary" onClick={()=>this.addToFavourites()}>Favourite this itinerary</Button>
                                                 <Button size="small" color="secondary" onClick={()=>this.removeItinerary(itinerary.id)}>Delete this itinerary</Button>
                                             </CardActions>

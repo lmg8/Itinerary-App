@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import SettingsIcon from '@material-ui/icons/Settings';
 import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
 import "./styles.css"
 
 
@@ -21,17 +22,20 @@ const Header = () => {
         <Toolbar variant={"dense"}>
             <Container>
                 <ButtonGroup size='small' variant="text">
-                    <Link to={"./../search"}>
+                    <Link to={{pathname: "/user"}}>
+                        <Button> <HomeIcon fontSize="large"/> </Button>
+                    </Link>
+                    <Link to={{pathname: "/search"}}>
                         <Button> <SearchIcon fontSize="large"/> </Button>
                     </Link>
                 </ButtonGroup>
                 <ButtonGroup size='small' variant="text" className="signout_button_group">
-                    <Link to={"/"}>
+                    <Link to={{pathname: "/"}}>
                         <Button variant="contained">Sign out</Button>
                     </Link>
                 </ButtonGroup>
                 <ButtonGroup size='small' variant="text" className="generic_button_group">
-                    <Link to={"user/settings" }>
+                    <Link to={{pathname: "/user/settings"}}>
                         <Button><SettingsIcon fontSize="large"/></Button>
                     </Link>
                 </ButtonGroup>

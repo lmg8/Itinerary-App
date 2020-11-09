@@ -17,12 +17,12 @@ import Header from "../Header";
 import {Link } from "react-router-dom";
 
 
-class CreateItinerary extends React.Component {
+class EditItinerary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             //store this in database
-            itinerary: {id: '', name: "", starting: "", ending: "", destinations: [], startDate: ''},
+            itinerary: props.itinerary[0],
 
         };
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -72,15 +72,11 @@ class CreateItinerary extends React.Component {
 
     }
 
-     handleSubmit = (unique) => {
-        let itinerary = this.state.itinerary;
-        itinerary["id"] = unique
-        this.setState({itinerary});
+     handleSubmit = () => {
          this.props.handleSubmit(this.state.itinerary);
      }
 
     render() {
-        const unique = uid(this.state.itinerary);
         return (
 
             <div>
@@ -174,7 +170,7 @@ class CreateItinerary extends React.Component {
 
                                 <Grid item xs={12} >
                                     <div>
-                                        <Link onClick={()=>this.handleSubmit(unique)} to={`./itinerary/${unique}`}>
+                                        <Link onClick={()=>this.handleSubmit()} to={{pathname: `/user/itinerary/${this.state.itinerary["id"]}`}}>
                                             <Tooltip title="Submit" arrow>
                                                 <IconButton  className={"create__Button"} variant={"contained"} >  <DoneIcon fontSize={"small"}/> </IconButton>
                                             </Tooltip>
@@ -197,4 +193,4 @@ class CreateItinerary extends React.Component {
     };
 }
 
-export default CreateItinerary;
+export default EditItinerary;

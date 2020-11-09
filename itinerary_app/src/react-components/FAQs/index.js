@@ -45,12 +45,11 @@ class Faqs extends React.Component {
                         aria-controls="panel1bh-content"
                         id="panel1bh-header"
                     >
-                        <Typography className={classes.heading}>General settings</Typography>
+                        <Typography className={classes.heading}>What is this?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-                            maximus est, id dignissim quam.
+                            A website that lets you share your trip itineraries with others!
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -60,12 +59,11 @@ class Faqs extends React.Component {
                         aria-controls="panel2bh-content"
                         id="panel2bh-header"
                     >
-                        <Typography className={classes.heading}>Users</Typography>
+                        <Typography className={classes.heading}>What kind of users are on here?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
-                            diam eros in elit. Pellentesque convallis laoreet laoreet.
+                            Anyone that you want to plan a trip with!
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -75,12 +73,11 @@ class Faqs extends React.Component {
                         aria-controls="panel3bh-content"
                         id="panel3bh-header"
                     >
-                        <Typography className={classes.heading}>Advanced settings</Typography>
+                        <Typography className={classes.heading}>How do I get started?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                            vitae egestas augue. Duis vel est augue.
+                            Sign up on the top right!
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -90,12 +87,11 @@ class Faqs extends React.Component {
                         aria-controls="panel4bh-content"
                         id="panel4bh-header"
                     >
-                        <Typography className={classes.heading}>Personal data</Typography>
+                        <Typography className={classes.heading}>Is my personal data being collected?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-                            vitae egestas augue. Duis vel est augue.
+                            Not necessarily. The only data we store is the information that you provide us.
                         </Typography>
                     </AccordionDetails>
                 </Accordion>

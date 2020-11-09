@@ -96,57 +96,18 @@ class AboutTabs extends React.Component {
                     onChangeIndex={this.handleChangeIndex}
                 >
                     <TabPanel value={this.state.value} index={0} dir={theme.direction}>
-                        Lorem ipsum dolor sit amet, qui persius complectitur id. Animal erroribus quo te, no pro iudico
-                        laudem inermis. Duo ex lorem invidunt salutatus, no eius malorum docendi sit. At atomorum
-                        necessitatibus quo, at per quaeque aliquam. Pro ut graecis torquatos, ad nec iuvaret dolores
-                        neglegentur. His no civibus deleniti oporteat, sit et patrioque gloriatur disputando.
+                        We are a small team of web developers that love to travel and found that there was not a sufficient website
+                        that allowed us to share our itineraries with our friends. So we took it upon ourselves to make a lightweight
+                        application that would allow others that want to share their itineraries with their friends. This makes it easier
+                        for friends to stay connected and plan trips out in the future.
 
-                        Usu te reque docendi, mel id possit tincidunt. Quo justo consequat reprehendunt ut.
-                        Percipit efficiendi eam id. Assum torquatos sea an, eos purto causae eu. Eam dicant perpetua
-                        adipiscing te, mentitum copiosae dissentiet quo ne.
-
-                        Vel id autem congue. In diceret blandit vis, eu velit dolorem nec. Primis posidonium efficiantur
-                        his cu, porro copiosae ad has. Duo ei perpetua sadipscing. Probo deserunt democritum et ius,
-                        mei errem admodum scriptorem at. At duo ubique definitiones, minim suscipiantur mel te.
-                        Integre vivendo consequuntur ius ei, nec iuvaret appareat luptatum ex, iusto paulo nonumes
-                        has ne.
-
-                        Ei omnis postulant duo, tale postulant id eos. Eu solet vitae hendrerit eos, nec illum
-                        dolorem at, case ceteros vix te. Quo in unum illum, id nam vivendum percipitur. Atqui accumsan
-                        deserunt sea no, ea eum blandit urbanitas, ex his detracto ocurreret. Ei nonumy oblique
-                        adipiscing cum.
-
-                        Et cum graece corrumpit splendide, vitae latine laboramus at nam. Pro an latine feugait, nec
-                        \graecis lobortis eu. Ea libris primis definitiones cum, at facilisis complectitur has. Id
-                        modus verear imperdiet ius, eos viderer iuvaret legimus eu. Mollis posidonium vim ei.
                     </TabPanel>
                     <TabPanel value={this.state.value} index={1} dir={theme.direction}>
                         <Faqs/>
                     </TabPanel>
                     <TabPanel value={this.state.value} index={2} dir={theme.direction}>
-                        Lorem ipsum dolor sit amet, qui persius complectitur id. Animal erroribus quo te, no pro iudico
-                        laudem inermis. Duo ex lorem invidunt salutatus, no eius malorum docendi sit. At atomorum
-                        necessitatibus quo, at per quaeque aliquam. Pro ut graecis torquatos, ad nec iuvaret dolores
-                        neglegentur. His no civibus deleniti oporteat, sit et patrioque gloriatur disputando.
-
-                        Usu te reque docendi, mel id possit tincidunt. Quo justo consequat reprehendunt ut.
-                        Percipit efficiendi eam id. Assum torquatos sea an, eos purto causae eu. Eam dicant perpetua
-                        adipiscing te, mentitum copiosae dissentiet quo ne.
-
-                        Vel id autem congue. In diceret blandit vis, eu velit dolorem nec. Primis posidonium efficiantur
-                        his cu, porro copiosae ad has. Duo ei perpetua sadipscing. Probo deserunt democritum et ius,
-                        mei errem admodum scriptorem at. At duo ubique definitiones, minim suscipiantur mel te.
-                        Integre vivendo consequuntur ius ei, nec iuvaret appareat luptatum ex, iusto paulo nonumes
-                        has ne.
-
-                        Ei omnis postulant duo, tale postulant id eos. Eu solet vitae hendrerit eos, nec illum
-                        dolorem at, case ceteros vix te. Quo in unum illum, id nam vivendum percipitur. Atqui accumsan
-                        deserunt sea no, ea eum blandit urbanitas, ex his detracto ocurreret. Ei nonumy oblique
-                        adipiscing cum.
-
-                        Et cum graece corrumpit splendide, vitae latine laboramus at nam. Pro an latine feugait, nec
-                        \graecis lobortis eu. Ea libris primis definitiones cum, at facilisis complectitur has. Id
-                        modus verear imperdiet ius, eos viderer iuvaret legimus eu. Mollis posidonium vim ei.
+                        Version 0.1:
+                        Rough version of application created.
                     </TabPanel>
                 </SwipeableViews>
             </div>
