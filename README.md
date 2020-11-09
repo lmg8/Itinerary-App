@@ -39,13 +39,13 @@ Friends tab is where the user's friends are. The user can remove them if they wi
 
 ## CREATING AN ITINERARY
 
-After clicking "Create a new itinerary", the user can name their trip, choose a starting point, choose an end point, add stops along the way and add the start date. Once they are done, they can click the check mark to view the map. On the map, there are two buttons. One to view the itinerary comments and one to view the itinerary itself. The itinerary will pop up on the right and the user can click the addresses to view the reviews.
+After clicking "Create a new itinerary", the user can name their trip, choose a starting point, choose an end point, add stops along the way and add the start date. Once they are done, they can click the check mark to view the map. 
+
+## VIEWING ITINERARY MAP
+
+On the map, there are two buttons. One to view the itinerary comments and one to view the itinerary itself. The itinerary will pop up on the right and the user can click the addresses to view the reviews. An edit itinerary button is on the top left of the itinerary panel. From here, one can edit the itinerary.
 
 *Note: the map is a still image currently as this is just a proof of concept*
-
-## VIEWING AN ITINERARY
-
-This skips the itinerary creation step from before and the user will be brought to the map immediately. All functionality is the same as before.
 
 # ADMIN USER
 
