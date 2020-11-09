@@ -11,6 +11,7 @@ import PlaceSearch from './react-components/PlaceSearch';
 import About from './react-components/About';
 import UserRoutes from "./react-components/UserRoutes";
 import Admin from './react-components/Admin';
+import OtherUser from './react-components/OtherUser';
 
 class App extends React.Component {
   state = {
@@ -37,6 +38,8 @@ class App extends React.Component {
             <Route exact path='/admin' render={() =>
               (<Admin appState={this.state}/>)}/>
             <Route path='/user' component={UserRoutes}/>
+            <Route exact path='/user2' render={() =>
+              (<OtherUser appState={this.state}/>)}/>
           </Switch>
         </BrowserRouter>}
       </div>

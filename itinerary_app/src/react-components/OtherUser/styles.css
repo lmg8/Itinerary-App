@@ -1,0 +1,58 @@
+/* Styles for the User React component */
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.MuiAvatar-root.user-avatar{
+    margin-bottom: 30px;
+    margin-top: 30px;
+    left: 45%;
+    height: 190px;
+    width: 190px;
+    position: absolute;
+    top: 250px;
+}
+
+.MuiAvatar-root.friend-avatar{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.MuiButtonGroup-root.user_button_group {
+    display: flex;
+    float: right;
+    align-items: center;
+}
+
+.MuiButtonGroup-root.signout_button_group {
+    margin-top: 5px;
+    display: flex;
+    float: right;
+    align-items: center;
+}
+
+.MuiCardMedia-root.itinerary-image{
+    height: 140px;
+}
+
+.MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary.user-appBar {
+    background-color: #282c34;
+}
+
+.profile-banner{
+    background-image: url("./static/banner1.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 350px;
+}
+
+.spacer{
+    height: 80px;
+}
+
+.name-text{
+    text-emphasis: bold;
+}
