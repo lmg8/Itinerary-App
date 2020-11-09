@@ -55,6 +55,14 @@ From the admin view, they can delete and view users. They can also delete itiner
 
 By default, the search view is configured to search through users. Just type in a user (such as Kate) and press enter to retrieve the user. To search through places, click the 'Places' button and then type in your query followed by the enter key.
 
+# PLACE SEARCH
+
+After a user has searched for a location, they can either view details of the location or they can add to their itinerary.
+
+# USER SEARCH
+
+After a user has been searched, they can view their profile, add them as a friend or block them.
+
 # USER SETTINGS
 
 Here, the user can change their profile picture, name, email, location and password.
