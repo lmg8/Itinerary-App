@@ -49,7 +49,7 @@ This skips the itinerary creation step from before and the user will be brought 
 
 # ADMIN USER
 
-From the admin view, they can delete and view users. They can also delete itineraries. These features will be used by an admin to remove inappropriate users/itineraries.
+From the admin view, they can delete and view users. They can also delete itineraries. These features will be used by an admin to remove inappropriate users/itineraries. When viewing users, it will only lead to one specific user regardless of who is selected. This is because the user is hard coded in. In the final product, a database should be parsed for the user instead.
 
 # SEARCH VIEW
 
@@ -57,11 +57,11 @@ By default, the search view is configured to search through users. Just type in 
 
 # PLACE SEARCH
 
-After a user has searched for a location, they can either view details of the location or they can add to their itinerary.
+After a user has searched for a location (For this demo, search for "Toronto"), they can either view details of the location or they can add to their itinerary. The view button gives a more detailed view of the location. The add to itinerary button will send to the database. You will not see any difference in your itinerary right now because the itinerary is hardcoded in.
 
 # USER SEARCH
 
-After a user has been searched, they can view their profile, add them as a friend or block them.
+After a user has been searched (For this demo, search for "Kate"), they can view their profile, add them as a friend or block them. Currently, we only lead to one user regardless of which user is selected. This is because the user viewed should be retrieved from the database server. Since there is no database right now, we route to a hard coded user just to show what that button will eventually do.
 
 # USER SETTINGS
 
