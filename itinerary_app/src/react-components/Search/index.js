@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from '../Header';
 import PeopleCard from '../PeopleCard';
-import { Container, Grid, TextField, Box, Button, FormControl } from '@material-ui/core';
+import { Grid, TextField, Box, Button } from '@material-ui/core';
 import './styles.css'; 
 
 class Search extends React.Component {
