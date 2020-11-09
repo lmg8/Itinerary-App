@@ -31,6 +31,7 @@ class NewDestination extends React.Component
                             placeholder="Choose destination..."
                             fullWidth
                             margin="normal"
+                            value={itinerary.state.itinerary["destinations"][index]["address"]}
                             onChange={handleChange}
                             InputLabelProps={{
                                 shrink: true,

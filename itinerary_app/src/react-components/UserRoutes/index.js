@@ -4,6 +4,7 @@ import User from "../User";
 import UserSettings from "../UserSettings";
 import CreateItinerary from "../CreateItinerary";
 import ItinerariesRoute from "../ItinerariesRoute";
+import EditItineraryRoute from "../EditItineraryRoute";
 
 
 //Below are two hardcoded items to fill the state arrays. In the full release, the server should populate the arrays
@@ -39,6 +40,7 @@ class UserRoutes extends React.Component {
             friendsList:[hardCodedFriend]
         };
         this.handleCreateItinerary = this.handleCreateItinerary.bind(this);
+        this.handleUpdateItinerary = this.handleUpdateItinerary.bind(this);
     }
 
     handleCreateItinerary(itineraryObj){
@@ -46,6 +48,17 @@ class UserRoutes extends React.Component {
         itineraryList.push(itineraryObj);
         this.setState({itineraryList})
 
+    }
+
+    handleUpdateItinerary(itineraryObj){
+        const filterItineraries = this.state.itineraryList.filter(s => {
+            //remove previous version of itinerary
+            return s["id"] != itineraryObj["id"];
+        });
+        //add new version
+        filterItineraries.push(itineraryObj)
+        this.setState({itineraryList: filterItineraries})
+        console.log(this.state.itineraryList)
     }
 
     render() {
@@ -63,6 +76,9 @@ class UserRoutes extends React.Component {
                     (<CreateItinerary appState={this.state} location={this.props.location} handleSubmit={this.handleCreateItinerary}/>)}/>
                 <Route path = {`${this.props.match.path}/itinerary/:id`} render = {(props) =>
                     <ItinerariesRoute {...props} itineraries={this.state.itineraryList} friendsList={this.state.friendsList}/>
+                }/>
+                <Route path = {`${this.props.match.path}/edit-itinerary/:id`} render = {(props) =>
+                    <EditItineraryRoute {...props} location={this.props.location} itineraries={this.state.itineraryList} handleSubmit={this.handleUpdateItinerary}/>
                 }/>
             </Switch>
         );

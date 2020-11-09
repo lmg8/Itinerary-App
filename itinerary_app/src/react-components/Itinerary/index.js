@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import Header from "../Header";
 import "./styles.css"
 import Divider from "@material-ui/core/Divider";
@@ -23,7 +23,7 @@ import {ChevronRight} from "@material-ui/icons";
 import MapRoundedIcon from '@material-ui/icons/MapRounded';
 import QuestionAnswerRoundedIcon from '@material-ui/icons/QuestionAnswerRounded';
 import PeopleAltRoundedIcon from '@material-ui/icons/PeopleAltRounded';
-
+import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import Tooltip from "@material-ui/core/Tooltip";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -99,10 +99,6 @@ class Itinerary extends React.Component {
 
                 <BottomNavigation
                     className={"navigationBar"}
-                    // value={value}
-                    // onChange={(event, newValue) => {
-                    //     this.setState(newValue);
-                    // }}
                     showLabels
                 >
                     {/*<BottomNavigationAction className={"navButtons"}  label="FRIENDS" icon={<PeopleAltRoundedIcon />} />*/}
@@ -128,7 +124,16 @@ class Itinerary extends React.Component {
                         </IconButton>
                         </Tooltip>
 
+                        <Tooltip title={"Edit Itinerary"}>
+                            <Link to={{pathname:`/user/edit-itinerary/${this.state.itinerary["id"]}`}}>
+                                <IconButton className={"editDrawerButton"}>
+                                    <EditRoundedIcon fontSize={"medium"}/>
+                                </IconButton>
+                            </Link>
 
+                        </Tooltip>
+
+                    <h1 className={"ItineraryName__h1"}>{this.state.itinerary["name"]}</h1>
                     </div>
                     <Divider />
                     <div className={"drawerInner"}>
@@ -199,6 +204,8 @@ class Itinerary extends React.Component {
 
                     </div>
                 </Drawer>
+
+
                 <Dialog onClose={this.handleCloseComments} open={this.state.openComment}>
                     <DialogContent >
                         <CommentsBlock
