@@ -22,7 +22,7 @@ class CreateItinerary extends React.Component {
         super(props);
         this.state = {
             //store this in database
-            itinerary: {id: '', name: "", starting: "", ending: "", destinations: [], startDate: new Date()},
+            itinerary: {id: '', name: "", starting: "", ending: "", destinations: [], startDate: ''},
 
         };
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,7 +38,7 @@ class CreateItinerary extends React.Component {
 
     handleStartingChange = (e) => {
         let itinerary = this.state.itinerary;
-        itinerary["starting"] = e.target.value.toUTCString();
+        itinerary["starting"] = e.target.value
         this.setState({itinerary});
     }
 
