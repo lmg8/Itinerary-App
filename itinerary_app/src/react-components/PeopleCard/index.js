@@ -28,7 +28,7 @@ const PeopleCard = props => {
     const {firstName, lastName, profilePic, location, quote, banner} = props;
     return (<Grid item xs={12} sm={3}>
               <Box mx={3}>
-              <Card variant="outlined">
+                <Card variant="outlined">
                   <CardHeader
                       avatar={
                       <Avatar src={profilePic} />
@@ -40,33 +40,36 @@ const PeopleCard = props => {
                       }
                       title={firstName + " " + lastName}
                       subheader={location}
-                />
-                <CardMedia
-                  style={{height: "150px"}}
-                  className={classes.media}
-                  image={banner}
-                  title=""
-                />
-                <CardContent>
-                  <Typography variant="body2" component="p">
-                    {quote}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Grid container>
-                    <Grid xs={4}>
-                      <Link to={"../User2"}>
-                        <Button size="small" color="primary">View Profile</Button>
-                      </Link>
-                      </Grid><Grid xs={4}>
-                      <Button size="small" color="primary">Add Friend</Button>
-                      </Grid><Grid xs={4}>
-                      <Button size="small" color="secondary">Block User</Button>
-                      </Grid>
-                  </Grid>
-                </CardActions>
-              </Card>
-            </Box>
+                  />
+                  <CardMedia
+                    style={{height: "150px"}}
+                    className={classes.media}
+                    image={banner}
+                    title=""
+                  />
+                  <CardContent>
+                    <Typography variant="body2" component="p">
+                      {quote}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Grid container>
+                      <Grid xs={4}>
+                        {/* This will be a server call to retreive the correct profile */}
+                        <Link to={"../User2"}>
+                          <Button size="small" color="primary">View Profile</Button>
+                        </Link>
+                        </Grid><Grid xs={4}>
+                        {/* This will be a server call to update friends list in the database */}
+                        <Button size="small" color="primary">Add Friend</Button>
+                        </Grid><Grid xs={4}>
+                        {/* This will be a server call to update blocked users in the database */}
+                        <Button size="small" color="secondary">Block User</Button>
+                        </Grid>
+                    </Grid>
+                  </CardActions>
+                </Card>
+              </Box>
             </Grid>
     );
 };

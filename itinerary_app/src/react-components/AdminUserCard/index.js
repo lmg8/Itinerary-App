@@ -46,6 +46,7 @@ const AdminUserCard = props => {
                             </Grid>
                             {/* Buttons */}
                             <Grid item xs={6}>
+                                {/* This will query the database to retrieve the correct user */}
                                 <Link to="../User2">
                                     <Button fullWidth variant="outlined">View</Button>
                                 </Link>

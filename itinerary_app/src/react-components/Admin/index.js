@@ -108,6 +108,7 @@ class Admin extends React.Component {
     // deletes user matching given user ID
     // this will be a database update instead of a state update in the final app
     handleUserDelete = IDToDelete => event => {
+        // this will be select _ where _ database query
         let remainingUsers = this.state.users.filter(
             user => user.userID != IDToDelete);
             
@@ -119,6 +120,7 @@ class Admin extends React.Component {
     // deletes user matching given user ID
     // this will be a database update instead of a state update in the final app
     handleItineraryDelete = IDToDelete => event => {
+        // this will be select _ where _ database query
         let remainingItineraries = this.state.itineraries.filter(
             itinerary => itinerary.itineraryID != IDToDelete);
             

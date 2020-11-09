@@ -93,6 +93,7 @@ class PlaceSearch extends React.Component {
   // Returns a card displaying place information based on which place was selected
   renderPlaceCard = () => {
     if (this.state.selectedIndex != -1){
+      // there will be a database query to retrieve the place information here
       return (<PlaceCard place={this.state.filteredPlaces[this.state.selectedIndex]}
         ></PlaceCard>
         )
