@@ -9,9 +9,11 @@
 .MuiAvatar-root.user-avatar{
     margin-bottom: 30px;
     margin-top: 30px;
-    left: 48%;
-    height: 90px;
-    width: 90px;
+    left: 46%;
+    height: 190px;
+    width: 190px;
+    position: absolute;
+    top: 250px;
 }
 
 .MuiAvatar-root.friend-avatar{
@@ -38,4 +40,15 @@
 
 .MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary.user-appBar {
     background-color: #282c34;
+}
+
+.user-profile-banner{
+    background-image: url("./static/berlin.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 350px;
+}
+
+.spacer{
+    height: 80px;
 }

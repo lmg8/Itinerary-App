@@ -56,7 +56,7 @@ const PeopleCard = props => {
                 <CardActions>
                   <Grid container>
                     <Grid xs={4}>
-                      <Link to={"../User"}>
+                      <Link to={"../User2"}>
                         <Button size="small" color="primary">View Profile</Button>
                       </Link>
                       </Grid><Grid xs={4}>

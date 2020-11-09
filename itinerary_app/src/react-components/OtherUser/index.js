@@ -185,9 +185,9 @@ class OtherUser extends React.Component {
                     <div className="profile-banner"></div>
                     <div className="spacer"></div>
                     <div>
-                        <Avatar className="user-avatar" src="./../SearchPics/profilePic3.jpg"/>
+                        <Avatar className="otheruser-avatar" src="./../SearchPics/profilePic3.jpg"/>
                         <div>
-                            <Typography align="center" component="h1" variant="h5"> Adam Smith </Typography>
+                            <Typography align="center" component="h1" variant="h5"> Andrew Johnson </Typography>
                         </div>
                         <Paper>
                             <Tabs value={this.state.value} onChange={this.handleChange} indicatorColor="primary" textcolor="primary" centered>

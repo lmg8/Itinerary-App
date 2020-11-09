@@ -3,7 +3,7 @@
 .adminPageHeader{
     font-size: 400%;
     text-align: center;
-    font-family: "Fredoka One";
+    font: "Lato", sans-serif;
 }
 
 .background{

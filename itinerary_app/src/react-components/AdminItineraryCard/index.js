@@ -33,16 +33,6 @@ const AdminItineraryCard = props => {
                     </CardContent>
                 </Grid>
                 <Grid container direction="column" xs={4}>
-                    <Grid className="cardButton" item>
-                        <Button  fullWidth variant="outlined" color="primary">
-                            View Comments
-                        </Button>
-                    </Grid>
-                    <Grid className="cardButton" item>
-                        <Button fullWidth variant="outlined" color="primary">
-                            View Reviews
-                        </Button>
-                    </Grid>
                     <Grid className="cardButton" item> 
                         <Button fullWidth variant="contained" startIcon={<DeleteIcon />} color="secondary" onClick={deleteOnClick(itinerary.itineraryID)}>
                             Delete

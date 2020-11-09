@@ -204,6 +204,8 @@ class User extends React.Component {
                         </Container>
                     </Toolbar>
                 </AppBar>
+                    <div className="user-profile-banner"></div>
+                    <div className="spacer"></div>
                     <div>
                         <Avatar className="user-avatar" src="./../SearchPics/profilePic1.jpeg"/>
                         <div>

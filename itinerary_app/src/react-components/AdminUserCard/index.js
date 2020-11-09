@@ -47,7 +47,7 @@ const AdminUserCard = props => {
                             </Grid>
                             {/* Buttons */}
                             <Grid item xs={6}>
-                                <Link to="../User">
+                                <Link to="../User2">
                                     <Button fullWidth variant="outlined">View</Button>
                                 </Link>
                             </Grid>

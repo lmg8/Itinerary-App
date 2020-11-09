@@ -111,14 +111,12 @@ class Search extends React.Component {
                   </Link>
                 </Box>
               </Grid>
-              
-              <Box mx={3} mt={3}>
-              <Grid container>
+             
+              <Grid container xs={12}>
                 <Grid item xs={12}>
                     <h1 className="searchHeader">Search Results</h1>
                 </Grid>
               </Grid>
-              </Box>
               <Grid container>
                   {this.renderPeopleCards(this.state.filteredUsers)}
               </Grid>

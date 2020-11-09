@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
 .search-places-background-image {
-    background-color: rgba(34, 34, 34, 0.2);
     background-size: cover;
     width: 100%;
     height: 100%;
@@ -30,5 +29,5 @@
   }
   
   .searchHeader{
-      font-family: 'Fredoka One';
+      font: "Lato", sans-serif;
   }
