@@ -1,6 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {Avatar, Box, Card, CardActions, CardActionArea, CardContent, CardHeader, CardMedia, Button, IconButton, Typography, Grid} from '@material-ui/core';
+import {Card, CardActionArea, CardContent, CardMedia, Button, Typography, Grid} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import './styles.css';
 

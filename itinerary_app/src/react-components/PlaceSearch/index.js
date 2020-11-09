@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from '../Header';
 import PlaceCard from '../PlaceCard';
-import { Container, Grid, TextField, Box, Button } from '@material-ui/core';
+import { Grid, TextField, Box, Button } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';

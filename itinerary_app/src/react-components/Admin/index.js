@@ -1,5 +1,5 @@
 import React from "react";
-import {Avatar, Box, Card, CardActions, CardContent, CardHeader, CardMedia, Button, IconButton, Typography, Grid} from '@material-ui/core';
+import {Box, Button, Grid} from '@material-ui/core';
 import AdminUserCard from "../AdminUserCard";
 import Header from "../Header";
 import './styles.css';

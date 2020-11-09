@@ -1,6 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {Avatar, Box, Card, CardActions, CardContent, CardHeader, CardMedia, Button, IconButton, Typography, Grid} from '@material-ui/core';
+import {Card, CardContent, CardMedia, Button, Typography, Grid} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Link } from "react-router-dom";
 import './styles.css';
@@ -9,7 +8,7 @@ const AdminUserCard = props => {
     const {user, deleteOnClick} = props;
 
     return (<Grid item xs={4}>
-                <Card className variant="outlined" className="userCard" border={5}>
+                <Card variant="outlined" className="userCard" border={5}>
                     <CardContent>
                         {/* Delete Button */}
                         <Grid container xs={12}>

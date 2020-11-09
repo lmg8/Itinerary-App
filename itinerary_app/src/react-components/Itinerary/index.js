@@ -22,7 +22,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {ChevronRight} from "@material-ui/icons";
 import MapRoundedIcon from '@material-ui/icons/MapRounded';
 import QuestionAnswerRoundedIcon from '@material-ui/icons/QuestionAnswerRounded';
-import PeopleAltRoundedIcon from '@material-ui/icons/PeopleAltRounded';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import Tooltip from "@material-ui/core/Tooltip";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
@@ -38,12 +37,12 @@ const commentsData = [{  avatarUrl: `${process.env.PUBLIC_URL}/SearchPics/profil
     createdAt: new Date(),
     text: "Do you guys want to go with me",},
     {  avatarUrl: `${process.env.PUBLIC_URL}/SearchPics/profilePic2.jpeg`,
-        authorUrl: "/user",
+        authorUrl: "/user2",
         fullName: "Kate Park",
         createdAt: new Date(),
         text: "Let's do it!",},
     {  avatarUrl: `${process.env.PUBLIC_URL}/SearchPics/profilePic3.jpg`,
-        authorUrl: "/user",
+        authorUrl: "/user2",
         fullName: "Andrew Johnson",
         createdAt: new Date(),
         text: "When?",},

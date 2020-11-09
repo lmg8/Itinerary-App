@@ -7,7 +7,6 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { withStyles, withTheme } from "@material-ui/core/styles";
-import Divider from '@material-ui/core/Divider';
 
 import Faqs from '.././FAQs';
 
