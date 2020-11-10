@@ -17,6 +17,11 @@
     top: 250px;
 }
 
+.MuiAvatar-root.friend-avatar{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 .MuiButtonGroup-root.user_button_group {
     display: flex;
     float: right;
