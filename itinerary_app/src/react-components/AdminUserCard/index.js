@@ -45,14 +45,11 @@ const AdminUserCard = props => {
                                 </Typography>
                             </Grid>
                             {/* Buttons */}
-                            <Grid item xs={6}>
+                            <Grid item xs={12}>
                                 {/* This will query the database to retrieve the correct user */}
                                 <Link to="../User2">
                                     <Button fullWidth variant="outlined">View</Button>
                                 </Link>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Button fullWidth variant="outlined">Add</Button>
                             </Grid>
 
                         </Grid>
