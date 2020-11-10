@@ -330,19 +330,6 @@ class User extends React.Component {
                                                     title={friend["name"]}
                                                         subheader={friend["currLocation"]}
                                                 />
-                                                {/*<CardActionArea>*/}
-                                                {/*        <CardContent>*/}
-                                                {/*            <Typography variant="h5" component="h2">*/}
-                                                {/*                Name: {this.state.friendsList[0].name}*/}
-                                                {/*            </Typography>*/}
-                                                {/*            <Typography>*/}
-                                                {/*                Location: {this.state.friendsList[0].currLocation}*/}
-                                                {/*            </Typography>*/}
-                                                {/*            <Typography>*/}
-                                                {/*                Username: {this.state.friendsList[0].username}*/}
-                                                {/*            </Typography>*/}
-                                                {/*        </CardContent>*/}
-                                                {/*</CardActionArea>*/}
                                                 <CardActions>
                                                     <Link to={"../User2"}>
                                                         <Button size="small" color="secondary">View Profile</Button>
