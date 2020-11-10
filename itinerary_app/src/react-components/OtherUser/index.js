@@ -5,9 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -15,13 +12,11 @@ import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
 import Collapse from '@material-ui/core/Collapse'
-import { Tabs, Tab, CardContent, Container } from "@material-ui/core";
+import { Tabs, Tab, CardContent} from "@material-ui/core";
 
-
-import SettingsIcon from '@material-ui/icons/Settings';
-import SearchIcon from '@material-ui/icons/Search';
 
 import "./styles.css";
+import Header from "../Header";
 
 /* Component for the User page */
 
@@ -69,9 +64,10 @@ const hardCodedItinerary = {id:1,
 }
 
 const hardCodedFriend = {userId:1,
-    name: "Kate Park",
-    currLocation: "Montreal",
-    username: "KateP"
+    name: "Adam Smith",
+    currLocation: "Toronto",
+    username: "@ASmith",
+    profilePic: `${process.env.PUBLIC_URL}/SearchPics/profilePic1.jpeg`,
 }
 
 class OtherUser extends React.Component {
@@ -161,27 +157,7 @@ class OtherUser extends React.Component {
     render() {
         return (
             <div>
-                <AppBar className="user-appBar" color="primary" position="static">
-                    <Toolbar variant={"dense"}>
-                        <Container>
-                            <ButtonGroup size='small' variant="text">
-                                <Link to={"./../search"}>
-                                    <Button> <SearchIcon fontSize="large"/> </Button>
-                                </Link>
-                            </ButtonGroup>
-                            <ButtonGroup size='small' variant="text" className="signout_button_group">
-                                <Link to={"/"}>
-                                    <Button variant="contained">Sign out</Button>
-                                 </Link>
-                            </ButtonGroup>
-                            <ButtonGroup size='small' variant="text" className="user_button_group">
-                                <Link to={"user/settings" }>
-                                    <Button><SettingsIcon fontSize="large"/></Button>
-                                </Link>
-                            </ButtonGroup>
-                        </Container>
-                    </Toolbar>
-                </AppBar>
+                <Header/>
                     <div className="profile-banner"></div>
                     <div className="spacer"></div>
                     <div>
@@ -281,25 +257,20 @@ class OtherUser extends React.Component {
                             <Grid container spacing = {5}>
                                 {this.state.friendsList.map(friend => {
                                     return (
-                                        <Grid item md={3}>
+                                        <Grid item md={2.5}>
                                             <Card>
                                                 <CardHeader
-                                                    Avatar={
-                                                        <Avatar className="friend-avatar" src="/static/avatar.jpg"/>
-                                                    }/>
-                                                <CardActionArea>
-                                                        <CardContent>
-                                                            <Typography variant="h5" component="h2">
-                                                                Name: {this.state.friendsList[0].name}
-                                                            </Typography>
-                                                            <Typography>
-                                                                Location: {this.state.friendsList[0].currLocation}
-                                                            </Typography>
-                                                            <Typography>
-                                                                Username: {this.state.friendsList[0].username}
-                                                            </Typography>
-                                                        </CardContent>
-                                                </CardActionArea>
+                                                    avatar={
+                                                        <Avatar className="friend-avatar" src={friend["profilePic"]}/>}
+                                                    title={friend["name"]}
+                                                    subheader={friend["currLocation"]}
+                                                />
+                                                <CardActions>
+                                                    <Link to={"/User"}>
+                                                        <Button size="small" color="secondary">View Profile</Button>
+                                                    </Link>
+                                                    <Button size="small" color="secondary" onClick={()=>this.removeFriend(friend["userId"])}>Remove this friend</Button>
+                                                </CardActions>
                                             </Card>
                                         </Grid>)
                                     })}

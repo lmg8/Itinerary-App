@@ -15,7 +15,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
 import Collapse from '@material-ui/core/Collapse'
-import { Tabs, Tab, CardContent, Container } from "@material-ui/core";
+import {Tabs, Tab, CardContent, Container} from "@material-ui/core";
 
 
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -71,7 +71,8 @@ const hardCodedItinerary = {id:1,
 const hardCodedFriend = {userId:1,
     name: "Kate Park",
     currLocation: "Montreal",
-    username: "KateP"
+    username: "KateP",
+    profilePic: `${process.env.PUBLIC_URL}/SearchPics/profilePic2.jpeg`,
 }
 
 class User extends React.Component {
@@ -105,7 +106,12 @@ class User extends React.Component {
             //The below lists should be populated by the server (e.g. itineraryList: <itineraryList that is on the server>)
             itineraryList:[hardCodedItinerary],
             favouritesList:[],
-            friendsList:[hardCodedFriend],
+            friendsList:[hardCodedFriend, {userId:2,
+                name: "Andrew Johnson",
+                currLocation: "Seattle",
+                username: "AJ",
+                profilePic: `${process.env.PUBLIC_URL}/SearchPics/profilePic3.jpg`,
+            }],
             itineraryCardsExpanded: false,
             favouritesCardsExpanded: false,
         }
@@ -159,8 +165,9 @@ class User extends React.Component {
 
     removeFriend(id){
         //Code below should make a server call and update the friends section of the database on the server as well
+        console.log(id)
         const friendsList=[...this.state.friendsList];
-        const updatedFriendList = friendsList.filter(currentFriend => currentFriend.id !== id)
+        const updatedFriendList = friendsList.filter(currentFriend => currentFriend["userId"] !== id)
         this.setState({friendsList: updatedFriendList})
     }
 
@@ -261,7 +268,6 @@ class User extends React.Component {
                                                 <Typography paragraph>
                                                     {this.state.itineraryList[0].destinations[1]}
                                                 </Typography>
-                                                
                                             </CardContent>
                                         </Collapse>
                                     </Card>
@@ -313,30 +319,35 @@ class User extends React.Component {
                             </Grid>
                         </TabPanel>
                         <TabPanel value={this.state.value} index={2}>
-                            <Grid container spacing = {5}>
+                            <Grid container spacing = {1}>
                                 {this.state.friendsList.map(friend => {
                                     return (
-                                        <Grid item md={3}>
+                                        <Grid item md={2.5}>
                                             <Card>
                                                 <CardHeader
-                                                    Avatar={
-                                                        <Avatar className="friend-avatar" src="/static/avatar.jpg"/>
-                                                    }/>
-                                                <CardActionArea>
-                                                        <CardContent>
-                                                            <Typography variant="h5" component="h2">
-                                                                Name: {this.state.friendsList[0].name}
-                                                            </Typography>
-                                                            <Typography>
-                                                                Location: {this.state.friendsList[0].currLocation}
-                                                            </Typography>
-                                                            <Typography>
-                                                                Username: {this.state.friendsList[0].username}
-                                                            </Typography>
-                                                        </CardContent>
-                                                </CardActionArea>
+                                                    avatar={
+                                                        <Avatar className="friend-avatar" src={friend["profilePic"]}/>}
+                                                    title={friend["name"]}
+                                                        subheader={friend["currLocation"]}
+                                                />
+                                                {/*<CardActionArea>*/}
+                                                {/*        <CardContent>*/}
+                                                {/*            <Typography variant="h5" component="h2">*/}
+                                                {/*                Name: {this.state.friendsList[0].name}*/}
+                                                {/*            </Typography>*/}
+                                                {/*            <Typography>*/}
+                                                {/*                Location: {this.state.friendsList[0].currLocation}*/}
+                                                {/*            </Typography>*/}
+                                                {/*            <Typography>*/}
+                                                {/*                Username: {this.state.friendsList[0].username}*/}
+                                                {/*            </Typography>*/}
+                                                {/*        </CardContent>*/}
+                                                {/*</CardActionArea>*/}
                                                 <CardActions>
-                                                    <Button size="small" color="secondary" onClick={()=>this.removeFriend(friend.id)}>Remove this friend</Button>
+                                                    <Link to={"../User2"}>
+                                                        <Button size="small" color="secondary">View Profile</Button>
+                                                    </Link>
+                                                    <Button size="small" color="secondary" onClick={()=>this.removeFriend(friend["userId"])}>Remove this friend</Button>
                                                 </CardActions>
                                             </Card>
                                         </Grid>)
