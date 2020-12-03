@@ -10,8 +10,11 @@
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "bcryptjs": "^2.4.3",
     "date-fns": "^2.16.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.11.3",
     "react": "^17.0.1",
     "react-card-flip": "^1.0.11",
     "react-dom": "^17.0.1",
@@ -20,6 +23,7 @@
     "react-swipeable-views": "^0.13.9",
     "simple-react-comments": "^1.1.0",
     "uuid": "^8.3.1",
+    "validator": "^13.5.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
