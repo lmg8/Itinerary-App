@@ -128,7 +128,10 @@ app.post('/api/users', mongoChecker, async (req, res) => {
     // Create a new user
     const user = new User({
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        adminStatus: req.body.adminStatus
     })
 
     try {
@@ -140,32 +143,36 @@ app.post('/api/users', mongoChecker, async (req, res) => {
             res.status(500).send('Internal server error')
         } else {
             log(error)
-            res.status(400).send('Bad Request') // bad request for changing the student.
+            res.status(400).send('Bad Request') // bad request for changing the itinerary.
         }
     }
 })
 
-/** Student resource routes **/
-// a POST route to *create* a student
-app.post('/api/students', mongoChecker, authenticate, async (req, res) => {
-    log(`Adding student ${req.body.name}, created by user ${req.user._id}`)
+/** Itinerary resource routes **/
+// a POST route to *create* a itinerary
+app.post('/api/itineraries', mongoChecker, authenticate, async (req, res) => {
+    log(`Adding itinerary ${req.body.name}, created by user ${req.user._id}`)
 
-    // Create a new student using the Student mongoose model
-    const student = new Itinerary({
+    // Create a new itinerary using the Itinerary mongoose model
+    const itinerary = new Itinerary({
         name: req.body.name,
+        month: req.body.month,
+        day: req.body.day,
         year: req.body.year,
+        source: req.body.source,
+        destination: req.body.destination,
         creator: req.user._id // creator id from the authenticate middleware
     })
 
 
-    // Save student to the database
+    // Save itinerary to the database
     // async-await version:
     try {
-        const result = await student.save() 
+        const result = await itinerary.save() 
         res.send(result)
     } catch(error) {
         log(error) // log server error to the console, not to the client.
-        if (isMongoError(error)) { // check for if mongo server suddenly dissconnected before this request.
+        if (isMongoError(error)) { // check for if mongo server suddenly disconnected before this request.
             res.status(500).send('Internal server error')
         } else {
             res.status(400).send('Bad Request') // 400 for bad request gets sent to client.
@@ -173,23 +180,19 @@ app.post('/api/students', mongoChecker, authenticate, async (req, res) => {
     }
 })
 
-// a GET route to get all students
-app.get('/api/students', mongoChecker, authenticate, async (req, res) => {
+// a GET route to get all itineraries
+app.get('/api/itineraries', mongoChecker, authenticate, async (req, res) => {
 
-    // Get the students
+    // Get the itineraries
     try {
-        const students = await Student.find({creator: req.user._id})
-        // res.send(students) // just the array
-        res.send({ students }) // can wrap students in object if want to add more properties
+        const itineraries = await Itinerary.find({creator: req.user._id})
+        res.send({ itineraries }) // can wrap itineraries in object if want to add more properties
     } catch(error) {
         log(error)
         res.status(500).send("Internal Server Error")
     }
 
 })
-
-// other student API routes can go here...
-// ...
 
 /*** Webpage routes below **********************************/
 // Serve the build
