@@ -17,6 +17,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Collapse from '@material-ui/core/Collapse'
 import {Tabs, Tab, CardContent, Container} from "@material-ui/core";
 
+import {logout} from "../../actions/user"
+
 
 import SettingsIcon from '@material-ui/icons/Settings';
 import SearchIcon from '@material-ui/icons/Search';
@@ -187,6 +189,8 @@ class User extends React.Component {
     }
 
     render() {
+        const { app } = this.props
+
         return (
             <div >
                 <AppBar className="user-appBar" color="primary" position="static">
@@ -198,8 +202,8 @@ class User extends React.Component {
                                 </Link>
                             </ButtonGroup>
                             <ButtonGroup size='small' variant="text" className="signout_button_group">
-                                <Link to={"/"}>
-                                    <Button variant="contained">Sign out</Button>
+                                <Link className="signout_button_link" to={"/"}>
+                                    <Button variant="contained" onClick={()=>logout(app)}>Sign out</Button>
                                  </Link>
                             </ButtonGroup>
                             <ButtonGroup size='small' variant="text" className="user_button_group">
@@ -219,7 +223,7 @@ class User extends React.Component {
                             <Typography align="center" component="h1" variant="h5"> Adam Smith </Typography>
                         </div>
                         <Box textAlign='center'>
-                            <Link to ={"user/create-itinerary" }>
+                            <Link className="signout_button_link" to ={"user/create-itinerary" }>
                                 <Button variant="contained"> Create a new itinerary!</Button>
                             </Link>
                         </Box>

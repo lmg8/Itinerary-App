@@ -19,6 +19,10 @@
     align-items: center;
 }
 
+.signout_button_link{
+    text-decoration: none;
+}
+
 .MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary.generic-appBar {
     background-color: #282c34;
 }

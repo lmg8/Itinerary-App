@@ -45,6 +45,10 @@
     height: 350px;
 }
 
+.signout_button_link{
+    text-decoration: none;
+}
+
 .spacer{
     height: 80px;
 }
