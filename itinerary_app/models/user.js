@@ -8,7 +8,6 @@ const bcrypt = require('bcryptjs')
 const UserSchema = new mongoose.Schema({
 	email: {
 		type: String,
-		required: true,
 		minlength: 1,
 		trim: true,
 		unique: true,
@@ -17,6 +16,11 @@ const UserSchema = new mongoose.Schema({
 			message: 'Not valid email'
 		}
 	}, 
+	username: {
+		type: String,
+		required: true,
+		minlength:1
+	},
 	password: {
 		type: String,
 		required: true,
@@ -61,11 +65,11 @@ UserSchema.pre('save', function(next) {
 // A static method on the document model.
 // Allows us to find a User document by comparing the hashed password
 //  to a given one, for example when logging in.
-UserSchema.statics.findByEmailPassword = function(email, password) {
+UserSchema.statics.findByUsernamePassword = function(username, password) {
 	const User = this // binds this to the User model
 
 	// First find the user by their email
-	return User.findOne({ email: email }).then((user) => {
+	return User.findOne({ username: username }).then((user) => {
 		if (!user) {
 			return Promise.reject()  // a rejected promise
 		}
