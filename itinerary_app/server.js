@@ -83,15 +83,14 @@ app.post("/users/login", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    // log(email, password);
     // Use the static method on the User model to find a user
-    // by their email and password
+    // by their username and password
     User.findByUsernamePassword(username, password)
         .then(user => {
             // Add the user's id to the session.
             // We can check later if this exists to ensure we are logged in.
             req.session.user = user._id;
-            req.session.username = user.username; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
+            req.session.username = user.username; // we will later send the username to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
             res.send({ currentUser: user.username });
         })
         .catch(error => {
@@ -114,7 +113,7 @@ app.get("/users/logout", (req, res) => {
 // A route to check if a user is logged in on the session
 app.get("/users/check-session", (req, res) => {
     if (req.session.user) {
-        res.send({ currentUser: req.session.email });
+        res.send({ currentUser: req.session.username });
     } else {
         res.status(401).send();
     }
@@ -211,19 +210,21 @@ app.get('/api/users', mongoChecker, async (req, res) => {
 
 /*** Webpage routes below **********************************/
 // Serve the build
-app.use(express.static(path.join(__dirname, "/client/build")));
+app.use(express.static(path.join(__dirname, "/build")));
 
 // All routes other than above will go to index.html
 app.get("*", (req, res) => {
     // check for page routes that we expect in the frontend to provide correct status code.
-    const goodPageRoutes = ["/", "/login", "/dashboard"];
+    const goodPageRoutes = ["/", "/login", "/signup", "/about", "/search", "/search-places", "/admin", "/user"];
+    console.log(req)
     if (!goodPageRoutes.includes(req.url)) {
         // if url not in expected page routes, set status to 404.
+        console.log("not good route")
         res.status(404);
     }
 
     // send index.html
-    res.sendFile(path.join(__dirname, "/client/build/index.html"));
+    res.sendFile(path.join(__dirname, "/build/index.html"));
 });
 
 /*************************************************/
