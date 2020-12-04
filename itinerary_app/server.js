@@ -3,8 +3,10 @@
 const log = console.log;
 
 const express = require("express");
+const cors = require("cors")
 // starting the express server
 const app = express();
+app.use(cors())
 const path = require('path')
 
 // mongoose and mongo connection
@@ -78,19 +80,19 @@ app.use(
 
 // A route to login and create a session
 app.post("/users/login", (req, res) => {
-    const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
 
     // log(email, password);
     // Use the static method on the User model to find a user
     // by their email and password
-    User.findByEmailPassword(email, password)
+    User.findByUsernamePassword(username, password)
         .then(user => {
             // Add the user's id to the session.
             // We can check later if this exists to ensure we are logged in.
             req.session.user = user._id;
-            req.session.email = user.email; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
-            res.send({ currentUser: user.email });
+            req.session.username = user.username; // we will later send the email to the browser when checking if someone is logged in through GET /check-session (we will display it on the frontend dashboard. You could however also just send a boolean flag).
+            res.send({ currentUser: user.username });
         })
         .catch(error => {
             res.status(400).send()
@@ -128,6 +130,7 @@ app.post('/api/users', mongoChecker, async (req, res) => {
     // Create a new user
     const user = new User({
         email: req.body.email,
+        username: req.body.username,
         password: req.body.password,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
