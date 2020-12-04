@@ -10,22 +10,31 @@ import PlaceSearch from './react-components/PlaceSearch';
 import About from './react-components/About';
 import UserRoutes from "./react-components/UserRoutes";
 import Admin from './react-components/Admin';
+import User from './react-components/User';
 import OtherUser from './react-components/OtherUser';
 
 class App extends React.Component {
   state = {
-    initialState: "Itinerary" //probably going to change this later
+    initialState: "Itinerary", //probably going to change this later
+    currentUser: null
   }
 
+
   render(){
+    const { currentUser } = this.state;
+
     return(
       <div>
         {<BrowserRouter>
           <Switch>
             <Route exact path='/' render={() =>
               (<Home appState={this.state}/>)}/>
-            <Route exact path='/login' render={() => 
-              (<Login appState={this.state}/>)}/>
+            <Route exact path='/login' render={props => (
+                            <div >
+                                { /* If logged in, continue to user page, else stay on login page */}
+                                {!currentUser ? <Login {...props} app={this} /> : <User {...props} app={this} />}
+                            </div>        
+            )}/>
             <Route exact path='/signup' render={() => 
               (<Signup appState={this.state}/>)}/>
             <Route exact path='/about' render={() =>

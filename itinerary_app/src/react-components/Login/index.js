@@ -11,6 +11,8 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import HomeIcon from '@material-ui/icons/Home';
 import {Redirect} from 'react-router-dom';
 
+import {login, updateLoginForm} from "../../actions/user"
+
 import "./styles.css";
 
 /* Component for the Login page */
@@ -19,37 +21,16 @@ class Login extends React.Component {
 
     constructor(props){
         super(props);
+        this.props.history.push("/login")
         this.state={
             username:"",
-            password:"",
-            userAuthenticated: false,
-            adminAuthenticated: false,
+            password:""
         }
     }
-
-    handleUserNameChange = (e)=>{
-        this.setState({username: e.target.value})
-    }
-
-    handlePasswordChange = (e)=>{
-        this.setState({password: e.target.value})
-    }
-
-    handleOnClick = () =>{
-        //This should actually check with the database on the server for authentication
-        if (this.state.username == "user" && this.state.password == "user"){
-            this.setState({userAuthenticated:true});
-        } 
-        else if (this.state.username == "admin" && this.state.password == "admin"){
-            this.setState({adminAuthenticated:true});
-        } 
-        else {
-            alert("Wrong username or password");
-        }
-    }
-
 
     render() {
+        const { app } = this.props
+
         const userRedirect = this.state.userAuthenticated;
         const adminRedirect = this.state.adminAuthenticated;
         if (userRedirect){
@@ -76,10 +57,10 @@ class Login extends React.Component {
                                 Sign in
                             </Typography>
                             <form>
-                                <TextField variant="outlined" required id ="username-input" label = "Enter Username" autoComplete="username" fullWidth margin="normal" onChange={this.handleUserNameChange} value={this.state.username}/>
-                                <TextField variant="outlined" id="password-input" label="Enter Password" type="password" fullWidth margin="normal" onChange={this.handlePasswordChange} value={this.state.password}/>
+                                <TextField variant="outlined" required id ="username-input" name="username" label = "Enter Username" autoComplete="username" fullWidth margin="normal" onChange={e => updateLoginForm(this, e.target)}/>
+                                <TextField variant="outlined" id="password-input" name="password" label="Enter Password" type="password" fullWidth margin="normal" onChange={e => updateLoginForm(this, e.target)}/>
                             </form>
-                            <Button className="submit-button" type="submit" fullWidth variant="contained" onClick={this.handleOnClick} color="primary"> Submit </Button>
+                            <Button className="submit-button" type="submit" fullWidth variant="contained" onClick={()=>login(this,app)} color="primary"> Submit </Button>
                             <Link id="create-account" to={"./../Signup"}>No account? Create one now!</Link> 
                         </Card>
                     </div>

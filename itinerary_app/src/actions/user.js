@@ -33,7 +33,8 @@ export const updateLoginForm = (loginComp, field) => {
 // A function to send a POST request with the user to be logged in
 export const login = (loginComp, app) => {
     // Create our request constructor with all the parameters we need
-    const request = new Request("/users/login", {
+    //TODO: need to revert back to /users/login after I run build
+    const request = new Request("http://localhost:5000/users/login", {
         method: "post",
         body: JSON.stringify(loginComp.state),
         headers: {
@@ -41,7 +42,7 @@ export const login = (loginComp, app) => {
             "Content-Type": "application/json"
         }
     });
-
+    console.log(request)
     // Send the request with fetch()
     fetch(request)
         .then(res => {
@@ -55,6 +56,7 @@ export const login = (loginComp, app) => {
             }
         })
         .catch(error => {
+            alert("Incorrect username or password")
             console.log(error);
         });
 };
