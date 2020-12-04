@@ -36,6 +36,10 @@ const UserSchema = new mongoose.Schema({
 		required: true,
 		minlength:1
 	},
+	location: {
+		type: String,
+		required:false
+	},
 	adminStatus: {
 		type: Boolean,
 		required: true
@@ -68,7 +72,7 @@ UserSchema.pre('save', function(next) {
 UserSchema.statics.findByUsernamePassword = function(username, password) {
 	const User = this // binds this to the User model
 
-	// First find the user by their email
+	// First find the user by their username
 	return User.findOne({ username: username }).then((user) => {
 		if (!user) {
 			return Promise.reject()  // a rejected promise
