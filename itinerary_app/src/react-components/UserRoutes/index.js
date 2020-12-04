@@ -5,6 +5,7 @@ import UserSettings from "../UserSettings";
 import CreateItinerary from "../CreateItinerary";
 import ItinerariesRoute from "../ItinerariesRoute";
 import EditItineraryRoute from "../EditItineraryRoute";
+import { getUsers } from '../../actions/user';
 
 
 //Below are two hardcoded items to fill the state arrays. In the full release, the server should populate the arrays
@@ -28,11 +29,12 @@ class UserRoutes extends React.Component {
         super(props);
         this.state = {
             //get these information from server
-            userInfo: {name: "Adam Smith",
+            userInfo: {name: "",
                 source: "./../SearchPics/profilePic1.jpeg",
-                email: "adam.smith@email.com",
-                password: "user",
-                location: "123 Address St."},
+                email: "",
+                password: "",
+                location: ""
+            },
 
 
             //The below lists should be populated by the server (e.g. itineraryList: <itineraryList that is on the server>)
@@ -62,6 +64,11 @@ class UserRoutes extends React.Component {
     }
 
     render() {
+        const { history, app } = this.props;
+
+        if(this.state.userInfo.name === ""){
+            console.log(app.state.currentUser)
+        }
         return(
             <Switch>
                 <Route exact path={`${this.props.match.path}`} render={()=><User appState={this.state}/>}/>

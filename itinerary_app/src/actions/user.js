@@ -34,7 +34,7 @@ export const updateLoginForm = (loginComp, field) => {
 export const login = (loginComp, app) => {
     // Create our request constructor with all the parameters we need
     //TODO: need to revert back to /users/login after I run build
-    const request = new Request("http://localhost:5000/users/login", {
+    const request = new Request("/users/login", {
         method: "post",
         body: JSON.stringify(loginComp.state),
         headers: {
@@ -57,14 +57,12 @@ export const login = (loginComp, app) => {
         })
         .catch(error => {
             alert("Incorrect username or password")
-            console.log(error);
         });
 };
 
 // A function to send a GET request to logout the current user
 export const logout = (app) => {
     const url = "/users/logout";
-
     fetch(url)
         .then(res => {
             app.setState({
@@ -81,13 +79,13 @@ export const logout = (app) => {
 // and then loop through them and add a list element for each user
 export const getUsers = (page) => {
     // the URL for the request
-    const url = "http://localhost:5000/api/users";
+    const url = "/api/users";
 
     // Since this is a GET request, simply call fetch on the URL
     fetch(url)
         .then(res => {
             if (res.status === 200) {
-                console.log(res.clone().json()); // debugging 
+                //console.log(res.clone().json()); // debugging 
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {

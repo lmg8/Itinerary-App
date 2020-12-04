@@ -21,7 +21,7 @@ class Login extends React.Component {
 
     constructor(props){
         super(props);
-        this.props.history.push("/login")
+        this.props.history.push("/user")
         this.state={
             username:"",
             password:""

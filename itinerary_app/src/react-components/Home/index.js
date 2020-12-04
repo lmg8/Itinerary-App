@@ -12,7 +12,14 @@ import "./styles.css";
 
 class Home extends React.Component {
 
+    constructor(props){
+        super(props);
+        this.props.history.push("/")
+    }
+
     render() {
+        const { history, app } = this.props;
+
         return (
             <div className="home__bg-image center">
                 <Container className={"TitleContainer"}>
