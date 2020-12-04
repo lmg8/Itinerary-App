@@ -76,3 +76,29 @@ export const logout = (app) => {
             console.log(error);
         });
 };
+
+// A function to send a GET request to the web server,
+// and then loop through them and add a list element for each user
+export const getUsers = (page) => {
+    // the URL for the request
+    const url = "http://localhost:5000/api/users";
+
+    // Since this is a GET request, simply call fetch on the URL
+    fetch(url)
+        .then(res => {
+            if (res.status === 200) {
+                console.log(res.clone().json()); // debugging 
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Could not get users");
+            }
+        })
+        .then(json => {
+            // the resolved promise with the JSON body
+            page.setState({ users: json });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};

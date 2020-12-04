@@ -194,7 +194,19 @@ app.get('/api/itineraries', mongoChecker, authenticate, async (req, res) => {
         log(error)
         res.status(500).send("Internal Server Error")
     }
+})
 
+// a GET route to get all users
+app.get('/api/users', mongoChecker, async (req, res) => {
+
+    // Get the users
+    try {
+        const users = await User.find()
+        res.send(users)
+    } catch(error) {
+        log(error)
+        res.status(500).send("Internal Server Error")
+    }
 })
 
 /*** Webpage routes below **********************************/

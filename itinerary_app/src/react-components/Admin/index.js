@@ -5,6 +5,8 @@ import Header from "../Header";
 import './styles.css';
 import AdminItineraryCard from "../AdminItineraryCard";
 
+import { getUsers } from "../../actions/user";
+
 class Admin extends React.Component {
   state = {switchTo: "itineraries",
     // Hardcoded itinerary data, will be stored in a database in the final app
@@ -51,58 +53,7 @@ class Admin extends React.Component {
             timeOfDay: "13:00",
             banner:"./SearchPics/banner3.jpg",
         }],
-    // Hardcoded user data, will be stored in a database in the final app
-    users: [
-      { 
-        userID: 0,
-        firstName: "James", 
-        lastName: "Naismith", 
-        profilePic:"./SearchPics/profilePic1.jpeg", 
-        location: "Toronto", 
-        quote:"“You only live once, but if you do it right, once is enough.”",
-        banner:"./SearchPics/banner1.jpg" },
-      { 
-        userID: 1,
-        firstName: "Kate", 
-        lastName: "Park", 
-        profilePic: "./SearchPics/profilePic2.jpeg",
-        location: "Montreal",
-        quote: "“Laugh, even when you feel too sick or too worn out or tired.”",
-        banner: "./SearchPics/banner2.jpg" },
-      { 
-        userID: 2,
-        firstName: "Andrew", 
-        lastName: "Johnson", 
-        profilePic: "./SearchPics/profilePic3.jpg",
-        location: "Seattle",
-        quote: "“Hello, nice to meet you.”",
-        banner: "./SearchPics/banner3.jpg" 
-      },
-      { 
-        userID: 3,
-        firstName: "James", 
-        lastName: "Naismith", 
-        profilePic:"./SearchPics/profilePic1.jpeg", 
-        location: "Toronto", 
-        quote:"“You only live once, but if you do it right, once is enough.”",
-        banner:"./SearchPics/banner1.jpg" },
-      { 
-        userID: 4,
-        firstName: "Kate", 
-        lastName: "Park", 
-        profilePic: "./SearchPics/profilePic2.jpeg",
-        location: "Montreal",
-        quote: "“Laugh, even when you feel too sick or too worn out or tired.”",
-        banner: "./SearchPics/banner2.jpg" },
-      { 
-        userID: 5,
-        firstName: "Andrew", 
-        lastName: "Johnson", 
-        profilePic: "./SearchPics/profilePic3.jpg",
-        location: "Seattle",
-        quote: "“Hello, nice to meet you.”",
-        banner: "./SearchPics/banner3.jpg" 
-      }]
+    users: []
   };
     
     // deletes user matching given user ID
@@ -163,6 +114,8 @@ class Admin extends React.Component {
 
     // updates whether users or itineraries are displayed
     handleSwitch = () =>{
+        getUsers(this);
+        console.log(this.state);
         if (this.state.switchTo === "users"){
             this.setState({
                 switchTo: "itineraries"
