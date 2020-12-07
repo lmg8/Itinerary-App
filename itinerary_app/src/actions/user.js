@@ -1,5 +1,7 @@
 // Functions to help with user actions.
 
+import { Redirect } from "react-router-dom";
+
 // Send a request to check if a user is logged in through the session cookie
 export const checkSession = (app) => {
     const url = "/users/check-session";
@@ -33,7 +35,6 @@ export const updateLoginForm = (loginComp, field) => {
 // A function to send a POST request with the user to be logged in
 export const login = (loginComp, app) => {
     // Create our request constructor with all the parameters we need
-    //TODO: need to revert back to /users/login after I run build
     const request = new Request("/users/login", {
         method: "post",
         body: JSON.stringify(loginComp.state),
@@ -42,7 +43,6 @@ export const login = (loginComp, app) => {
             "Content-Type": "application/json"
         }
     });
-    console.log(request)
     // Send the request with fetch()
     fetch(request)
         .then(res => {

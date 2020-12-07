@@ -190,7 +190,6 @@ class User extends React.Component {
 
     render() {
         const { app } = this.props
-
         return (
             <div >
                 <AppBar className="user-appBar" color="primary" position="static">

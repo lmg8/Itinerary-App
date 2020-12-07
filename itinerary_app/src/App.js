@@ -40,12 +40,13 @@ class App extends React.Component {
                   {!currentUser ? <Home {...props} app={this} /> : <User {...props} app={this} />}
                 </div>        
               )}/>
-            <Route exact path='/login' render={props => (
-              <div >
-                { /* If logged in, continue to user page, else stay on login page */}
-                {!currentUser ? <Login {...props} app={this} /> : <User {...props} app={this} />}
-              </div>        
-            )}/>
+            <Route exact path='/login' render={props => 
+              (
+                <div >
+                  { /* If logged in, continue to user page, else stay on login page */}
+                  {!currentUser ? <Login {...props} app={this} /> : <User {...props} app={this} />}
+                </div>        
+              )}/>
             <Route exact path='/signup' render={() => 
               (<Signup appState={this.state}/>)}/>
             <Route exact path='/about' render={() =>
@@ -56,12 +57,13 @@ class App extends React.Component {
               (<PlaceSearch appState={this.state}/>)}/>
             <Route exact path='/admin' render={() =>
               (<Admin appState={this.state}/>)}/>
-            <Route path='/user' render={props => (
-              <div >
-                { /* If logged in, continue to user page, else stay on login page */}
-                {!currentUser ? <Login {...props} app={this} /> : <UserRoutes {...props} app={this} />}
-              </div>        
-            )}/>
+            <Route path='/user' render={props => 
+              (
+                <div >
+                  { /* If logged in, continue to user page, else stay on login page */}
+                  {!currentUser ? <Login {...props} app={this} /> : <User {...props} app={this} />}
+                </div>        
+              )}/>
             <Route exact path='/user2' render={() =>
               (<OtherUser appState={this.state}/>)}/>
           </Switch>
