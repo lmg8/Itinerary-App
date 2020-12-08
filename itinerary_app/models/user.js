@@ -42,7 +42,7 @@ const UserSchema = new mongoose.Schema({
 	},
 	adminStatus: {
 		type: Boolean,
-		required: true
+		required: false
 	}
 })
 

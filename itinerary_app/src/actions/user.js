@@ -32,6 +32,17 @@ export const updateLoginForm = (loginComp, field) => {
     });
 };
 
+// A functon to update the user creation form state
+export const updateCreationForm = (creationComp, field) => {
+    const value = field.value;
+    const name = field.name;
+
+    creationComp.setState({
+        [name]: value
+    });
+};
+
+
 // A function to send a POST request with the user to be logged in
 export const login = (loginComp, app) => {
     // Create our request constructor with all the parameters we need
@@ -98,5 +109,33 @@ export const getUsers = (page) => {
         })
         .catch(error => {
             console.log(error);
+        });
+};
+
+// A function to send a POST request to the web server,
+// and then loop through them and add a list element for each user
+export const createUser = (creationComp, app) => {
+    const request = new Request("/api/users", {
+        method: "post",
+        body: JSON.stringify(creationComp.state),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+    // Send the request with fetch()
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then(json => {
+            if (json.currentUser !== undefined) {
+                app.setState({ currentUser: json.currentUser });
+            }
+        })
+        .catch(error => {
+            alert("Error creating account. Please pick a unique username")
         });
 };
