@@ -43,6 +43,10 @@ const UserSchema = new mongoose.Schema({
 	adminStatus: {
 		type: Boolean,
 		required: false
+	},
+	friends: {
+		type: [String],
+		required: false
 	}
 })
 
