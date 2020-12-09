@@ -240,10 +240,10 @@ app.patch('/api/users/:id', async (req, res) => {
 		}
 	} catch (error) {
 		log(error)
-		if (isMongoError(error)) { // check for if mongo server suddenly dissconnected before this request.
+		if (isMongoError(error)) { // check for if mongo server suddenly disonnected before this request.
 			res.status(500).send('Internal server error')
 		} else {
-			res.status(400).send('Bad Request') // bad request for changing the student.
+			res.status(400).send('Bad Request') // bad request for changing the user.
 		}
     }
 });
