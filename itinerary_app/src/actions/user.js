@@ -139,3 +139,26 @@ export const createUser = (creationComp, app) => {
             alert("Error creating account. Please pick a unique username")
         });
 };
+
+export const addFriend = (friendUserId,currUserId,app) => {
+    const request = new Request(`/api/users/${currUserId}`, {
+        method: "patch",
+        body: JSON.stringify([
+            { "op": "replace", "path": "/friends", "value": [currUserId] }
+          ]),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+    // Send the request with fetch()
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .catch(error => {
+            alert("Error updating friends list.")
+        });
+};
