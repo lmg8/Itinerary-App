@@ -3,7 +3,8 @@
 
 const mongoose = require('mongoose')
 const validator = require('validator')
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
+const { Itinerary } = require('./itinerary');
 
 const UserSchema = new mongoose.Schema({
 	email: {
@@ -45,6 +46,17 @@ const UserSchema = new mongoose.Schema({
 		required: false
 	},
 	friends: {
+		//An array of user IDs
+		type: [String],
+		required: false
+	},
+	itineraries: {
+		//it will just be an array of itinerary ids
+		type: [String],
+		required: false
+	},
+	favourites: {
+		//An array of favourite itinerary ids
 		type: [String],
 		required: false
 	}
