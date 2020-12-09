@@ -96,7 +96,7 @@ export const getUsers = (page) => {
     fetch(url)
         .then(res => {
             if (res.status === 200) {
-                //console.log(res.clone().json()); // debugging 
+                // console.log(res.clone().json()); // debugging 
                 // return a promise that resolves with the JSON body
                 return res.json();
             } else {
@@ -105,7 +105,37 @@ export const getUsers = (page) => {
         })
         .then(json => {
             // the resolved promise with the JSON body
-            page.setState({ users: json });
+            page.setState({ userList: json });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+// A function to send a GET request to the web server,
+// and then loop through them and add a list element for each user
+export const getSpecificUser = (page,userId) => {
+    // the URL for the request
+    const url = `/api/users/${userId}`;
+
+    // Since this is a GET request, simply call fetch on the URL
+    fetch(url)
+        .then(res => {
+            if (res.status === 200) {
+                // console.log(res.clone().json()); // debugging 
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Could not get users");
+            }
+        })
+        .then(json => {
+            // the resolved promise with the JSON body
+            page.setState({ username: json.username });
+            page.setState({ firstName: json.firstName });
+            page.setState({ lastName: json.lastName });
+            page.setState({ userId: json._id })
+
         })
         .catch(error => {
             console.log(error);

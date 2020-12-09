@@ -17,7 +17,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Collapse from '@material-ui/core/Collapse'
 import {Tabs, Tab, CardContent, Container} from "@material-ui/core";
 
-import {logout} from "../../actions/user"
+import {logout, getUsers, getSpecificUser} from "../../actions/user"
 
 
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -86,8 +86,11 @@ class User extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            username:"user",
-            password:"user",
+            userList: [],
+            userId: 0,
+            username:"",
+            firstName:"",
+            lastName:"",
             newFavourite:{
                 id:'',
                 name:'',
@@ -118,7 +121,6 @@ class User extends React.Component {
             favouritesCardsExpanded: false,
         }
         this.handleChange = this.handleChange.bind(this);
-
     }
 
     addToFavourites(){
@@ -188,6 +190,16 @@ class User extends React.Component {
         this.setState(state=>({favouritesCardsExpanded: !state.favouritesCardsExpanded}));
     }
 
+    identifyUser = (currentUser) =>{
+        getUsers(this);
+        for (let i = 0; i < this.state.userList.length; i++){
+            if(currentUser == this.state.userList[i].username){
+                getSpecificUser(this, this.state.userList[i]._id)
+                return this.state.firstName +" "+ this.state.lastName
+            }
+        }
+    }
+
     render() {
         const { app } = this.props
         return (
@@ -219,7 +231,7 @@ class User extends React.Component {
                     <div>
                         <Avatar className="user-avatar" src="./../SearchPics/profilePic1.jpeg"/>
                         <div>
-                            <Typography align="center" component="h1" variant="h5"> Adam Smith </Typography>
+                            <Typography align="center" component="h1" variant="h5"> {this.identifyUser(app.state.currentUser)} </Typography>
                         </div>
                         <Box textAlign='center'>
                             <Link className="signout_button_link" to ={"user/create-itinerary" }>
