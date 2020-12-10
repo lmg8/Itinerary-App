@@ -2,6 +2,12 @@ import React from "react";
 import {Box, Button, Grid} from '@material-ui/core';
 import AdminUserCard from "../AdminUserCard";
 import Header from "../Header";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
 import './styles.css';
 import AdminItineraryCard from "../AdminItineraryCard";
 
@@ -9,21 +15,61 @@ import { getUsers, deleteUser } from "../../actions/user";
 import { getItineraries } from "../../actions/itinerary"
 
 class Admin extends React.Component {
-  state = {switchTo: "itineraries",
-    itineraries: [],
-    userList: []
-  };
+    state = {switchTo: "itineraries",
+        itineraries: [],
+        userList: [],
+        open: false,
+        selectedID: ""
+    };
+
+    transition = React.forwardRef(function Transition(props, ref) {
+        return <Slide direction="up" ref={ref} {...props} />;
+      });
+  
+    setOpen = (bool) => {
+        this.setState({
+            open: bool
+        })
+    };
+
+    setSelectedID = (id) => {
+        this.setState({
+            selectedID: id
+        })
+    }
+
+    handleClickOpen = userID => {
+        this.setOpen(true);
+        this.setSelectedID(userID);
+    };
+
+    handleCloseYes = () => {
+        this.setOpen(false);
+        this.handleDelete();
+    };
+
+    handleCloseNo = () => {
+        this.setOpen(false);
+    };
+
+    handleDelete = () => {
+        if (this.state.switchTo === "users"){
+            this.handleItineraryDelete(this.state.selectedID);
+        }
+        else{
+            console.log(this.state.selectedID);
+            this.handleUserDelete(this.state.selectedID);
+        }
+    };
     
     // deletes user matching given user ID
     // this will be a database update instead of a state update in the final app
-    handleUserDelete = IDToDelete => event => {
-        // this will be select _ where _ database query
-        console.log(IDToDelete);
+    handleUserDelete = IDToDelete => {
         let remainingUsers = this.state.userList.filter(
             user => user._id != IDToDelete);
             
         this.setState({
-            users: remainingUsers
+            userList: remainingUsers
         });
 
         deleteUser(IDToDelete);
@@ -51,7 +97,7 @@ class Admin extends React.Component {
         for (let i = 0; i < users.length; i++){
             userCards.push(<AdminUserCard
             user={users[i]}
-            deleteOnClick = {this.handleUserDelete}>
+            deleteOnClick = {this.handleClickOpen}>
             </AdminUserCard>)
         }
         return userCards;
@@ -95,6 +141,29 @@ class Admin extends React.Component {
   render() {
     return (
         <Box className="background">
+            <Dialog
+                open={this.state.open}
+                TransitionComponent={this.transition}
+                keepMounted
+                onClose={this.handleClose}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle id="alert-dialog-slide-title">{"Delete?"}</DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                    This cannot be undone.
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={this.handleCloseNo} color="primary">
+                    No
+                </Button>
+                <Button onClick={this.handleCloseYes} color="primary">
+                    Yes
+                </Button>
+                </DialogActions>
+            </Dialog>
             <Grid className="pageContainer" container>
                 <Grid item xs={12}>
                     <Header></Header>
