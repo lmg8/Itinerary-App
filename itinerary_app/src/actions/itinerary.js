@@ -74,23 +74,26 @@ export const createItinerary = (creationComp, createItinComp) => {
         .then(res => {
 
             if (res.status === 200) {
-                const request2 = new Request(`/api/users/${res.creator}`, {
-                    method: "patch",
-                    body: JSON.stringify([
-                        { "op": "add", "path": "/itineraries/-", "value": res._id }
-                    ]),
-                    headers: {
-                        Accept: "application/json, text/plain, */*",
-                        "Content-Type": "application/json"
-                    }
-                });
-                //update user itinerary list
-                fetch(request2)
-                    .catch(() =>{
-                        alert("Error: Could not add itinerary to user profile")
-                    })
-                createItinComp.setState({id: res._id})
+                return res.json();
             }
+        })
+        .then(json => {
+            const request2 = new Request(`/api/users/${json.creator}`, {
+                method: "patch",
+                body: JSON.stringify([
+                    { "op": "add", "path": "/itineraries/-", "value": json._id }
+                ]),
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json"
+                }
+            });
+            //update user itinerary list
+            fetch(request2)
+                .catch(() =>{
+                    alert("Error: Could not add itinerary to user profile")
+                })
+            createItinComp.setState({id: json._id})
         })
         .catch(() => {
             alert("Error: Could not add itinerary")
