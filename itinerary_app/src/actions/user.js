@@ -195,6 +195,7 @@ export const addFriend = (friendUserId,currUserId,app) => {
 
 // A function to send a DELETE request to the web server
 export const deleteUser = (userID, app) => {
+    console.log(userID);
     const request = new Request(`/api/users/${userID}`, {
         method: "delete",
        // body: JSON.stringify({userID: userID}),

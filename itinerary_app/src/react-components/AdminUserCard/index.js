@@ -13,7 +13,7 @@ const AdminUserCard = props => {
                         {/* Delete Button */}
                         <Grid container xs={12}>
                             <Grid item xs={1}></Grid>
-                            <Grid className="deleteButtonContainer" item xs={10} onClick={deleteOnClick(user._id)}>
+                            <Grid className="deleteButtonContainer" item xs={10} onClick={() => deleteOnClick(user._id)}>
                                 <Button fullWidth startIcon={<DeleteIcon />} variant="contained" color="secondary">
                                     Delete
                                 </Button>
