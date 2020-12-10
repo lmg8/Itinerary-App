@@ -6,54 +6,13 @@ import './styles.css';
 import AdminItineraryCard from "../AdminItineraryCard";
 
 import { getUsers } from "../../actions/user";
+import { getItineraries } from "../../actions/itinerary"
 
 class Admin extends React.Component {
   state = {switchTo: "itineraries",
     // Hardcoded itinerary data, will be stored in a database in the final app
-    itineraries: [
-        {
-            itineraryID: 0,
-            title: "A Night in Toronto",
-            day: "January 1st",
-            timeOfDay: "12:00",
-            banner:"./SearchPics/banner1.jpg",
-        },
-        {
-            itineraryID: 1,
-            title: "Toronto in the Summer",
-            day: "June 14th",
-            timeOfDay: "14:00",
-            banner:"./SearchPics/banner2.jpg",
-        },
-        {
-            itineraryID: 2,
-            title: "Beach Trip",
-            day: "July 29th",
-            timeOfDay: "19:00",
-            banner:"./SearchPics/banner3.jpg",
-        },
-        {
-            itineraryID: 3,
-            title: "Another Night in Toronto",
-            day: "January 1st",
-            timeOfDay: "02:00",
-            banner:"./SearchPics/banner1.jpg",
-        },
-        {
-            itineraryID: 4,
-            title: "Watching the Sunset",
-            day: "September 14th",
-            timeOfDay: "16:00",
-            banner:"./SearchPics/banner2.jpg",
-        },
-        {
-            itineraryID: 5,
-            title: "Beach Trip 2",
-            day: "May 17th",
-            timeOfDay: "13:00",
-            banner:"./SearchPics/banner3.jpg",
-        }],
-    users: []
+    itineraries: [],
+    userList: []
   };
     
     // deletes user matching given user ID
@@ -114,7 +73,10 @@ class Admin extends React.Component {
 
     // updates whether users or itineraries are displayed
     handleSwitch = () =>{
+        // get from database
         getUsers(this);
+        getItineraries(this);
+        
         console.log(this.state);
         if (this.state.switchTo === "users"){
             this.setState({
@@ -141,7 +103,7 @@ class Admin extends React.Component {
                         <h1 className="adminPageHeader">Admin Page</h1>
                     </Grid>
                     <Grid container item xs={9} spacing={2}>
-                        {this.renderUserCards(this.state.users)}
+                        {this.renderUserCards(this.state.userList)}
                         {this.renderItineraryCards(this.state.itineraries)}
                     </Grid>
                     <Grid container xs={3}>

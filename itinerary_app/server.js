@@ -182,12 +182,12 @@ app.post('/api/itineraries', mongoChecker, authenticate, async (req, res) => {
 })
 
 // a GET route to get all itineraries
-app.get('/api/itineraries', mongoChecker, authenticate, async (req, res) => {
+app.get('/api/itineraries', mongoChecker, async (req, res) => {
 
     // Get the itineraries
     try {
-        const itineraries = await Itinerary.find({creator: req.user._id})
-        res.send({ itineraries }) // can wrap itineraries in object if want to add more properties
+        const itineraries = await Itinerary.find()
+        res.send(itineraries) // can wrap itineraries in object if want to add more properties
     } catch(error) {
         log(error)
         res.status(500).send("Internal Server Error")
