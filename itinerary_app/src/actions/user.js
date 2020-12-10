@@ -174,7 +174,7 @@ export const addFriend = (friendUserId,currUserId,app) => {
     const request = new Request(`/api/users/${currUserId}`, {
         method: "patch",
         body: JSON.stringify([
-            { "op": "replace", "path": "/friends", "value": [currUserId] }
+            { "op": "replace", "path": "/friends", "value": [friendUserId] }
           ]),
         headers: {
             Accept: "application/json, text/plain, */*",
