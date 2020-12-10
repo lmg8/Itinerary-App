@@ -157,11 +157,10 @@ app.post('/api/itineraries', mongoChecker, authenticate, async (req, res) => {
     // Create a new itinerary using the Itinerary mongoose model
     const itinerary = new Itinerary({
         name: req.body.name,
-        month: req.body.month,
-        day: req.body.day,
-        year: req.body.year,
+        startDate: req.body.startDate,
         source: req.body.source,
         destination: req.body.destination,
+        waypoints: req.body.waypoints,
         creator: req.user._id // creator id from the authenticate middleware
     })
 
@@ -194,6 +193,39 @@ app.get('/api/itineraries', mongoChecker, async (req, res) => {
     }
 })
 
+// a GET route to get specific itinerary
+app.get('/api/itineraries/:id', mongoChecker, async (req, res) => {
+    const id = req.params.id
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;  // so that we don't run the rest of the handler.
+    }
+
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log('Issue with mongoose connection')
+        res.status(500).send('Internal server error')
+        return;
+    }
+    // Get the itinerary
+    try {
+        const itinerary = await Itinerary.findById({_id: id})
+        if (!itinerary) {
+            res.status(404).send('Resource not found')
+        } else {
+            res.send(itinerary)
+        }
+    } catch (error) {
+        log(error)
+        if (isMongoError(error)) { // check for if mongo server suddenly disonnected before this request.
+            res.status(500).send('Internal server error')
+        } else {
+            res.status(400).send('Bad Request') // bad request for changing the user.
+        }
+    }
+})
+
 // a GET route to get all users
 app.get('/api/users', mongoChecker, async (req, res) => {
 
@@ -210,7 +242,6 @@ app.get('/api/users', mongoChecker, async (req, res) => {
 // a GET route to get specific users
 app.get('/api/users/:id', mongoChecker, async (req, res) => {
 	const id = req.params.id
-
     if (!ObjectID.isValid(id)) {
 		res.status(404).send()
 		return;  // so that we don't run the rest of the handler.
