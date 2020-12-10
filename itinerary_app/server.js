@@ -281,6 +281,39 @@ app.patch('/api/users/:id', async (req, res) => {
     }
 });
 
+app.delete('/api/users/:id', async (req, res) => {
+	const id = req.params.id
+
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send()
+		return;  // so that we don't run the rest of the handler.
+	}
+
+	// check mongoose connection established.
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+
+	// find user and delete them from the database
+	try {
+		const user = await User.findOneAndDelete({_id: id}, {useFindAndModify: false})
+		if (!user) {
+			res.status(404).send('User not found')
+		} else {   
+			res.send(user)
+		}
+	} catch (error) {
+		log(error)
+		if (isMongoError(error)) { // check for if mongo server suddenly disonnected before this request.
+			res.status(500).send('Internal server error')
+		} else {
+			res.status(400).send('Bad Request') // bad request for changing the user.
+		}
+    }
+});
+
 /*** Webpage routes below **********************************/
 // Serve the build
 app.use(express.static(path.join(__dirname, "/build")));

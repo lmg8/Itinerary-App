@@ -5,12 +5,11 @@ import Header from "../Header";
 import './styles.css';
 import AdminItineraryCard from "../AdminItineraryCard";
 
-import { getUsers } from "../../actions/user";
+import { getUsers, deleteUser } from "../../actions/user";
 import { getItineraries } from "../../actions/itinerary"
 
 class Admin extends React.Component {
   state = {switchTo: "itineraries",
-    // Hardcoded itinerary data, will be stored in a database in the final app
     itineraries: [],
     userList: []
   };
@@ -19,12 +18,15 @@ class Admin extends React.Component {
     // this will be a database update instead of a state update in the final app
     handleUserDelete = IDToDelete => event => {
         // this will be select _ where _ database query
-        let remainingUsers = this.state.users.filter(
-            user => user.userID != IDToDelete);
+        console.log(IDToDelete);
+        let remainingUsers = this.state.userList.filter(
+            user => user._id != IDToDelete);
             
         this.setState({
             users: remainingUsers
         });
+
+        deleteUser(IDToDelete);
     }
 
     // deletes user matching given user ID
@@ -76,7 +78,7 @@ class Admin extends React.Component {
         // get from database
         getUsers(this);
         getItineraries(this);
-        
+
         console.log(this.state);
         if (this.state.switchTo === "users"){
             this.setState({
