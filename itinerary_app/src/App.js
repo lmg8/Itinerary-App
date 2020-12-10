@@ -21,14 +21,21 @@ class App extends React.Component {
   constructor(props) {
       super(props);
   }
+
+  componentDidMount(){
+    checkSession(this)
+  }
+
   state = {
     initialState: "Itinerary", //probably going to change this later
-    currentUser: null
+    currentUser: null,
+    adminStatus: false
   }
 
 
   render(){
-    const { currentUser } = this.state;
+    const { currentUser, adminStatus } = this.state;
+    console.log(adminStatus)
     return(
       <div>
         {<BrowserRouter>
@@ -54,14 +61,19 @@ class App extends React.Component {
                   {!currentUser ? <Signup {...props} app={this} /> : <User {...props} app={this} />}
                 </div>        
               )}/>
-            <Route exact path='/about' render={() =>
-                (<About appState={this.state}/>)}/>
-            <Route exact path='/search' render={() =>
-              (<Search appState={this.state}/>)}/>
-            <Route exact path='/search-places' render={() =>
-              (<PlaceSearch appState={this.state}/>)}/>
-            <Route exact path='/admin' render={() =>
-              (<Admin appState={this.state}/>)}/>
+            <Route exact path='/about' render={props =>
+                (<About {...props} app={this}/>)}/>
+            <Route exact path='/search' render={props =>
+              (<Search {...props} app={this}/>)}/>
+            <Route exact path='/search-places' render={props =>
+              (<PlaceSearch {...props} app={this}/>)}/>
+            <Route exact path='/admin' render={props => 
+              (
+                <div >
+                  { /* If admin, continue to admin page, else bring them to login page */}
+                  {!adminStatus ? <Login {...props} app={this} /> : <Admin {...props} app={this} />}
+                </div>        
+              )}/>
             <Route path='/user' render={props => 
               (
                 <div >
@@ -69,8 +81,12 @@ class App extends React.Component {
                   {!currentUser ? <Login {...props} app={this} /> : <UserRoutes {...props} app={this} />}
                 </div>        
               )}/>
-            <Route exact path='/user2' render={() =>
-              (<OtherUser appState={this.state}/>)}/>
+            <Route exact path='/user2' render={props => 
+              (
+                <div >
+                  <OtherUser {...props} app={this} /> 
+                </div>        
+              )}/>
           </Switch>
         </BrowserRouter>}
       </div>

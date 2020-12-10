@@ -14,7 +14,6 @@ class Home extends React.Component {
 
     constructor(props){
         super(props);
-        this.props.history.push("/")
     }
 
     render() {

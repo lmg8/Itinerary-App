@@ -21,6 +21,7 @@ import {logout, getUsers, getSpecificUser} from "../../actions/user"
 
 
 import SettingsIcon from '@material-ui/icons/Settings';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import SearchIcon from '@material-ui/icons/Search';
 
 import "./styles.css";
@@ -70,13 +71,6 @@ const hardCodedItinerary = {id:1,
     startDate:'August 12, 2020'
 }
 
-const hardCodedFriend = {userId:1,
-    name: "Kate Park",
-    currLocation: "Montreal",
-    username: "KateP",
-    profilePic: `${process.env.PUBLIC_URL}/SearchPics/profilePic2.jpeg`,
-}
-
 class User extends React.Component {
 
     handleChange(event, value) {
@@ -91,6 +85,7 @@ class User extends React.Component {
             username:"",
             firstName:"",
             lastName:"",
+            adminStatus: false,
             newFavourite:{
                 id:'',
                 name:'',
@@ -111,7 +106,7 @@ class User extends React.Component {
             //The below lists should be populated by the server (e.g. itineraryList: <itineraryList that is on the server>)
             itineraryList:[hardCodedItinerary],
             favouritesList:[],
-            friendsList:[hardCodedFriend, {userId:2,
+            friendsList:[{userId:2,
                 name: "Andrew Johnson",
                 currLocation: "Seattle",
                 username: "AJ",
@@ -191,7 +186,9 @@ class User extends React.Component {
     }
 
     identifyUser = (currentUser) =>{
-        getUsers(this);
+        if (this.state.userList.length === 0){
+            getUsers(this);
+        }
         for (let i = 0; i < this.state.userList.length; i++){
             if(currentUser == this.state.userList[i].username){
                 getSpecificUser(this, this.state.userList[i]._id)
@@ -202,7 +199,8 @@ class User extends React.Component {
 
     render() {
         const { app } = this.props
-        return (
+        if (this.state.adminStatus === false){
+            return (
             <div >
                 <AppBar className="user-appBar" color="primary" position="static">
                     <Toolbar variant={"dense"}>
@@ -359,7 +357,167 @@ class User extends React.Component {
                         </TabPanel>
                     </div>
             </div>
-        );
+        );} else {
+            return (
+                <div >
+                    <AppBar className="user-appBar" color="primary" position="static">
+                        <Toolbar variant={"dense"}>
+                            <Container>
+                                <ButtonGroup size='small' variant="text">
+                                    <Link to={"./../search"}>
+                                        <Button> <SearchIcon fontSize="large"/> </Button>
+                                    </Link>
+                                </ButtonGroup>
+                                <ButtonGroup size='small' variant="text" className="signout_button_group">
+                                    <Link className="signout_button_link" to={"/"}>
+                                        <Button variant="contained" onClick={()=>logout(app)}>Sign out</Button>
+                                     </Link>
+                                </ButtonGroup>
+                                <ButtonGroup size='small' variant="text" className="user_button_group">
+                                    <Link to={"/admin" }>
+                                        <Button><SupervisorAccountIcon fontSize="large"/></Button>
+                                    </Link>
+                                </ButtonGroup>
+                                
+                            </Container>
+                        </Toolbar>
+                    </AppBar>
+                        <div className="user-profile-banner"></div>
+                        <div className="spacer"></div>
+                        <div>
+                            <Avatar className="user-avatar" src="./../SearchPics/profilePic1.jpeg"/>
+                            <div>
+                                <Typography align="center" component="h1" variant="h5"> {this.identifyUser(app.state.currentUser)} </Typography>
+                            </div>
+                            <Box textAlign='center'>
+                                <Link className="signout_button_link" to ={"user/create-itinerary" }>
+                                    <Button variant="contained"> Create a new itinerary!</Button>
+                                </Link>
+                            </Box>
+    
+                            <Paper>
+                                <Tabs value={this.state.value} onChange={this.handleChange} indicatorColor="primary" textcolor="primary" centered>
+                                    <Tab label="Itineraries" {...allyProps(0)}/>
+                                    <Tab label="Favourites" {...allyProps(1)}/>
+                                    <Tab label="Friends" {...allyProps(2)}/>
+                                </Tabs>
+                            </Paper>
+                            <TabPanel value={this.state.value} index={0}>
+                                <Grid container spacing = {5}>
+                                {this.state.itineraryList.map(itinerary => {
+                                    return (
+                                    <Grid item key={itinerary.id} md={3}>
+                                            <Card>
+                                                <CardActionArea onClick={this.handleItineraryCardClick}>
+                                                        <CardContent>
+                                                            <Typography variant="h5" component="h2">
+                                                                Itinerary: {this.state.itineraryList[0].name}
+                                                            </Typography>
+                                                            <Typography>
+                                                                Starting Location:{this.state.itineraryList[0].starting}
+                                                            </Typography>
+                                                            <Typography>
+                                                                Destination: {this.state.itineraryList[0].ending}
+                                                            </Typography>
+                                                        </CardContent>
+                                                </CardActionArea>
+                                                <CardActions>
+                                                    <Link to={{pathname:"/user/itinerary/0"}}>
+                                                    <Button size="small" color="primary">View</Button>
+                                                    </Link>
+                                                    <Button size="small" color="primary" onClick={()=>this.addToFavourites()}>Favourite this itinerary</Button>
+                                                    <Button size="small" color="secondary" onClick={()=>this.removeItinerary(itinerary.id)}>Delete this itinerary</Button>
+                                                </CardActions>
+                                            <Collapse in={this.state.itineraryCardsExpanded} timeout="auto" unmountOnExit>
+                                                <CardContent>
+                                                    <Typography paragraph variant="h5">
+                                                        Stops in between:
+                                                    </Typography>
+                                                    <Typography paragraph>
+                                                        {this.state.itineraryList[0].destinations[0]}
+                                                    </Typography>
+                                                    <Typography paragraph>
+                                                        {this.state.itineraryList[0].destinations[1]}
+                                                    </Typography>
+                                                </CardContent>
+                                            </Collapse>
+                                        </Card>
+    
+                                    </Grid>)
+                                    })}
+                                </Grid>
+                            </TabPanel>
+                            <TabPanel value={this.state.value} index={1}>
+                            <Grid container spacing = {5}>
+                                {this.state.favouritesList.map(itinerary => {
+                                    return (
+                                        <Grid item key={itinerary.id} md={3}>
+                                            <Card>
+                                                <CardActionArea onClick={this.handleFavouritesCardClick}>
+                                                        {<CardContent>
+                                                            <Typography variant="h5" component="h2">
+                                                                {this.state.favouritesList[0].name}
+                                                            </Typography>
+                                                            <Typography>
+                                                                Starting location: {this.state.favouritesList[0].starting}
+                                                            </Typography>
+                                                            <Typography>
+                                                                Destination: {this.state.favouritesList[0].ending}
+                                                            </Typography>
+                                                        </CardContent>}
+                                                </CardActionArea>
+                                                <CardActions>
+                                                    <Button size="small" color="secondary" onClick={()=>this.removeFromFavourites(itinerary.id)}>Remove this itinerary from favourites</Button>
+                                                </CardActions>
+                                                <Collapse in={this.state.favouritesCardsExpanded} timeout="auto" unmountOnExit>
+                                                <CardContent>
+                                                    <Typography paragraph variant="h5">
+                                                        Stops in between:
+                                                    </Typography>
+                                                    <Typography paragraph>
+                                                        {this.state.favouritesList[0].destinations[0]}
+                                                    </Typography>
+                                                    <Typography paragraph>
+                                                        {this.state.favouritesList[0].destinations[1]}
+                                                    </Typography>
+                                                    
+                                                </CardContent>
+                                            </Collapse>
+                                            </Card>
+                                        </Grid>)
+                                })}
+                                    
+                                </Grid>
+                            </TabPanel>
+                            <TabPanel value={this.state.value} index={2}>
+                                <Grid container spacing = {1}>
+                                    {this.state.friendsList.map(friend => {
+                                        return (
+                                            <Grid item md={2.5}>
+                                                <Card>
+                                                    <CardHeader
+                                                        avatar={
+                                                            <Avatar className="friend-avatar" src={friend["profilePic"]}/>}
+                                                        title={friend["name"]}
+                                                            subheader={friend["currLocation"]}
+                                                    />
+                                                    <CardActions>
+                                                        <Link to={"../User2"}>
+                                                            <Button size="small" color="secondary">View Profile</Button>
+                                                        </Link>
+                                                        <Button size="small" color="secondary" onClick={()=>this.removeFriend(friend["userId"])}>Remove this friend</Button>
+                                                    </CardActions>
+                                                </Card>
+                                            </Grid>)
+                                        })}
+    
+                                </Grid>
+                            </TabPanel>
+                        </div>
+                </div>
+            );
+        }
+        
         
     }
 }

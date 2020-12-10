@@ -64,6 +64,9 @@ export const login = (loginComp, app) => {
         .then(json => {
             if (json.currentUser !== undefined) {
                 app.setState({ currentUser: json.currentUser });
+                if (json.currentUser === "admin"){
+                    app.setState({ adminStatus: true});
+                }
             }
         })
         .catch(error => {
@@ -134,7 +137,10 @@ export const getSpecificUser = (page,userId) => {
             page.setState({ username: json.username });
             page.setState({ firstName: json.firstName });
             page.setState({ lastName: json.lastName });
-            page.setState({ userId: json._id })
+            page.setState({ userId: json._id });
+            if (json.adminStatus === true){
+                page.setState({ adminStatus: json.adminStatus})
+            }
 
         })
         .catch(error => {

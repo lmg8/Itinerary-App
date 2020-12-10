@@ -31,8 +31,8 @@ class Header extends React.Component{
                             </Link>
                         </ButtonGroup>
                         <ButtonGroup size='small' variant="text" className="signout_button_group">
-                            <Link className="signout_button_link" to={{pathname: "/"} }>
-                                <Button variant="contained" onClick={()=>logout(app)} >Sign out</Button>
+                            <Link className="signout_button_link" to={{pathname: "/login"} }>
+                                <Button variant="contained"> Return to user page</Button>
                             </Link>
                         </ButtonGroup>
                         <ButtonGroup size='small' variant="text" className="generic_button_group">
