@@ -309,7 +309,40 @@ app.delete('/api/users/:id', async (req, res) => {
 		if (isMongoError(error)) { // check for if mongo server suddenly disonnected before this request.
 			res.status(500).send('Internal server error')
 		} else {
-			res.status(400).send('Bad Request') // bad request for changing the user.
+			res.status(400).send('Bad Request') // bad request for deleting the user.
+		}
+    }
+});
+
+app.delete('/api/itineraries/:id', async (req, res) => {
+	const id = req.params.id
+    console.log(id);
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send()
+		return;  // so that we don't run the rest of the handler.
+	}
+
+	// check mongoose connection established.
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+
+	// find itinerary and delete it from the database
+	try {
+		const itinerary = await Itinerary.findOneAndDelete({_id: id}, {useFindAndModify: false})
+		if (!itinerary) {
+			res.status(404).send('Itinerary not found')
+		} else {   
+			res.send(itinerary)
+		}
+	} catch (error) {
+		log(error)
+		if (isMongoError(error)) { // check for if mongo server suddenly disonnected before this request.
+			res.status(500).send('Internal server error')
+		} else {
+			res.status(400).send('Bad Request') // bad request for deleting the itinerary.
 		}
     }
 });

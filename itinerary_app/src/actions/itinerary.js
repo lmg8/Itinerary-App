@@ -27,3 +27,27 @@ export const getItineraries = (page) => {
             console.log(error);
         });
 };
+
+// A function to send a DELETE request to the web server
+// deletes an itinerary by ID
+export const deleteItinerary = (itineraryID, app) => {
+    const request = new Request(`/api/itineraries/${itineraryID}`, {
+        method: "delete",
+       // body: JSON.stringify({userID: userID}),
+       // headers: {
+         //   Accept: "application/json, text/plain, */*",
+        //    "Content-Type": "application/json"
+        //}
+    });
+    // Send the request with fetch()
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then()
+        .catch(error => {
+            alert("Error deleting itinerary")
+        });
+};

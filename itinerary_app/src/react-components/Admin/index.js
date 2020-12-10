@@ -12,7 +12,7 @@ import './styles.css';
 import AdminItineraryCard from "../AdminItineraryCard";
 
 import { getUsers, deleteUser } from "../../actions/user";
-import { getItineraries } from "../../actions/itinerary"
+import { getItineraries, deleteItinerary } from "../../actions/itinerary"
 
 class Admin extends React.Component {
     state = {switchTo: "itineraries",
@@ -55,6 +55,7 @@ class Admin extends React.Component {
     handleDelete = () => {
         if (this.state.switchTo === "users"){
             this.handleItineraryDelete(this.state.selectedID);
+            console.log(this.state.selectedID);
         }
         else{
             console.log(this.state.selectedID);
@@ -77,14 +78,15 @@ class Admin extends React.Component {
 
     // deletes user matching given user ID
     // this will be a database update instead of a state update in the final app
-    handleItineraryDelete = IDToDelete => event => {
-        // this will be select _ where _ database query
+    handleItineraryDelete = IDToDelete => {
         let remainingItineraries = this.state.itineraries.filter(
-            itinerary => itinerary.itineraryID != IDToDelete);
+            itinerary => itinerary._id != IDToDelete);
             
         this.setState({
             itineraries: remainingItineraries
         });
+
+        deleteItinerary(IDToDelete);
     }
 
     // returns cards displaying all user information
@@ -113,7 +115,7 @@ class Admin extends React.Component {
         for (let i = 0; i < itineraries.length; i++){
             itineraryCards.push(<AdminItineraryCard
             itinerary={itineraries[i]}
-            deleteOnClick = {this.handleItineraryDelete}>
+            deleteOnClick = {this.handleClickOpen}>
             </AdminItineraryCard>)
         }
         return itineraryCards;
