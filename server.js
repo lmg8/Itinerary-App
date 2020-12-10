@@ -380,7 +380,7 @@ app.delete('/api/itineraries/:id', async (req, res) => {
 
 /*** Webpage routes below **********************************/
 // Serve the build
-app.use(express.static(path.join(__dirname, "/build")));
+app.use(express.static(path.join(__dirname, "itinerary_app/build")));
 
 // All routes other than above will go to index.html
 app.get("*", (req, res) => {
