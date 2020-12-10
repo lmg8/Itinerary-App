@@ -41,7 +41,11 @@ export const deleteItinerary = (itineraryID, app) => {
     });
     // Send the request with fetch()
     fetch(request)
-        .then(res => {
+    .then()
+    .catch(error => {
+        alert("Error deleting user")
+    });
+};
 
 // A function to send a GET request to the web server,
 // and then loop through them and add a list element for each itinerary
@@ -114,5 +118,6 @@ export const createItinerary = (creationComp, createItinComp) => {
         })
         .catch(() => {
             alert("Error: Could not add itinerary")
-        });
-};
+        })
+        })
+    };
