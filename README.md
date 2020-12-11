@@ -28,9 +28,7 @@
         
 # ACCOUNT CREATION
 
-Here, the new user can create an account by filling in the appropriate fields. Their profile picture can be set later in the settings menu.
-
-*Note: Currently, after creating the account, it leads you to the hardcoded user page. In the full release it should fill in the appropriate details.*
+Here, the new user can create an account by filling in the appropriate fields. After creating a user, you will need to sign in again with your newly created account.
         
 # USER VIEWS
 
@@ -38,7 +36,7 @@ If you are signed in as a user. You can create a new itinerary, view/remove an a
 
 If you are signed in as an admin. You can view users and all itineraries on the website.
 
-In both "signed-in" views, there is a bar at the top. In this bar are multiple buttons. One button signs you out and brings you to the home page, one leads you to the user settings page, one leads you to search functions, and one leads you to the user page. If you are already at the user page, you will not have the button to bring you to the user page. 
+In both "signed-in" views, there is a bar at the top. In this bar are multiple buttons. One button signs you out and brings you to the home page, one leads you to user settings, one leads you to search functions, and one leads you to the user page. If you are already at the user page, you will not have the button to bring you to the user page. The admin user will have an admin menu button instead of a user settings button. 
 
 # STANDARD USER
 
@@ -56,11 +54,9 @@ After clicking "Create a new itinerary", the user can name their trip, choose a 
 
 On the map, there are two buttons. One to view the itinerary comments and one to view the itinerary itself. The itinerary will pop up on the right and the user can click the addresses to view the reviews. An edit itinerary button is on the top left of the itinerary panel. From here, one can edit the itinerary.
 
-*Note: the map is a still image currently as this is just a proof of concept*
-
 # ADMIN USER
 
-From the admin view, they can delete and view users. They can also delete itineraries. These features will be used by an admin to remove inappropriate users/itineraries. When viewing users, it will only lead to one specific user regardless of who is selected. This is because the user is hard coded in. In the final product, a database should be parsed for the user instead.
+From the admin view, they can delete and view users. They can also delete itineraries. These features will be used by an admin to remove inappropriate users/itineraries.
 
 # SEARCH VIEW
 
@@ -68,11 +64,11 @@ By default, the search view is configured to search through users. Just type in 
 
 # PLACE SEARCH
 
-After a user has searched for a location (For this demo, search for "Toronto"), they can either view details of the location or they can add to their itinerary. The view button gives a more detailed view of the location. The add to itinerary button will send to the database. You will not see any difference in your itinerary right now because the itinerary is hardcoded in.
+After a user has searched for a location (For this demo, search for "Toronto"), they can either view details of the location or they can add to their itinerary. The view button gives a more detailed view of the location. The add to itinerary button will send to the database.
 
 # USER SEARCH
 
-After a user has been searched (For this demo, search for "Kate"), they can view their profile, add them as a friend or block them. Currently, we only lead to one user regardless of which user is selected. This is because the user viewed should be retrieved from the database server. Since there is no database right now, we route to a hard coded user just to show what that button will eventually do.
+After a user has been searched (For this demo, search for "Kate"), they can view their profile or add them as a friend. 
 
 # USER SETTINGS
 
