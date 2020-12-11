@@ -18,18 +18,40 @@ import "./styles.css";
 
 /* Component for the Home page */
 
-//Right now starting on line 23, it just leads the user back to the home page. In the full release, it should save the new account in the database under users
-//Of course, this will require a server call
 class Signup extends React.Component {
     constructor(props){
         super(props);
         this.props.history.push("/signup")
         this.state={
             username:"",
-            password:""
+            password:"",
+            firstPasswordCheck:"",
+            secondPasswordCheck:""
         }
     }
-  render() {
+
+    createAccount(app) {
+        console.log(this.state.firstPasswordCheck);
+        console.log(this.state.secondPasswordCheck)
+        if(this.state.firstPasswordCheck == this.state.secondPasswordCheck){
+            createUser(this,app)
+        }else{
+            alert("Passwords do not match! Try again")
+        }
+    }
+
+    addPassword(event){
+        console.log("in password")
+        this.setState({firstPasswordCheck: event.target.value})
+        updateCreationForm(this, event.target)
+    }
+
+    addRepeatedPassword(event){
+        console.log("in repeated password")
+        this.setState({secondPasswordCheck: event.target.value})
+    }
+
+    render() {
     const { app } = this.props
 
     return (
@@ -60,12 +82,12 @@ class Signup extends React.Component {
                             </Grid>
                             <TextField variant="outlined" required id ="username-input" name="username" label = "Enter your username" autoComplete="username" fullWidth margin="normal" onChange={e=>updateCreationForm(this, e.target)}/>
                             <TextField variant="outlined" required id ="email-input" name="email" label = "Enter your email" fullWidth margin="normal" onChange={e=>updateCreationForm(this, e.target)}/>
-                            <TextField variant="outlined" id="password-input" name="password" label="Enter Password" type="password" fullWidth margin="normal" onChange={e=>updateCreationForm(this, e.target)}/>
-                            <TextField variant="outlined" id="repeated-password-input" label="Enter Password Again" type="password" fullWidth margin="normal"/>
+                            <TextField variant="outlined" id="password-input" name="password" label="Enter Password" type="password" fullWidth margin="normal" onChange={e=>this.addPassword(e)}/>
+                            <TextField variant="outlined" id="repeated-password-input" name="repeated-password" label="Enter Password Again" type="password" fullWidth margin="normal" onChange={e=>this.addRepeatedPassword(e)}/>
                         </form>
                         <ButtonGroup>
                             <Link to={"./../user"}>
-                                <Button className="submit-button" type="submit" fullWidth variant="contained" color="primary" onClick={()=>createUser(this,app)}> Create Account </Button>
+                                <Button className="submit-button" type="submit" fullWidth variant="contained" color="primary" onClick={()=>this.createAccount(app)}> Create Account </Button>
                             </Link>
                             <Link to={"./../Login"}>
                                 <Button className="cancel-button" type="cancel" fullWidth variant="contained" color="secondary"> I already have an account </Button>
