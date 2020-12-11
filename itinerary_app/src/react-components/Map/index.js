@@ -2,7 +2,6 @@
 import React from "react";
 import {
     withGoogleMap,
-    withScriptjs,
     GoogleMap,
     DirectionsRenderer
 } from "react-google-maps";
@@ -10,7 +9,7 @@ import {
 
 
 
-class Map extends React.Component {
+class Map extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {

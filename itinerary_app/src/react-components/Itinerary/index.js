@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import Header from "../Header";
 import "./styles.css"
 import Divider from "@material-ui/core/Divider";
@@ -22,7 +22,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {ChevronRight} from "@material-ui/icons";
 import MapRoundedIcon from '@material-ui/icons/MapRounded';
 import QuestionAnswerRoundedIcon from '@material-ui/icons/QuestionAnswerRounded';
-import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import Tooltip from "@material-ui/core/Tooltip";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -32,7 +31,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 
 import Map from "../Map";
 
-import { withScriptjs } from "react-google-maps";
+import {UpdateItineraryComments} from "../../actions/itinerary";
 
 //get this from database server
 const commentsData = [{
@@ -54,19 +53,19 @@ const commentsData = [{
 
 
 
-class Itinerary extends React.PureComponent {
+class Itinerary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             //itinerary object
             itinerary: props.itinerary,
             //list of dictionaries
-            friendsList: props.friendsList,
-
+            //friendsList: props.friendsList,
+            creator: props.creator,
             drawerIsOpen: false,
             leftDrawerIsOpen:false,
 
-            comments: commentsData,
+            comments: [],
             openComment:false
         };
 
@@ -99,6 +98,11 @@ class Itinerary extends React.PureComponent {
         this.setState({openComment:false});
     };
 
+    componentDidMount() {
+        const comments = this.props.itinerary.commentsData;
+        comments.forEach( task => task.createdAt = new Date(task.createdAt));
+        this.setState({comments: comments})
+    }
 
     render() {
         // const userKeys = Object.keys(this.state.itinerary) //["id", "name", "starting", "ending", "destinations", "startDate"]
@@ -231,7 +235,13 @@ class Itinerary extends React.PureComponent {
                             // set to true if you are using react-router
                             onSubmit={text => {
                                 if (text.length > 0) {
-                                    this.setState({
+                                    UpdateItineraryComments({
+                                        authorUrl: `/user`,
+                                        createdAt: new Date(),
+                                        fullName: '@' + this.props.creator.username,
+                                        text,
+                                    }, this.state.itinerary._id, this)
+                                    /*this.setState({
                                         comments: [
                                             ...this.state.comments,
                                             {
@@ -241,7 +251,7 @@ class Itinerary extends React.PureComponent {
                                                 text,
                                             },
                                         ],
-                                    });
+                                    });*/
                                 }
                             }}
                         />

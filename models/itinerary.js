@@ -1,6 +1,7 @@
 /* Itinerary mongoose model */
 const mongoose = require('mongoose')
 
+
 const PlaceSchema = new mongoose.Schema({
     address: {
         type: String,
@@ -17,10 +18,9 @@ const CommentsSchema = new mongoose.Schema({
         type: String, /* example: "/userID" */
             required: true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-            required: true
+    createdAt:{
+      type: Date,
+      default: Date.now
     },
     fullName: {
         type: String,

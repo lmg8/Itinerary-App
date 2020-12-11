@@ -1,7 +1,9 @@
 import React from 'react'
 import { withRouter} from 'react-router-dom'
 import Itinerary from "../Itinerary";
-import {getSpecificItinerary, getSpecificUserItineraryList} from "../../actions/itinerary"
+import {
+    getItineraryRouteInfo
+} from "../../actions/itinerary"
 
 function loadScript(src, position, id) {
     if (!position) {
@@ -15,13 +17,13 @@ function loadScript(src, position, id) {
     position.appendChild(script);
 }
 
-
 class ItinerariesRoute extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             itineraryList: [],
             itinerary: null,
+            creator: null,
             friendsList: [], //TODO: action get friends list
             loaded: false
         };
@@ -31,7 +33,8 @@ class ItinerariesRoute extends React.Component {
 
     async componentDidMount() {
         if (this.state.itinerary===null) {
-            await getSpecificItinerary(this, this.props.match.params.id)
+            //await getSpecificItinerary(this, this.props.match.params.id)
+            await getItineraryRouteInfo(this, this.props.match.params.id)
             this.myRef = React.createRef()
             if (typeof window !== 'undefined' && !this.myRef.current) {
                 if (!document.querySelector('#google-maps')) {
@@ -58,7 +61,7 @@ class ItinerariesRoute extends React.Component {
         console.log(this.state.itinerary)
         console.log(this.state.loaded)*/
         return(
-            (this.state.loaded ? <Itinerary itinerary={this.state.itinerary} friendsList={this.state.friendsList}/> : null)
+            (this.state.loaded ? <Itinerary itinerary={this.state.itinerary} creator={this.state.creator}/> : null)
         );
     };
 }

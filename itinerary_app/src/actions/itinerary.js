@@ -115,44 +115,8 @@ export const getSpecificItinerary = (page, itineraryId) => {
         });
 };
 
-/*const itin = async(creationComp) => {
-    const request = new Request("/api/itineraries", {
-        method: "post",
-        body: JSON.stringify(creationComp.state.itinerary),
-        headers: {
-            Accept: "application/json, text/plain, *!/!*",
-            "Content-Type": "application/json"
-        }
-    });
-    //console.log(creationComp.state.itinerary)
-    const json = await fetch(request);
-    return json.json();
-}
-
-const saveItin = async(json)=> {
-    const request2 = await new Request(`/api/users/${json.creator}/itineraries`, {
-        method: "PATCH",
-        body: JSON.stringify(
-            {"value": json._id.valueOf()}
-        ),
-        headers: {
-            Accept: "application/json, text/plain, *!/!*",
-            "Content-Type": "application/json"
-        }
-    });
-    const res = await fetch(request2);
-}*/
-
 // A function to send a POST request to the web server with new itinerary,
 export const createItinerary = (creationComp) => {
-/*    const json = await itin(creationComp);
-    console.log(json)
-    const res = await saveItin(json);
-
-    creationComp.setState({id: json._id.valueOf()})*/
-
-    // Send the request with fetch()
-
     const request = new Request("/api/itineraries", {
         method: "post",
         body: JSON.stringify(creationComp.state.itinerary),
@@ -187,12 +151,6 @@ export const createItinerary = (creationComp) => {
                     "Content-Type": "application/json"
                 }
             });
-            //update user itinerary list
-/*            const itinerary =  creationComp.state.itinerary;
-            itinerary["id"]= json._id.valueOf();
-            console.log("action")
-            console.log(itinerary)
-            creationComp.setState({itinerary: itinerary});*/
             fetch(request2)
                 .catch((error) =>{
                     alert("Error: Could not add itinerary to user profile")
@@ -203,4 +161,105 @@ export const createItinerary = (creationComp) => {
             console.log(error)
             alert("Error: Could not add itinerary")
         })
+};
+
+export const UpdateItineraryComments = (commentsData, itineraryId, page) => {
+
+
+    const request = new Request(`/api/itineraries/${itineraryId}/comments`, {
+        method: "PATCH",
+        body: JSON.stringify(
+            {"value": commentsData }
+        ),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+    // Send the request with fetch()
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then (res => {
+            const comments = res.commentsData;
+            comments.forEach( task => task.createdAt = new Date(task.createdAt));
+            console.log(comments)
+            page.setState({comments: comments})
+        })
+        .catch(error => {
+            console.log(error)
+            alert("Error updating comments.")
+        });
+};
+
+//for itinerariesRoute to get information of itinerary. userId = owner of itinerary
+export const getUserOfItinerary = (page,userId) => {
+    // the URL for the request
+    const url = `/api/users/${userId}`;
+    console.log("getUserOfItinerary")
+    console.log(page)
+    console.log(userId)
+
+    // Since this is a GET request, simply call fetch on the URL
+    fetch(url)
+        .then(res => {
+            if (res.status === 200) {
+                // console.log(res.clone().json()); // debugging
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Could not get users");
+            }
+        })
+        .then(json => {
+            // the resolved promise with the JSON body
+            page.setState({ creator: json });
+
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+// getSpecificItinerary and then getUserofItinerary
+export const getItineraryRouteInfo = (page, itineraryId) => {
+    const url = `/api/itineraries/${itineraryId}`;
+
+    // Since this is a GET request, simply call fetch on the URL
+    fetch(url)
+        .then(res => {
+            if (res.status === 200) {
+                //get itinerary info from itineraryId
+                return res.json();
+            } else {
+                alert("Could not get itineraries");
+            }
+        })
+        .then(json => {
+            page.setState({ itinerary: json});
+            return json;
+        }).then(json => {
+
+
+            const url2 = `/api/users/${json.creator.valueOf()}`;
+            fetch(url2)
+                .then(res => {
+                    if (res.status === 200) {
+                        //get user info from creator of itinerary
+                        return res.json();
+                    } else {
+                        alert("Could not get users");
+                    }
+                })
+                .then(json => {
+                    page.setState({ creator: json });
+                })
+
+    })
+        .catch(error => {
+            console.log(error);
+        });
 };
