@@ -485,11 +485,7 @@ app.get("*", (req, res) => {
     }*/
 
     // send index.html
-<<<<<<< HEAD
-    res.sendFile(path.join(__dirname, "/itinerary_app/build/index.html"));
-=======
     res.sendFile(path.join(__dirname, "itinerary_app/build/index.html"));
->>>>>>> b06f120fa1c53dd74d0dfbb6a18d3da7f3f203b4
 });
 
 /*************************************************/

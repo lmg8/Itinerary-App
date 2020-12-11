@@ -242,7 +242,6 @@ class Itinerary extends React.PureComponent {
                                             },
                                         ],
                                     });
-                                    console.log('submit:', text);
                                 }
                             }}
                         />

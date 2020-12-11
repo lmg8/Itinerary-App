@@ -8,18 +8,7 @@ import {
 } from "react-google-maps";
 /* global google */
 
-//const MapLoader = withScriptjs(Map);
-function loadScript(src, position, id) {
-    if (!position) {
-        return;
-    }
 
-    const script = document.createElement('script');
-    script.setAttribute('async', '');
-    script.setAttribute('id', id);
-    script.src = src;
-    position.appendChild(script);
-}
 
 class Map extends React.Component {
     constructor(props) {
@@ -34,21 +23,10 @@ class Map extends React.Component {
             loaded: false //check if data is fetched from google api
         };
 
-        this.myRef = React.createRef()
-        if (typeof window !== 'undefined' && !this.myRef.current) {
-            if (!document.querySelector('#google-maps')) {
-                loadScript(
-                    `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_API_KEY}&libraries=places`,
-                    document.querySelector('head'),
-                    'google-maps',
-                );
-            }
-            this.myRef.current = true;
-        }
+
     }
 
     async componentDidMount() {
-        if(this.myRef.current){
             const directionsService = await new window.google.maps.DirectionsService();
             const origin =  {placeId: this.props.itinerary.source.place_id};
             const destination = {placeId: this.props.itinerary.destination.place_id};
@@ -90,11 +68,6 @@ class Map extends React.Component {
                     }
                 }
             );
-
-        } else {
-            alert("could not load script");
-        }
-
     }
 
     shouldComponentUpdate(nextProps, nextState) {

@@ -29,9 +29,20 @@ class ItinerariesRoute extends React.Component {
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         if (this.state.itinerary===null) {
-            getSpecificItinerary(this, this.props.match.params.id)
+            await getSpecificItinerary(this, this.props.match.params.id)
+            this.myRef = React.createRef()
+            if (typeof window !== 'undefined' && !this.myRef.current) {
+                if (!document.querySelector('#google-maps')) {
+                    loadScript(
+                        `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_API_KEY}&libraries=places`,
+                        document.querySelector('head'),
+                        'google-maps',
+                    );
+                }
+                this.myRef.current = true;
+            }
         }
     }
 
