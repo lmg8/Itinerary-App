@@ -86,10 +86,10 @@ class Signup extends React.Component {
                             <TextField variant="outlined" id="repeated-password-input" name="repeated-password" label="Enter Password Again" type="password" fullWidth margin="normal" onChange={e=>this.addRepeatedPassword(e)}/>
                         </form>
                         <ButtonGroup>
-                            <Link to={"./../user"}>
+                            <Link className="submit_button_link" to={"./../user"}>
                                 <Button className="submit-button" type="submit" fullWidth variant="contained" color="primary" onClick={()=>this.createAccount(app)}> Create Account </Button>
                             </Link>
-                            <Link to={"./../Login"}>
+                            <Link className="submit_button_link" to={"./../Login"}>
                                 <Button className="cancel-button" type="cancel" fullWidth variant="contained" color="secondary"> I already have an account </Button>
                             </Link>
                         </ButtonGroup>

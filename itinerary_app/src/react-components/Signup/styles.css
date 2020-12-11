@@ -35,6 +35,10 @@
     margin: 10px;
 }
 
+.submit_button_link{
+    text-decoration: none;
+}
+
 .MuiPaper-root.MuiAppBar-root.MuiAppBar-colorPrimary.signup-appBar {
     background-color: #282c34;
 }
