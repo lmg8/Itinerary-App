@@ -22,6 +22,11 @@ class Admin extends React.Component {
         selectedID: ""
     };
 
+    componentDidMount(){
+        getUsers(this);
+        getItineraries(this);
+    }
+
     transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
       });
