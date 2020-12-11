@@ -47,6 +47,27 @@ export const deleteItinerary = (itineraryID, app) => {
         alert("Error deleting user")
     });
 };
+
+export const getItinerariesFromUser = (userID, page) => {
+    const url = `/api/user/${userID}/itineraries`;
+    console.log(userID);
+    // Since this is a GET request, simply call fetch on the URL
+    fetch(url)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .then(json => {
+            // the resolved promise with the JSON body
+            page.setState({ itineraryList: json});
+        })
+        .catch(error => {
+            console.log(error)
+            alert("Could not get user itineraries list");
+        });
+}
+
 export const getSpecificUserItineraryList = (page) => {
     const url = `/api/user/itineraries`;
 
