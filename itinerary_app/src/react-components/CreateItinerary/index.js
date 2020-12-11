@@ -95,9 +95,6 @@ class CreateItinerary extends React.Component {
             let itinerary = this.state.itinerary;
             itinerary[className] = {"address":val.description, "place_id":val.place_id};
             this.setState({itinerary})
-            console.log(itinerary)
-            console.log(val.description);
-            console.log(val.place_id);
         }
      }
 

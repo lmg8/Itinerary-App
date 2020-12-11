@@ -8,9 +8,9 @@ import GoogleMaps from "../CreateItinerary/search";
 
 const removeDestination = (itinerary, index) => {
     let i = itinerary.state.itinerary
-    const list = [...itinerary.state.itinerary["destinations"]];
+    const list = [...itinerary.state.itinerary["waypoints"]];
     list.splice(index, 1);
-    i["destinations"] = list;
+    i["waypoints"] = list;
     itinerary.setState({
        i
     });
