@@ -204,6 +204,7 @@ class User extends React.Component {
     render() {
         const { app } = this.props
         if (this.state.adminStatus === false){
+            console.log("not admin")
             return (
             <div >
                 <AppBar className="user-appBar" color="primary" position="static">
@@ -360,6 +361,7 @@ class User extends React.Component {
                     </div>
             </div>
         );} else {
+            console.log("Admin")
             return (
                 <div >
                     <AppBar className="user-appBar" color="primary" position="static">
@@ -389,7 +391,7 @@ class User extends React.Component {
                         <div>
                             <Avatar className="user-avatar" src="./../SearchPics/profilePic1.jpeg"/>
                             <div>
-                                <Typography align="center" component="h1" variant="h5"> {this.identifyUser(app.state.currentUser)} </Typography>
+                                <Typography align="center" component="h1" variant="h5"> {this.state.firstName + " " + this.state.lastName} </Typography>
                             </div>
                             <Box textAlign='center'>
                                 <Link className="signout_button_link" to ={"user/create-itinerary" }>
