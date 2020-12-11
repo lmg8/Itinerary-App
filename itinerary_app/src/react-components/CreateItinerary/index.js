@@ -104,8 +104,7 @@ class CreateItinerary extends React.Component {
      componentDidUpdate(prevProps, prevState, snapshot) {
         //handle when id updated
         if(prevState.id !== this.state.id){
-            this.props.handleSubmit(this.state.itinerary);
-            this.props.history.push(`./itinerary/${this.state.id}`)
+            this.props.history.push(`/user/itinerary/${this.state.id}`)
         }
      }
 

@@ -6,7 +6,20 @@ import {
     GoogleMap,
     DirectionsRenderer
 } from "react-google-maps";
+/* global google */
 
+//const MapLoader = withScriptjs(Map);
+function loadScript(src, position, id) {
+    if (!position) {
+        return;
+    }
+
+    const script = document.createElement('script');
+    script.setAttribute('async', '');
+    script.setAttribute('id', id);
+    script.src = src;
+    position.appendChild(script);
+}
 
 class Map extends React.Component {
     constructor(props) {
@@ -20,53 +33,67 @@ class Map extends React.Component {
             isOptimized: false, //get from props?
             loaded: false //check if data is fetched from google api
         };
+
+        this.myRef = React.createRef()
+        if (typeof window !== 'undefined' && !this.myRef.current) {
+            if (!document.querySelector('#google-maps')) {
+                loadScript(
+                    `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_API_KEY}&libraries=places`,
+                    document.querySelector('head'),
+                    'google-maps',
+                );
+            }
+            this.myRef.current = true;
+        }
     }
 
     async componentDidMount() {
-        const directionsService = await new window.google.maps.DirectionsService();
-        console.log(this.props.itinerary.source.address);
-        console.log(this.props.itinerary.destination.address);
-        const origin =  {placeId: this.props.itinerary.source.place_id};
-        const destination = {placeId: this.props.itinerary.destination.place_id};
-        const waypoints =[];
+        if(this.myRef.current){
+            const directionsService = await new window.google.maps.DirectionsService();
+            const origin =  {placeId: this.props.itinerary.source.place_id};
+            const destination = {placeId: this.props.itinerary.destination.place_id};
+            const waypoints =[];
 
-        for(let i = 0; i <  (this.props.itinerary.waypoints).length; i++){
-            waypoints.push({"stopover":true,"location": {"placeId":this.props.itinerary.waypoints[i].place_id}})
-        }
-        console.log(new Date(this.props.itinerary.startDate))
-        await directionsService.route(
-            {
-                origin: origin,
-                destination: destination,
-                waypoints: waypoints,
-                optimizeWaypoints: (waypoints.length > 1) ? true : false, //only optimize route if more than 1 waypoints
-                travelMode: window.google.maps.TravelMode.DRIVING,
-                drivingOptions: {departureTime: new Date(this.props.itinerary.startDate)}
-            },
-            (result, status) => {
-                if (status === window.google.maps.DirectionsStatus.OK) {
-                    if(waypoints.length > 1){
-                        this.setState({
-                            waypoint_order: result.routes[0].waypoint_order,
-                            loaded:true,
-                            directions: result,
-                            hasFetched:true,
-                            isOptimized: true
-                        });
-                    } else {
-                        this.setState({
-                            loaded:true,
-                            directions: result,
-                            hasFetched:true,
-                            isOptimized: true
-                        })
-                    }
-
-                } else {
-                    console.error(`error fetching directions ${result}`);
-                }
+            for(let i = 0; i <  (this.props.itinerary.waypoints).length; i++){
+                waypoints.push({"stopover":true,"location": {"placeId":this.props.itinerary.waypoints[i].place_id}})
             }
-        );
+            await directionsService.route(
+                {
+                    origin: origin,
+                    destination: destination,
+                    waypoints: waypoints,
+                    optimizeWaypoints: (waypoints.length > 1) ? true : false, //only optimize route if more than 1 waypoints
+                    travelMode: window.google.maps.TravelMode.DRIVING,
+                    drivingOptions: {departureTime: new Date(this.props.itinerary.startDate)}
+                },
+                (result, status) => {
+                    if (status === window.google.maps.DirectionsStatus.OK) {
+                        if(waypoints.length > 1){
+                            this.setState({
+                                waypoint_order: result.routes[0].waypoint_order,
+                                loaded:true,
+                                directions: result,
+                                hasFetched:true,
+                                isOptimized: true
+                            });
+                        } else {
+                            this.setState({
+                                loaded:true,
+                                directions: result,
+                                hasFetched:true,
+                                isOptimized: true
+                            })
+                        }
+
+                    } else {
+                        console.error(`error fetching directions ${result}`);
+                    }
+                }
+            );
+
+        } else {
+            alert("could not load script");
+        }
 
     }
 

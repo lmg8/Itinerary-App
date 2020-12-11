@@ -59,8 +59,8 @@ export const getSpecificUserItineraryList = (page) => {
         })
         .then(json => {
             // the resolved promise with the JSON body
-            console.log("json")
-            console.log(json)
+            /*console.log("json")
+            console.log(json)*/
             page.setState({ itineraryList: json});
         })
         .catch(error => {
@@ -71,9 +71,9 @@ export const getSpecificUserItineraryList = (page) => {
 
 // A function to send a GET request to the web server,
 // and then loop through them and add a list element for each itinerary
-export const getSpecificItinerary = (page) => {
+export const getSpecificItinerary = (page, itineraryId) => {
     // the URL for the request
-    const url = `/api/itineraries/${page.filterItineraryID}`;
+    const url = `/api/itineraries/${itineraryId}`;
 
     // Since this is a GET request, simply call fetch on the URL
     fetch(url)
@@ -86,6 +86,9 @@ export const getSpecificItinerary = (page) => {
                 alert("Could not get itineraries");
             }
         })
+        .then(json => {
+            page.setState({ itinerary: json});
+         })
         .catch(error => {
             console.log(error);
         });
@@ -145,7 +148,7 @@ export const createItinerary = (creationComp) => {
                 return res.json()
             }
             else {
-                alert("OH NO!");
+                alert("create itinerary request failed!");
             }
         }).then( res => {
                 creationComp.setState({id: res._id.valueOf()})

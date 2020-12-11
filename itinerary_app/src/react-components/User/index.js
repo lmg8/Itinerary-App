@@ -79,6 +79,7 @@ class User extends React.Component {
 
     constructor(props){
         super(props);
+        this.props.history.push("/user");
         this.state={
             userList: [],
             userId: 0,
@@ -235,9 +236,7 @@ class User extends React.Component {
                             <Typography align="center" component="h1" variant="h5"> {this.state.firstName + " " + this.state.lastName} </Typography>
                         </div>
                         <Box textAlign='center'>
-                            <Link className="signout_button_link" to ={"user/create-itinerary" }>
-                                <Button variant="contained"> Create a new itinerary!</Button>
-                            </Link>
+                                <Button onClick={()=> this.props.history.push("/user/create-itinerary")} variant="contained"> Create a new itinerary!</Button>
                         </Box>
 
                         <Paper>
@@ -267,7 +266,9 @@ class User extends React.Component {
                                                     </CardContent>
                                             </CardActionArea>
                                             <CardActions>
-                                                <Button onClick={()=>this.props.history.push(`./itinerary/5fd26ed51580ef332c22a34c`)} size="small" color="primary">View</Button>
+                                                <Link to={{pathname:`/user/itinerary/5fd2623c716bf81d4c4d7907`}}>
+                                                <Button size="small" color="primary">View</Button>
+                                                </Link>
                                                 <Button size="small" color="primary" onClick={()=>this.addToFavourites()}>Favourite this itinerary</Button>
                                                 <Button size="small" color="secondary" onClick={()=>this.removeItinerary(itinerary.id)}>Delete this itinerary</Button>
                                             </CardActions>
