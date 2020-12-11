@@ -148,6 +148,54 @@ export const getSpecificUser = (page,userId) => {
         });
 };
 
+// A function to send a GET request to the web server
+// gets the friends of a specific user
+export const getFriendsFromUser = (userID, page) => {
+    // the URL for the request
+    const url = `/api/users/${userID}/friends`;
+
+    // Since this is a GET request, simply call fetch on the URL
+    fetch(url)
+        .then(res => {
+            if (res.status === 200) {
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Could not get user's friends");
+            }
+        })
+        .then(json => {
+            page.setState({friendsList: json})
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+// A function to send a GET request to the web server
+// gets the favourites of a specific user
+export const getFavouritesFromUser = (userID, page) => {
+    // the URL for the request
+    const url = `/api/users/${userID}/favourites`;
+
+    // Since this is a GET request, simply call fetch on the URL
+    fetch(url)
+        .then(res => {
+            if (res.status === 200) {
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Could not get user's favourite itineraries");
+            }
+        })
+        .then(json => {
+            page.setState({favouritesList: json})
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
 // A function to send a POST request to the web server,
 // and then loop through them and add a list element for each user
 export const createUser = (creationComp, app) => {

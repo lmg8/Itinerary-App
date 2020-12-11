@@ -29,7 +29,7 @@ class App extends React.Component {
   state = {
     initialState: "Itinerary", //probably going to change this later
     currentUser: null,
-    adminStatus: false
+    adminStatus: true
   }
 
 

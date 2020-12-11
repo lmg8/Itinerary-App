@@ -1,4 +1,5 @@
 import React from "react";
+import uuid from 'react-uuid'
 import { Link  } from "react-router-dom";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
@@ -14,7 +15,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Collapse from '@material-ui/core/Collapse'
 import { Tabs, Tab, CardContent} from "@material-ui/core";
 
-
+import { getItinerariesFromUser } from "../../actions/itinerary";
+import { getFavouritesFromUser, getFriendsFromUser } from "../../actions/user";
 import "./styles.css";
 import Header from "../Header";
 
@@ -53,23 +55,6 @@ function TabPanel(props) {
     );
 }
 
-//Below are two hardcoded items to fill the state arrays. In the full release, the server should populate the arrays
-// and these should be removed
-const hardCodedItinerary = {id:1,
-    name:"Beach Trip",
-    starting:"Adam's home, Toronto",
-    ending:'Centre Island Beach, Toronto',
-    destinations: ["Starbucks, Toronto", "Jack Layton Ferry Terminal, Toronto"],
-    startDate:'August 12, 2020'
-}
-
-const hardCodedFriend = {userId:1,
-    name: "Adam Smith",
-    currLocation: "Toronto",
-    username: "@ASmith",
-    profilePic: `${process.env.PUBLIC_URL}/SearchPics/profilePic1.jpeg`,
-}
-
 class OtherUser extends React.Component {
     handleChange(event, value) {
         this.setState({value});
@@ -97,11 +82,9 @@ class OtherUser extends React.Component {
                 destinations: [],
                 startDate:''
             },
-            
-            //The below lists should be populated by the server (e.g. itineraryList: <itineraryList that is on the server>)
-            itineraryList:[hardCodedItinerary],
+            itineraryList:[],
             favouritesList:[],
-            friendsList:[hardCodedFriend],
+            friendsList:[],
             itineraryCardsExpanded: false,
             favouritesCardsExpanded: false,
         }
@@ -110,43 +93,10 @@ class OtherUser extends React.Component {
     }
 
     componentDidMount(){
-    }
-
-    addToFavourites(){
-        //This should send information to the server so that the server knows what a user's favourites are, right now it just updates a local array
-        // In the full release, an additional array on the server should be updated as well.
-        const newFavourite = {
-            id: hardCodedItinerary.id,
-            name: hardCodedItinerary.name,
-            starting: hardCodedItinerary.starting,
-            ending: hardCodedItinerary.ending,
-            destinations: hardCodedItinerary.destinations,
-            startDate:hardCodedItinerary.startdate
-        }
-
-        const favouritesList = [...this.state.favouritesList];
-        let flag = true
-        for (var i=0; i < favouritesList.length; i++){
-            if(favouritesList[i].id == newFavourite.id){
-                flag = false;
-            }
-        }
-        if (flag == true){
-            favouritesList.push(newFavourite);
-        }
-
-        //reset the state
-        this.setState({
-            favouritesList,
-            newFavourite:{
-                id:'',
-                name:'',
-                starting:'',
-                ending:'',
-                destinations: [],
-                startDate:''
-            }
-        })
+        console.log(this.props.location.state.user._id);
+        getItinerariesFromUser(this.props.location.state.user._id, this);
+        getFriendsFromUser(this.props.location.state.user._id, this);
+        getFavouritesFromUser(this.props.location.state.user._id, this);
     }
 
     handleItineraryCardClick = ()=>{
@@ -184,19 +134,19 @@ class OtherUser extends React.Component {
                                             <CardActionArea onClick={this.handleItineraryCardClick}>
                                                     <CardContent>
                                                         <Typography variant="h5" component="h2">
-                                                            Itinerary: {this.state.itineraryList[0].name}
+                                                            Itinerary: {itinerary.name}
                                                         </Typography>
                                                         <Typography>
-                                                            Starting Location:{this.state.itineraryList[0].starting}
+                                                            Starting Location:{itinerary.starting}
                                                         </Typography>
                                                         <Typography>
-                                                            Destination: {this.state.itineraryList[0].ending}
+                                                            Destination: {itinerary.ending}
                                                         </Typography>
                                                     </CardContent>
                                             </CardActionArea>
                                         <Collapse in={this.state.itineraryCardsExpanded} timeout="auto" unmountOnExit>
                                             <CardContent>
-                                                <Typography paragraph variant="h5">
+                                                {/*<Typography paragraph variant="h5">
                                                     Stops in between:
                                                 </Typography>
                                                 <Typography paragraph>
@@ -204,8 +154,7 @@ class OtherUser extends React.Component {
                                                 </Typography>
                                                 <Typography paragraph>
                                                     {this.state.itineraryList[0].destinations[1]}
-                                                </Typography>
-                                                
+                                                </Typography>*/}
                                             </CardContent>
                                         </Collapse>
                                     </Card>
@@ -223,37 +172,34 @@ class OtherUser extends React.Component {
                                             <CardActionArea onClick={this.handleFavouritesCardClick}>
                                                     {<CardContent>
                                                         <Typography variant="h5" component="h2">
-                                                            {this.state.favouritesList[0].name}
+                                                            {itinerary.name}
                                                         </Typography>
                                                         <Typography>
-                                                            Starting location: {this.state.favouritesList[0].starting}
+                                                            Starting location: {itinerary.source}
                                                         </Typography>
                                                         <Typography>
-                                                            Destination: {this.state.favouritesList[0].ending}
+                                                            Destination: {itinerary.destination}
                                                         </Typography>
                                                     </CardContent>}
                                             </CardActionArea>
                                             <CardActions>
-                                                <Button size="small" color="secondary" onClick={()=>this.removeFromFavourites(itinerary.id)}>Remove this itinerary from favourites</Button>
                                             </CardActions>
                                             <Collapse in={this.state.favouritesCardsExpanded} timeout="auto" unmountOnExit>
                                             <CardContent>
-                                                <Typography paragraph variant="h5">
+                                                {/*<Typography paragraph variant="h5">
                                                     Stops in between:
                                                 </Typography>
                                                 <Typography paragraph>
-                                                    {this.state.favouritesList[0].destinations[0]}
+                                                    {itinerary.destinations[0]}
                                                 </Typography>
                                                 <Typography paragraph>
-                                                    {this.state.favouritesList[0].destinations[1]}
-                                                </Typography>
-                                                
+                                                    {itinerary.destinations[1]}
+                                                </Typography>*/}
                                             </CardContent>
                                         </Collapse>
                                         </Card>
                                     </Grid>)
                             })}
-                                
                             </Grid>
                         </TabPanel>
                         <TabPanel value={this.state.value} index={2}>
@@ -268,12 +214,6 @@ class OtherUser extends React.Component {
                                                     title={friend["name"]}
                                                     subheader={friend["currLocation"]}
                                                 />
-                                                <CardActions>
-                                                    <Link to={"/User"}>
-                                                        <Button size="small" color="secondary">View Profile</Button>
-                                                    </Link>
-                                                    <Button size="small" color="secondary" onClick={()=>this.removeFriend(friend["userId"])}>Remove this friend</Button>
-                                                </CardActions>
                                             </Card>
                                         </Grid>)
                                     })}

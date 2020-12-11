@@ -212,12 +212,74 @@ app.get('/api/user/:id/itineraries', mongoChecker, async (req, res) => {
     }
     // Get the users
     try {
-        const user = await User.findById({_id: id})
+        const itineraries = await Itinerary.find({creator: id})
+        if (!itineraries) {
+            res.status(404).send('Resource not found')
+        } else {
+            res.send(itineraries)
+        }
+    } catch(error) {
+        log(error)
+        res.status(500).send("Internal Server Error")
+    }
+})
+
+// a GET route to get all friends from a specific user
+app.get('/api/users/:id/friends', mongoChecker, async (req, res) => {
+
+    const id = req.params.id
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;  // so that we don't run the rest of the handler.
+    }
+
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log('Issue with mongoose connection')
+        res.status(500).send('Internal server error')
+        return;
+    }
+    // get friendsList
+    try {
+        // get user
+        const user = await User.findById(id);
         if (!user) {
             res.status(404).send('Resource not found')
         } else {
-            res.send(user.itineraries)
+            // get friends from user's friendlist
+            const friends = await User.find({ _id: { "$in" : user.friends} });
+            res.send(friends);
+        }
+    } catch(error) {
+        log(error)
+        res.status(500).send("Internal Server Error")
+    }
+})
 
+// a GET route to get all friends from a specific user
+app.get('/api/users/:id/favourites', mongoChecker, async (req, res) => {
+
+    const id = req.params.id
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;  // so that we don't run the rest of the handler.
+    }
+
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log('Issue with mongoose connection')
+        res.status(500).send('Internal server error')
+        return;
+    }
+    try {
+        // get user
+        const user = await User.findById(id);
+        if (!user) {
+            res.status(404).send('Resource not found')
+        } else {
+            // itineraries in user's favourites list
+            const favouriteItineraries = await Itinerary.find({ _id: { "$in" : user.favourites} });
+            res.send(favouriteItineraries);
         }
     } catch(error) {
         log(error)
@@ -485,11 +547,7 @@ app.get("*", (req, res) => {
     }*/
 
     // send index.html
-<<<<<<< HEAD
     res.sendFile(path.join(__dirname, "/itinerary_app/build/index.html"));
-=======
-    res.sendFile(path.join(__dirname, "itinerary_app/build/index.html"));
->>>>>>> b06f120fa1c53dd74d0dfbb6a18d3da7f3f203b4
 });
 
 /*************************************************/
