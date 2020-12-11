@@ -138,6 +138,7 @@ export const getSpecificUser = (page,userId) => {
             page.setState({ firstName: json.firstName });
             page.setState({ lastName: json.lastName });
             page.setState({ userId: json._id });
+            page.setState({ friendsList: json.friends})
             if (json.adminStatus === true){
                 page.setState({ adminStatus: json.adminStatus})
             }

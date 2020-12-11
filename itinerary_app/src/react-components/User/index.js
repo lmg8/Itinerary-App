@@ -346,7 +346,7 @@ class User extends React.Component {
                                                         subheader={friend["currLocation"]}
                                                 />
                                                 <CardActions>
-                                                    <Link to={"../User2"}>
+                                                    <Link to={`../User/${friend["userId"]}`}>
                                                         <Button size="small" color="secondary">View Profile</Button>
                                                     </Link>
                                                     <Button size="small" color="secondary" onClick={()=>this.removeFriend(friend["userId"])}>Remove this friend</Button>
