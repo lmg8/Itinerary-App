@@ -4,6 +4,7 @@ import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import {IconButton} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Tooltip from "@material-ui/core/Tooltip";
+import GoogleMaps from "../CreateItinerary/search";
 
 const removeDestination = (itinerary, index) => {
     let i = itinerary.state.itinerary
@@ -25,18 +26,10 @@ class NewDestination extends React.Component
             <div>
                 <Grid container  alignItems="center" spacing={0}>
                      <Grid item xs={11} >
-                        <TextField
-                            //accept only addresses
-                            //use google api to get autocomplete address
-                            placeholder="Choose destination..."
-                            fullWidth
-                            margin="normal"
-                            value={itinerary.state.itinerary["destinations"][index]["address"]}
-                            onChange={handleChange}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
+                         <GoogleMaps
+                             inputAddress={handleChange}
+                             prompt={"Choose destination..."}
+                         />
                      </Grid>
                     <Grid item xs={1}>
                         <Tooltip title="Remove" arrow>

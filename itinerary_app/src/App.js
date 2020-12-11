@@ -44,21 +44,28 @@ class App extends React.Component {
               (
                 <div >
                   { /* If logged in, continue to user page, else stay on login page */}
-                  {!currentUser ? <Home {...props} app={this} /> : <User {...props} app={this} />}
+                  {!currentUser ? <Home {...props} app={this} /> :
+                      <Route path='/user' render={props =>
+                      (
+                          <div >
+                            { /* If logged in, continue to user page, else stay on login page */}
+                            {<UserRoutes {...props} app={this} />}
+                          </div>
+                      )}/>}
                 </div>        
               )}/>
-            <Route exact path='/login' render={props => 
+            <Route path={["/login", "/user"]} render={props =>
               (
                 <div >
                   { /* If logged in, continue to user page, else stay on login page */}
-                  {!currentUser ? <Login {...props} app={this} /> : <User {...props} app={this} />}
+                  {!currentUser ? <Login {...props} app={this} /> : <UserRoutes {...props} app={this} />}
                 </div>        
               )}/>
             <Route exact path='/signup' render={props => 
               (
                 <div >
                   { /* If logged in, continue to user page, else stay on login page */}
-                  {!currentUser ? <Signup {...props} app={this} /> : <User {...props} app={this} />}
+                  {!currentUser ? <Signup {...props} app={this} /> : <UserRoutes {...props} app={this} />}
                 </div>        
               )}/>
             <Route exact path='/about' render={props =>

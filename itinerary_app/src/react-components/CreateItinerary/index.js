@@ -14,37 +14,27 @@ import ExploreIcon from '@material-ui/icons/Explore';
 import {IconButton} from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import Header from "../Header";
-import {Link } from "react-router-dom";
-
+import {withRouter} from "react-router-dom";
+import GoogleMaps from "./search";
+import {createItinerary} from "../../actions/itinerary";
 
 class CreateItinerary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             //store this in database
-            itinerary: {id: '', name: "", starting: "", ending: "", destinations: [], startDate: ''},
-
+            id: '',
+            itinerary: {name: "", source: null, destination: null, waypoints: [], startDate: ''},
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleAddClick = this.handleAddClick.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleAddressChange = this.handleAddressChange.bind(this);
     }
 
     handleNameChange = (e) => {
         let itinerary = this.state.itinerary;
         itinerary["name"] = e.target.value;
-        this.setState({itinerary});
-    }
-
-    handleStartingChange = (e) => {
-        let itinerary = this.state.itinerary;
-        itinerary["starting"] = e.target.value
-        this.setState({itinerary});
-    }
-
-    handleFinalChange = (e) => {
-        let itinerary = this.state.itinerary;
-        itinerary["ending"] = e.target.value;
         this.setState({itinerary});
     }
 
@@ -54,29 +44,69 @@ class CreateItinerary extends React.Component {
         this.setState({itinerary});
     }
 
-    handleDestination = (index, {target: {value}}) => {
-        let itinerary = this.state.itinerary;
-        let destinations = itinerary["destinations"];
-        destinations[index]["address"] = value;
-        itinerary["destinations"] = destinations
-        this.setState({itinerary});
-
+    handleDestination = (index, val) => {
+        if(val) {
+            let itinerary = this.state.itinerary;
+            let waypoints = itinerary["waypoints"];
+            waypoints[index]["address"] = val.description;
+            waypoints[index]["place_id"] = val.place_id;
+            itinerary["waypoints"] = waypoints
+            this.setState({itinerary});
+            console.log(this.state.itinerary)
+        }
     }
 
     handleAddClick = () => {
         let itinerary = this.state.itinerary;
-        let destinations = itinerary["destinations"];
-        destinations.push({address:""})
-        itinerary["destinations"] = destinations;
-        this.setState({itinerary});
-
+        if(itinerary.waypoints.length < 10) {
+            let waypoints = itinerary["waypoints"];
+            waypoints.push({})
+            itinerary["waypoints"] = waypoints;
+            this.setState({itinerary});
+        } else {
+            alert("Sorry! We are currently only allowing up to 10 waypoints")
+        }
     }
 
      handleSubmit = (unique) => {
+
         let itinerary = this.state.itinerary;
-        itinerary["id"] = unique
-        this.setState({itinerary});
-         this.props.handleSubmit(this.state.itinerary);
+        if(itinerary.source && itinerary.destination && itinerary.startDate.trim() != '' && itinerary.name.trim() != ''){
+            /*itinerary["id"] = unique
+            itinerary.waypoints = itinerary.waypoints.filter(value => Object.keys(value).length !== 0) //remove empty waypoints
+            this.setState({itinerary});
+            this.props.handleSubmit(this.state.itinerary);
+            this.props.history.push(`./itinerary/${unique}`)*/
+
+            itinerary.waypoints = itinerary.waypoints.filter(value => Object.keys(value).length !== 0) //remove empty waypoints
+            this.setState({itinerary});
+           createItinerary(this);
+           //go to componentDidUpdate after createItinerary finished
+        } else {
+            alert("Please make sure to enter the name, start destination, final destination, and start date");
+        }
+
+     }
+
+
+
+     handleAddressChange = (className, val) => {
+        if(val){
+            let itinerary = this.state.itinerary;
+            itinerary[className] = {"address":val.description, "place_id":val.place_id};
+            this.setState({itinerary})
+            console.log(itinerary)
+            console.log(val.description);
+            console.log(val.place_id);
+        }
+     }
+
+     componentDidUpdate(prevProps, prevState, snapshot) {
+        //handle when id updated
+        if(prevState.id !== this.state.id){
+            this.props.handleSubmit(this.state.itinerary);
+            this.props.history.push(`./itinerary/${this.state.id}`)
+        }
      }
 
     render() {
@@ -94,8 +124,6 @@ class CreateItinerary extends React.Component {
                             <Grid container  alignItems="center" spacing={1}>
                                 <Grid item xs={11} >
                                     <TextField
-                                        //accept only addresses
-                                        //use google api to get autocomplete address
                                         id="standard-full-width"
                                         placeholder="Name your trip"
                                         fullWidth={true}
@@ -110,36 +138,31 @@ class CreateItinerary extends React.Component {
                                 <Grid item xs={1}> <ExploreIcon/></Grid>
 
                                 <Grid item xs={11} >
-                                    <TextField
-                                        //accept only addresses
-                                        //use google api to get autocomplete address
-                                        id="standard-full-width"
-                                        placeholder="Choose starting point..."
-                                        fullWidth={true}
-                                        margin="normal"
-                                        value={this.state.itinerary["starting"]}
-                                        onChange={this.handleStartingChange}
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
+                                    <GoogleMaps
+                                        inputAddress={this.handleAddressChange.bind(this, "source")}
+                                        prompt={"Choose starting point..."}
                                     />
+                                    {/*<TextField*/}
+                                    {/*    //accept only addresses*/}
+                                    {/*    //use google api to get autocomplete address*/}
+                                    {/*    id="standard-full-width"*/}
+                                    {/*    placeholder="Choose starting point..."*/}
+                                    {/*    fullWidth={true}*/}
+                                    {/*    margin="normal"*/}
+                                    {/*    value={this.state.itinerary["starting"]}*/}
+                                    {/*    onChange={this.handleStartingChange}*/}
+                                    {/*    InputLabelProps={{*/}
+                                    {/*        shrink: true,*/}
+                                    {/*    }}*/}
+                                    {/*/>*/}
                                 </Grid>
                                 <Grid item xs={1}> <HomeRounded/></Grid>
 
                                 <Grid item xs={11} >
-
-                                    <TextField
-                                        //accept only addresses
-                                        //use google api to get autocomplete address
-                                        id="standard-full-width"
-                                        placeholder="Choose final destination..."
-                                        fullWidth={true}
-                                        margin="normal"
-                                        value={this.state.itinerary["ending"]}
-                                        onChange={this.handleFinalChange}
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
+                                    <GoogleMaps
+                                        prompt={"Choose final destination..."}
+                                        inputAddress={this.handleAddressChange.bind(this, "destination")}
+                                        className={"ending"}
                                     />
                                 </Grid>
                                 <Grid item xs={1}> <PlaceRoundedIcon/></Grid>
@@ -148,7 +171,8 @@ class CreateItinerary extends React.Component {
 
                                     <TextField
                                         id="datetime-local"
-                                        label="Start Date"
+                                        //label="Start Date"
+                                        placeholder={"Start Date"}
                                         type="datetime-local"
                                         fullWidth={true}
                                         margin="normal"
@@ -165,7 +189,7 @@ class CreateItinerary extends React.Component {
                                 <Grid item xs={12} >
 
                                     {
-                                        this.state.itinerary["destinations"].map((d, index) => {
+                                        this.state.itinerary["waypoints"].map((d, index) => {
                                             return (<NewDestination  key={uid(d)} itinerary={this} index={index} handleChange={this.handleDestination.bind(this,index)}/>);
                                         })
                                     }
@@ -174,11 +198,9 @@ class CreateItinerary extends React.Component {
 
                                 <Grid item xs={12} >
                                     <div>
-                                        <Link onClick={()=>this.handleSubmit(unique)} to={`./itinerary/${unique}`}>
                                             <Tooltip title="Submit" arrow>
-                                                <IconButton  className={"create__Button"} variant={"contained"} >  <DoneIcon fontSize={"small"}/> </IconButton>
+                                                <IconButton  onClick={()=>this.handleSubmit(unique)} className={"create__Button"} variant={"contained"} >  <DoneIcon fontSize={"small"}/> </IconButton>
                                             </Tooltip>
-                                        </Link>
                                         <Tooltip title="Add destination..." arrow>
                                             <IconButton className={"create__Button"} onClick={this.handleAddClick} variant={"contained"} ><AddLocationRoundedIcon/> </IconButton>
                                         </Tooltip>
@@ -197,4 +219,4 @@ class CreateItinerary extends React.Component {
     };
 }
 
-export default CreateItinerary;
+export default withRouter(CreateItinerary);

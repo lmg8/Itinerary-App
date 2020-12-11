@@ -44,6 +44,9 @@ class UserSettings extends React.Component {
         }
 
         reader.readAsDataURL(file)
+        console.log(this.state.file);
+        console.log(this.state.imagePreviewUrl);
+        console.log(reader)
     }
 
     //for dialog form
