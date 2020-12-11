@@ -256,7 +256,50 @@ app.get('/api/users/:id/friends', mongoChecker, async (req, res) => {
     }
 })
 
-// a GET route to get all friends from a specific user
+// a GET route to get specific friend from a specific user
+app.get('/api/users/:id/friends/:friendid', mongoChecker, async (req, res) => {
+
+    const id = req.params.id
+    const friendid = req.params.friendid
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;  // so that we don't run the rest of the handler.
+    }
+
+    if (!ObjectID.isValid(friendid)) {
+        res.status(404).send()
+        return;  // so that we don't run the rest of the handler.
+    }
+
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log('Issue with mongoose connection')
+        res.status(500).send('Internal server error')
+        return;
+    }
+    // get friendsList
+    try {
+        // get user
+        const user = await User.findById(id);
+        if (!user) {
+            res.status(404).send('Resource not found')
+        } else {
+            // get friends from user's friendlist
+            const friends = await User.find({ _id: { "$in" : user.friends} });
+            for(let i = 0; i < friends.length; i++){
+                if(friends[i]._id == friendid){
+                    res.send(friends[i]);
+                }
+            }
+        }
+    } catch(error) {
+        log(error)
+        res.status(500).send("Internal Server Error")
+    }
+})
+
+// a GET route to get all favourites from a specific user
 app.get('/api/users/:id/favourites', mongoChecker, async (req, res) => {
 
     const id = req.params.id
@@ -463,6 +506,7 @@ app.patch('/api/users/:id/itineraries', async (req, res) => {
     }
 });
 
+//Delete a user
 app.delete('/api/users/:id', async (req, res) => {
 	const id = req.params.id
 
@@ -496,6 +540,7 @@ app.delete('/api/users/:id', async (req, res) => {
     }
 });
 
+//Delete an itinerary
 app.delete('/api/itineraries/:id', async (req, res) => {
 	const id = req.params.id
     console.log(id);

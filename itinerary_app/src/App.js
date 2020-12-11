@@ -37,7 +37,6 @@ class App extends React.Component {
 
   render(){
     const { currentUser, adminStatus } = this.state;
-    console.log(adminStatus)
     return(
       <div>
         {<BrowserRouter>

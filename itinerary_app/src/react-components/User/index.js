@@ -17,12 +17,14 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Collapse from '@material-ui/core/Collapse'
 import {Tabs, Tab, CardContent, Container} from "@material-ui/core";
 
-import {logout, getUsers, getSpecificUser} from "../../actions/user"
+import {logout, getUsers, getSpecificUser,  getFavouritesFromUser, getFriendsFromUser, replaceFriendsList} from "../../actions/user"
+import { getItinerariesFromUser } from "../../actions/itinerary";
 
 
 import SettingsIcon from '@material-ui/icons/Settings';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import SearchIcon from '@material-ui/icons/Search';
+
 
 import "./styles.css";
 
@@ -105,14 +107,9 @@ class User extends React.Component {
             },
             
             //The below lists should be populated by the server (e.g. itineraryList: <itineraryList that is on the server>)
-            itineraryList:[hardCodedItinerary],
+            itineraryList:[],
             favouritesList:[],
-            friendsList:[{userId:2,
-                name: "Andrew Johnson",
-                currLocation: "Seattle",
-                username: "AJ",
-                profilePic: `${process.env.PUBLIC_URL}/SearchPics/profilePic3.jpg`,
-            }],
+            friendsList:[],
             itineraryCardsExpanded: false,
             favouritesCardsExpanded: false,
         }
@@ -120,8 +117,6 @@ class User extends React.Component {
     }
 
     addToFavourites(){
-        //This should send information to the server so that the server knows what a user's favourites are, right now it just updates a local array
-        // In the full release, an additional array on the server should be updated as well.
         const newFavourite = {
             id: hardCodedItinerary.id,
             name: hardCodedItinerary.name,
@@ -165,10 +160,17 @@ class User extends React.Component {
 
     removeFriend(id){
         //Code below should make a server call and update the friends section of the database on the server as well
-        console.log(id)
         const friendsList=[...this.state.friendsList];
         const updatedFriendList = friendsList.filter(currentFriend => currentFriend["userId"] !== id)
         this.setState({friendsList: updatedFriendList})
+        console.log(updatedFriendList)
+        const newArray = []
+        for (let i = 0; i < updatedFriendList.length; i++){
+            newArray.push(updatedFriendList._id.toString())
+        }
+        console.log(newArray)
+        replaceFriendsList(newArray, this.state.userId)
+
     }
 
     removeFromFavourites(id){
@@ -196,15 +198,18 @@ class User extends React.Component {
             for (let i = 0; i < this.state.userList.length; i++){
                 if(app.state.currentUser == this.state.userList[i].username){
                     getSpecificUser(this, this.state.userList[i]._id)
+                    getItinerariesFromUser(this.state.userList[i]._id, this);
+                    getFriendsFromUser(this.state.userList[i]._id, this);
+                    getFavouritesFromUser(this.state.userList[i]._id, this);
                 }
             }
         }
+        
     }
 
     render() {
         const { app } = this.props
         if (this.state.adminStatus === false){
-            console.log("not admin")
             return (
             <div >
                 <AppBar className="user-appBar" color="primary" position="static">
@@ -337,6 +342,7 @@ class User extends React.Component {
                         <TabPanel value={this.state.value} index={2}>
                             <Grid container spacing = {1}>
                                 {this.state.friendsList.map(friend => {
+                                    console.log(friend)
                                     return (
                                         <Grid item md={2.5}>
                                             <Card>
@@ -361,7 +367,6 @@ class User extends React.Component {
                     </div>
             </div>
         );} else {
-            console.log("Admin")
             return (
                 <div >
                     <AppBar className="user-appBar" color="primary" position="static">

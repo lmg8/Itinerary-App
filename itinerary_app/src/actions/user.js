@@ -225,11 +225,12 @@ export const createUser = (creationComp, app) => {
         });
 };
 
-export const addFriend = (friendUserId,currUserId,app) => {
+export const replaceFriendsList = (newFriendsList,currUserId,app) => {
+    console.log(currUserId)
     const request = new Request(`/api/users/${currUserId}`, {
-        method: "patch",
+        method: "PATCH",
         body: JSON.stringify([
-            { "op": "replace", "path": "/friends", "value": [friendUserId] }
+            { "op": "replace", "path": "/friends", "value": newFriendsList }
           ]),
         headers: {
             Accept: "application/json, text/plain, */*",
