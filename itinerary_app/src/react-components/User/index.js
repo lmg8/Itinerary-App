@@ -505,10 +505,8 @@ class User extends React.Component {
                                             <Grid item md={2.5}>
                                                 <Card>
                                                     <CardHeader
-                                                        avatar={
-                                                            <Avatar className="friend-avatar" src={friend["profilePic"]}/>}
-                                                        title={friend["name"]}
-                                                            subheader={friend["currLocation"]}
+                                                        avatar={<Avatar className="friend-avatar" src={friend["profilePic"]}/>}
+                                                        title={`${friend.firstName} ${friend.lastName}`}
                                                     />
                                                     <CardActions>
                                                         <Link to={"../User2"}>
