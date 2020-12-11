@@ -59,6 +59,7 @@ export const getItinerariesFromUser = (userID, page) => {
             }
         })
         .then(json => {
+            console.log(`this is the current itinerary list ${json}`)
             // the resolved promise with the JSON body
             page.setState({ itineraryList: json});
         })
@@ -118,7 +119,7 @@ export const getSpecificItinerary = (page, itineraryId) => {
 // A function to send a POST request to the web server with new itinerary,
 export const createItinerary = (creationComp) => {
     const request = new Request("/api/itineraries", {
-        method: "post",
+        method: "POST",
         body: JSON.stringify(creationComp.state.itinerary),
         headers: {
             Accept: "application/json, text/plain, */*",

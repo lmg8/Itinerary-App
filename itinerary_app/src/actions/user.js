@@ -249,6 +249,30 @@ export const replaceFriendsList = (newFriendsList,currUserId,app) => {
         });
 };
 
+export const replaceItineraryList = (newItineraryList,currUserId,app) => {
+    console.log(currUserId)
+    const request = new Request(`/api/users/${currUserId}`, {
+        method: "PATCH",
+        body: JSON.stringify([
+            { "op": "replace", "path": "/friends", "value": newItineraryList }
+          ]),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+    // Send the request with fetch()
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .catch(error => {
+            alert("Error updating itinerary list.")
+        });
+};
+
 // A function to send a DELETE request to the web server
 export const deleteUser = (userID, app) => {
     console.log(userID);
