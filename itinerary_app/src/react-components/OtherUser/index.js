@@ -205,14 +205,14 @@ class OtherUser extends React.Component {
                         <TabPanel value={this.state.value} index={2}>
                             <Grid container spacing = {5}>
                                 {this.state.friendsList.map(friend => {
+                                    console.log(friend)
                                     return (
                                         <Grid item md={2.5}>
                                             <Card>
                                                 <CardHeader
                                                     avatar={
                                                         <Avatar className="friend-avatar" src={friend["profilePic"]}/>}
-                                                    title={friend["name"]}
-                                                    subheader={friend["currLocation"]}
+                                                    title={`${friend.firstName} ${friend.lastName}`}
                                                 />
                                             </Card>
                                         </Grid>)
