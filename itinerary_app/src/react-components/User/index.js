@@ -185,14 +185,17 @@ class User extends React.Component {
         this.setState(state=>({favouritesCardsExpanded: !state.favouritesCardsExpanded}));
     }
 
-    identifyUser = (currentUser) =>{
-        if (this.state.userList.length === 0){
-            getUsers(this);
-        }
-        for (let i = 0; i < this.state.userList.length; i++){
-            if(currentUser == this.state.userList[i].username){
-                getSpecificUser(this, this.state.userList[i]._id)
-                return this.state.firstName +" "+ this.state.lastName
+    componentDidMount(){
+        getUsers(this);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const {app} = this.props;
+        if(prevState.userList != this.state.userList){
+            for (let i = 0; i < this.state.userList.length; i++){
+                if(app.state.currentUser == this.state.userList[i].username){
+                    getSpecificUser(this, this.state.userList[i]._id)
+                }
             }
         }
     }
@@ -229,7 +232,7 @@ class User extends React.Component {
                     <div>
                         <Avatar className="user-avatar" src="./../SearchPics/profilePic1.jpeg"/>
                         <div>
-                            <Typography align="center" component="h1" variant="h5"> {this.identifyUser(app.state.currentUser)} </Typography>
+                            <Typography align="center" component="h1" variant="h5"> {this.state.firstName + " " + this.state.lastName} </Typography>
                         </div>
                         <Box textAlign='center'>
                             <Link className="signout_button_link" to ={"user/create-itinerary" }>
@@ -264,9 +267,7 @@ class User extends React.Component {
                                                     </CardContent>
                                             </CardActionArea>
                                             <CardActions>
-                                                <Link to={{pathname:"/user/itinerary/0"}}>
-                                                <Button size="small" color="primary">View</Button>
-                                                </Link>
+                                                <Button onClick={()=>this.props.history.push(`./itinerary/5fd26ed51580ef332c22a34c`)} size="small" color="primary">View</Button>
                                                 <Button size="small" color="primary" onClick={()=>this.addToFavourites()}>Favourite this itinerary</Button>
                                                 <Button size="small" color="secondary" onClick={()=>this.removeItinerary(itinerary.id)}>Delete this itinerary</Button>
                                             </CardActions>

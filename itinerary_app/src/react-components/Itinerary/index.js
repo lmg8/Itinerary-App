@@ -30,30 +30,37 @@ import CommentsBlock from 'simple-react-comments';
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 
+import Map from "../Map";
+
+import { withScriptjs } from "react-google-maps";
+
 //get this from database server
-const commentsData = [{  avatarUrl: `${process.env.PUBLIC_URL}/SearchPics/profilePic1.jpeg`,
+const commentsData = [{
     authorUrl: "/user",
     fullName: "Adam Smith",
     createdAt: new Date(),
     text: "Do you guys want to go with me",},
-    {  avatarUrl: `${process.env.PUBLIC_URL}/SearchPics/profilePic2.jpeg`,
+    {
         authorUrl: "/user2",
         fullName: "Kate Park",
         createdAt: new Date(),
         text: "Let's do it!",},
-    {  avatarUrl: `${process.env.PUBLIC_URL}/SearchPics/profilePic3.jpg`,
+    {
         authorUrl: "/user2",
         fullName: "Andrew Johnson",
         createdAt: new Date(),
         text: "When?",},
 ]
 
-class Itinerary extends React.Component {
+//const MapLoader = withScriptjs(Map);
+
+
+class Itinerary extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
             //itinerary object
-            itinerary: props.itinerary[0],
+            itinerary: props.itinerary,
             //list of dictionaries
             friendsList: props.friendsList,
 
@@ -63,6 +70,7 @@ class Itinerary extends React.Component {
             comments: commentsData,
             openComment:false
         };
+
     }
 
     handleDrawerOpen = () => {
@@ -91,10 +99,16 @@ class Itinerary extends React.Component {
 
     render() {
         // const userKeys = Object.keys(this.state.itinerary) //["id", "name", "starting", "ending", "destinations", "startDate"]
+
         return (
 
             <div className={"backgroundContainer"}>
                 <Header/>
+
+                <Map
+                    itinerary={this.state.itinerary}
+                    loadingElement={<div style={{ height: `100%` }} />}
+                />
 
                 <BottomNavigation
                     className={"navigationBar"}
@@ -117,21 +131,18 @@ class Itinerary extends React.Component {
                     <div className={"drawerHeader"}
                          onKeyDown={this.handleDrawerClose}>
                         <Tooltip title={"CLOSE"}>
-
-                        <IconButton className={"exitDrawerButton"} onClick={this.handleDrawerClose}>
-                            <ChevronRight/>
-                        </IconButton>
+                            <IconButton className={"exitDrawerButton"} onClick={this.handleDrawerClose}>
+                                <ChevronRight/>
+                            </IconButton>
                         </Tooltip>
-
-
-                            <Link to={{pathname:`/user/edit-itinerary/${this.state.itinerary["id"]}`}}>
+                        {/*TODO: fix itinerary id*/}
+                            {/*<Link to={{pathname:`/user/edit-itinerary/${this.state.itinerary["id"]}`}}>
                                 <Tooltip title={"Edit Itinerary"}>
                                 <IconButton className={"editDrawerButton"}>
                                     <EditRoundedIcon fontSize={"medium"}/>
                                 </IconButton>
                                 </Tooltip>
-
-                            </Link>
+                            </Link>*/}
 
 
                     <h1 className={"ItineraryName__h1"}>{this.state.itinerary["name"]}</h1>
@@ -141,19 +152,19 @@ class Itinerary extends React.Component {
                         <List>
                             <ListItem >
                                 <ListItemIcon><TodayIcon /></ListItemIcon>
-                                <ListItemText>{this.state.itinerary["startDate"]}</ListItemText>
+                                <ListItemText>{new Date(this.state.itinerary["startDate"]).toString()}</ListItemText>
                             </ListItem>
                                 <ListItem button onClick={this.handleLeftDrawerOpen}>
                                     <ListItemIcon><HomeRoundedIcon /></ListItemIcon>
-                                    <ListItemText>{this.state.itinerary["starting"]}</ListItemText>
+                                    <ListItemText>{this.state.itinerary["source"].address}</ListItemText>
                                 </ListItem>
                         </List>
                         <Divider/>
                         <List>
-                            {this.state.itinerary["destinations"].map((d) => (
-                                <ListItem button onClick={this.handleLeftDrawerOpen} key={d}>
+                            {this.state.itinerary["waypoints"].map((d, index) => (
+                                <ListItem button onClick={this.handleLeftDrawerOpen} key={index}>
                                     <ListItemIcon><MoreVertIcon/></ListItemIcon>
-                                    <ListItemText primary={d["address"]} />
+                                    <ListItemText primary={d["address"]} key={index}/>
                                 </ListItem>
                             ))}
                         </List>
@@ -162,7 +173,7 @@ class Itinerary extends React.Component {
 
                             <ListItem button onClick={this.handleLeftDrawerOpen}>
                                 <ListItemIcon><PlaceRoundedIcon /></ListItemIcon>
-                                <ListItemText>{this.state.itinerary["ending"]}</ListItemText>
+                                <ListItemText>{this.state.itinerary["destination"].address}</ListItemText>
                             </ListItem>
                         </List>
                     </div>
@@ -221,9 +232,8 @@ class Itinerary extends React.Component {
                                             ...this.state.comments,
                                             {
                                                 authorUrl: '/user',
-                                                avatarUrl: `${process.env.PUBLIC_URL}/SearchPics/profilePic1.jpeg`,
                                                 createdAt: new Date(),
-                                                fullName: 'Adam Smith',
+                                                fullName: '@'+'Adam Smith',
                                                 text,
                                             },
                                         ],
