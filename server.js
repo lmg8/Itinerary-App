@@ -394,7 +394,7 @@ app.get("*", (req, res) => {
     }
 
     // send index.html
-    res.sendFile(path.join(__dirname, "/build/index.html"));
+    res.sendFile(path.join(__dirname, "/itinerary_app/build/index.html"));
 });
 
 /*************************************************/

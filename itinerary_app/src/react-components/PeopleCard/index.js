@@ -25,38 +25,41 @@ const useStyles = makeStyles({
 
 const PeopleCard = props => {
     const classes = useStyles();
-    const {firstName, lastName, profilePic, location, quote, banner} = props;
+    const {user} = props;
     return (<Grid item xs={12} sm={3}>
               <Box mx={3}>
                 <Card variant="outlined">
                   <CardHeader
                       avatar={
-                      <Avatar src={profilePic} />
+                      <Avatar src={user.profilePic} />
                       }
                       action={
                       <IconButton aria-label="settings">
                           <MoreVertIcon />
                       </IconButton>
                       }
-                      title={firstName + " " + lastName}
-                      subheader={location}
+                      title={user.firstName + " " + user.lastName}
+                      subheader={user.location}
                   />
                   <CardMedia
                     style={{height: "150px"}}
                     className={classes.media}
-                    image={banner}
+                    image={user.banner}
                     title=""
                   />
                   <CardContent>
                     <Typography variant="body2" component="p">
-                      {quote}
+                      {user.quote}
                     </Typography>
                   </CardContent>
                   <CardActions>
                     <Grid container>
                       <Grid xs={4}>
                         {/* This will be a server call to retreive the correct profile */}
-                        <Link to={"../User2"}>
+                        <Link to={{
+                          pathname: "../User2",
+                          state: {user: user}
+                        }}>
                           <Button size="small" color="primary">View Profile</Button>
                         </Link>
                         </Grid><Grid xs={4}>

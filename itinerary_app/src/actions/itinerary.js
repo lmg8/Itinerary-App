@@ -28,6 +28,7 @@ export const getItineraries = (page) => {
         });
 };
 
+
 // A function to send a DELETE request to the web server
 // deletes an itinerary by ID
 export const deleteItinerary = (itineraryID, app) => {

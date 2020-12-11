@@ -71,7 +71,6 @@ const hardCodedFriend = {userId:1,
 }
 
 class OtherUser extends React.Component {
-
     handleChange(event, value) {
         this.setState({value});
     }
@@ -79,6 +78,7 @@ class OtherUser extends React.Component {
     constructor(props){
         super(props);
         this.state={
+            user: {},
             username:"user",
             password:"user",
             newFavourite:{
@@ -107,6 +107,9 @@ class OtherUser extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this);
 
+    }
+
+    componentDidMount(){
     }
 
     addToFavourites(){
@@ -163,7 +166,7 @@ class OtherUser extends React.Component {
                     <div>
                         <Avatar className="otheruser-avatar" src="./../SearchPics/profilePic3.jpg"/>
                         <div>
-                            <Typography align="center" component="h1" variant="h5"> Andrew Johnson </Typography>
+                            <Typography align="center" component="h1" variant="h5">{this.props.location.state.user.firstName + " " + this.props.location.state.user.lastName}</Typography>
                         </div>
                         <Paper>
                             <Tabs value={this.state.value} onChange={this.handleChange} indicatorColor="primary" textcolor="primary" centered>
