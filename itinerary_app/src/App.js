@@ -14,6 +14,8 @@ import User from './react-components/User';
 import OtherUser from './react-components/OtherUser';
 
 import { checkSession } from "./actions/user";
+import ItinerariesRoute from "./react-components/ItinerariesRoute";
+import CreateItinerary from "./react-components/CreateItinerary";
 
 
 class App extends React.Component {
@@ -54,11 +56,11 @@ class App extends React.Component {
                       )}/>}
                 </div>        
               )}/>
-            <Route path={["/login", "/user"]} render={props =>
+            <Route exact path={["/login", "/user"]} render={props =>
               (
                 <div >
                   { /* If logged in, continue to user page, else stay on login page */}
-                  {!currentUser ? <Login {...props} app={this} /> : <UserRoutes {...props} app={this} />}
+                  {!currentUser ? <Login {...props} app={this} /> : <User {...props} app={this} />}
                 </div>        
               )}/>
             <Route exact path='/signup' render={props => 
@@ -81,19 +83,19 @@ class App extends React.Component {
                   {!adminStatus ? <Login {...props} app={this} /> : <Admin {...props} app={this} />}
                 </div>        
               )}/>
-            <Route path='/user' render={props => 
-              (
-                <div >
-                  { /* If logged in, continue to user page, else stay on login page */}
-                  {!currentUser ? <Login {...props} app={this} /> : <UserRoutes {...props} app={this} />}
-                </div>        
-              )}/>
-            <Route exact path='/user2' render={props => 
+            <Route exact path='/user2' render={props =>
               (
                 <div >
                   <OtherUser {...props} app={this} /> 
                 </div>        
               )}/>
+
+            <Route exact path ="/user/itinerary/:id" render = {(props) =>
+                <ItinerariesRoute {...props}/>
+            }/>
+
+            <Route exact path="/user/create-itinerary" render={(props) => <CreateItinerary {...props}/>}/>
+
           </Switch>
         </BrowserRouter>}
       </div>

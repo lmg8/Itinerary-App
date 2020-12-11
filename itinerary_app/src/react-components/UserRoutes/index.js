@@ -21,7 +21,6 @@ const hardCodedFriend = {userId:1,
 class UserRoutes extends React.Component {
     constructor(props){
         super(props);
-        this.props.history.push("/user");
         this.state = {
             //get these information from server
             userInfo: {name: "",
@@ -66,10 +65,7 @@ class UserRoutes extends React.Component {
 
     componentDidMount(){
             //load once only in the beginning
-            console.log("hello!")
-            console.log(!this.state.itineraryList)
-            console.log(this.state.itineraryList)
-            if (this.state.itineraryList) {
+            if (!this.state.loaded) {
                 console.log(!this.state.itineraryList)
                 getSpecificUserItineraryList(this)
                 console.log("itinerary list")
@@ -77,12 +73,6 @@ class UserRoutes extends React.Component {
                 this.setState({loaded:true})
             }
 
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevState.itineraryList !== this.state.itineraryList){
-            //this.props.history.push("/user")
-            console.log(prevState.itineraryList + " 1111 " + this.state.itineraryList)
-        }
     }
 
     render() {
@@ -95,7 +85,7 @@ class UserRoutes extends React.Component {
         return(
 
             <Switch>
-                <Route exact path={`${this.props.match.path}`} render={(props)=><User {...props} app={app} appState={this.state}/>}/>
+                {/*<Route exact path={`${this.props.match.path}`} render={(props)=><User {...props} app={app} appState={this.state}/>}/>*/}
                 <Route path={`${this.props.match.path}/settings`} render={ () => <UserSettings
                     name={this.state.userInfo.name}
                     source={this.state.userInfo.source}
@@ -103,11 +93,11 @@ class UserRoutes extends React.Component {
                     password={this.state.userInfo.password}
                     location={this.state.userInfo.location}
                 />}/>
-                <Route path={`${this.props.match.path}/create-itinerary`} render={() =>
-                    (<CreateItinerary appState={this.state} location={this.props.location} handleSubmit={this.handleCreateItinerary}/>)}/>
-                <Route path = {[`${this.props.match.path}/itinerary/:id`, '/user/itinerary/:id']} render = {(props) =>
-                    <ItinerariesRoute {...props} itineraries={this.state.itineraryList} friendsList={this.state.friendsList}/>
-                }/>
+                {/*<Route path={`${this.props.match.path}/create-itinerary`} render={() =>
+                    (<CreateItinerary appState={this.state} location={this.props.location} handleSubmit={this.handleCreateItinerary}/>)}/>*/}
+                {/*<Route path = {[`${this.props.match.path}/itinerary/:id`]} render = {(props) =>
+                    <ItinerariesRoute {...props} appState={this.state} location={this.props.location} itineraries={this.state.itineraryList} friendsList={this.state.friendsList}/>
+                }/>*/}
                 {/*TODO: fix edit-itinerary!*/}
                 <Route path = {`${this.props.match.path}/edit-itinerary/:id`} render = {(props) =>
                     <EditItineraryRoute {...props} location={this.props.location} itineraries={this.state.itineraryList} handleSubmit={this.handleUpdateItinerary}/>

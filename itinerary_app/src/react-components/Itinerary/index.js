@@ -52,7 +52,6 @@ const commentsData = [{
         text: "When?",},
 ]
 
-//const MapLoader = withScriptjs(Map);
 
 
 class Itinerary extends React.PureComponent {
@@ -70,6 +69,10 @@ class Itinerary extends React.PureComponent {
             comments: commentsData,
             openComment:false
         };
+
+
+        //load google maps api in case it wasn't loaded
+
 
     }
 
@@ -106,6 +109,7 @@ class Itinerary extends React.PureComponent {
                 <Header/>
 
                 <Map
+
                     itinerary={this.state.itinerary}
                     loadingElement={<div style={{ height: `100%` }} />}
                 />
