@@ -226,8 +226,8 @@ class User extends React.Component {
                                  </Link>
                             </ButtonGroup>
                             <ButtonGroup size='small' variant="text" className="user_button_group">
-                                <Link to={"user/settings" }>
-                                    <Button><SettingsIcon fontSize="large"/></Button>
+                                <Link to={"/user/settings" }>
+                                    <Button onClick={()=> this.props.history.push('/user/settings')}><SettingsIcon fontSize="large"/></Button>
                                 </Link>
                             </ButtonGroup>
                             

@@ -16,6 +16,7 @@ import OtherUser from './react-components/OtherUser';
 import { checkSession } from "./actions/user";
 import ItinerariesRoute from "./react-components/ItinerariesRoute";
 import CreateItinerary from "./react-components/CreateItinerary";
+import UserSettings from "./react-components/UserSettings";
 
 
 class App extends React.Component {
@@ -66,7 +67,7 @@ class App extends React.Component {
               (
                 <div >
                   { /* If logged in, continue to user page, else stay on login page */}
-                  {!currentUser ? <Signup {...props} app={this} /> : <UserRoutes {...props} app={this} />}
+                  {!currentUser ? <Signup {...props} app={this} /> : <User {...props} app={this} />}
                 </div>        
               )}/>
             <Route exact path='/about' render={props =>
@@ -94,6 +95,8 @@ class App extends React.Component {
             }/>
 
             <Route exact path="/user/create-itinerary" render={(props) => <CreateItinerary {...props}/>}/>
+
+            <Route exact path="/user/settings" render={(props) => <UserSettings {...props} app={this}/>}/>
 
           </Switch>
         </BrowserRouter>}
