@@ -134,6 +134,7 @@ It returns...
 * GET “/api/users/:id” - A route that returns the user with the userid “:id”.
 
 * PATCH “/api/users/:id” - A route that updates the user. It expects a JSON that looks like this: 
+
         {
             {“op”:”replace”, “path”:”/friends”, “value”: [<Some userid strings here>]
         }
@@ -141,17 +142,20 @@ It returns...
 
 
 * PATCH "'/api/itineraries/:id/comments''" - A route that updates itinerary comments
+
         {
             "id": "userID"
         }
         
 * DELETE "'/api/users/:id'" - A route that deletes a user. It expects a JSON that looks like this:
+
         {
             "id": "userID"
         }
 
 
 * DELETE "'/api/itineraries/:id'" - A route that deletes an itinerary. It expects a JSON that looks like this:
+
         {
             "id": "itineraryID"
         }
