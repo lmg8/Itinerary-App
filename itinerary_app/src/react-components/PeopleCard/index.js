@@ -33,11 +33,6 @@ const PeopleCard = props => {
                       avatar={
                       <Avatar src={user.profilePic} />
                       }
-                      action={
-                      <IconButton aria-label="settings">
-                          <MoreVertIcon />
-                      </IconButton>
-                      }
                       title={user.firstName + " " + user.lastName}
                       subheader={user.location}
                   />
@@ -64,10 +59,7 @@ const PeopleCard = props => {
                         </Link>
                         </Grid><Grid xs={4}>
                         {/* This will be a server call to update friends list in the database */}
-                        <Button size="small" color="primary">Add Friend</Button>
-                        </Grid><Grid xs={4}>
-                        {/* This will be a server call to update blocked users in the database */}
-                        <Button size="small" color="secondary">Block User</Button>
+                        <Button size="small" color="primary" onClick={()=>console.log(user)}>Add Friend</Button>
                         </Grid>
                     </Grid>
                   </CardActions>
