@@ -80,9 +80,9 @@ and returns a JSON that looks like this:
         }
 
   
-* GET "/users/logout" - A route that returns nothing, just logs users out.
+* GET "/users/logout" - A route that returns nothing, just logs users out. No data to be sent.
         
-* GET "/users/check-session" - A route that checks the session. It returns a JSON that looks like this:
+* GET "/users/check-session" - A route that checks the session. No data to be sent. It returns a JSON that looks like this:
 
         {
             "username": "user"
@@ -115,23 +115,23 @@ It returns the created user
    
 It returns...
 
-* GET "/api/itineraries" - A route that gets all itineraries. It returns all itineraries in JSON format
+* GET "/api/itineraries" - A route that gets all itineraries. It returns all itineraries in JSON format. No data to be sent.
 
-* GET “/api/user/:id/itineraries” - A route that returns all itineraries for a specific user.  “:id” is the id of the user.
+* GET “/api/user/:id/itineraries” - A route that returns all itineraries for a specific user.  “:id” is the id of the user. No data to be sent.
 
-* GET “/api/users/:id/friends” - A route that returns all friends of a specific user. “:id” is the id of the user.
+* GET “/api/users/:id/friends” - A route that returns all friends of a specific user. “:id” is the id of the user. No data to be sent.
 
-* GET “/api/users/:id/friends/:friendid” - A route that returns a specific friend of a specific user.   “:id” is the id of the user and “friendid” is the id of the friend.
+* GET “/api/users/:id/friends/:friendid” - A route that returns a specific friend of a specific user.   “:id” is the id of the user and “friendid” is the id of the friend. No data to be sent.
 
-* GET “/api/users/:id/favourites” - A route that returns an array of favourites of a specific user.  “:id” is the id of the user.
+* GET “/api/users/:id/favourites” - A route that returns an array of favourites of a specific user.  “:id” is the id of the user. No data to be sent.
 
-* GET “/api/user/itineraries” - A route that returns an array of all the itineraries for the current user
+* GET “/api/user/itineraries” - A route that returns an array of all the itineraries for the current user. No data to be sent.
 
-* GET “/api/itineraries/:id” - A route that returns a specific itinerary. “:id” is the itinerary id.
+* GET “/api/itineraries/:id” - A route that returns a specific itinerary. “:id” is the itinerary id. No data to be sent.
  
-* GET “/api/users” - A route that returns all users.
+* GET “/api/users” - A route that returns all users. No data to be sent.
 
-* GET “/api/users/:id” - A route that returns the user with the userid “:id”.
+* GET “/api/users/:id” - A route that returns the user with the userid “:id”. No data to be sent.
 
 * PATCH “/api/users/:id” - A route that updates the user. It expects a JSON that looks like this: 
 
@@ -141,25 +141,24 @@ It returns...
 
 
 
-* PATCH "'/api/itineraries/:id/comments''" - A route that updates itinerary comments
+* PATCH "'/api/itineraries/:id/comments''" - A route that updates itinerary comments. It expects a JSON that looks like this:
 
         {
-            "id": "userID"
+            "value": CommentsSchema
         }
         
-* DELETE "'/api/users/:id'" - A route that deletes a user. It expects a JSON that looks like this:
+
+* PATCH "'/api/itineraries/:id/itineraries'''" - A route that updates itinerary comments. It expects a JSON that looks like this:
 
         {
-            "id": "userID"
+            "value": <A representation of the user id>
         }
+        
+        
+* DELETE "'/api/users/:id'" - A route that deletes a user.
 
 
-* DELETE "'/api/itineraries/:id'" - A route that deletes an itinerary. It expects a JSON that looks like this:
-
-        {
-            "id": "itineraryID"
-        }
-
+* DELETE "'/api/itineraries/:id'" - A route that deletes an itinerary.
 
 
 
