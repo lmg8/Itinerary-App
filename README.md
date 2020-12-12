@@ -18,11 +18,12 @@ Here, the new user can create an account by filling in the appropriate fields. A
         
 # USER VIEWS
 
-If you are signed in as a user. You can create a new itinerary, view/remove an already made itinerary, move an existing itinerary to your favourites list, and remove friends.
+If you are signed in as a user. You can create a new itinerary, view/remove an already made itinerary, move an existing itinerary to your favourites list, and remove friends. 
 
 If you are signed in as an admin. You can view users and all itineraries on the website.
 
-In both "signed-in" views, there is a bar at the top. In this bar are multiple buttons. One button signs you out and brings you to the home page, one leads you to user settings, one leads you to search functions, and one leads you to the user page. If you are already at the user page, you will not have the button to bring you to the user page. The admin user will have an admin menu button instead of a user settings button. 
+In both "signed-in" views, there is a bar at the top. In this bar are multiple buttons. One button signs you out and brings you to the home page, one leads you to user settings, one leads you to search functions, and one leads you to the user page. If you are already at the user page, you will not have the button to bring you to the user page. The admin user will have an admin menu button instead of a user settings button.
+
 
 # STANDARD USER
 
@@ -34,31 +35,35 @@ Friends tab is where the user's friends are. The user can remove them if they wi
 
 ## CREATING AN ITINERARY
 
-After clicking "Create a new itinerary", the user can name their trip, choose a starting point, choose an end point, add stops along the way and add the start date. Once they are done, they can click the check mark to view the map. 
+After clicking "Create a new itinerary", the user can name their trip, choose a starting point, choose an end point, add multiple stops along the way and add the start date. Once they are done, they can click the check mark to view the map. Currently, adding start date only works for Chrome due to Materials-UI implementation. The implementation uses Google Maps Autocomplete. We limited the places to Canada only due to API key restrictions.
 
 ## VIEWING ITINERARY MAP
 
-On the map, there are two buttons. One to view the itinerary comments and one to view the itinerary itself. The itinerary will pop up on the right and the user can click the addresses to view the reviews. An edit itinerary button is on the top left of the itinerary panel. From here, one can edit the itinerary.
+On the map, there are two buttons. One to view the itinerary comments and one to view the itinerary itself. The itinerary will pop up on the right and the user can click the addresses to view the reviews. 
+Note: Getting reviews from Google API has not been implemented due to API limits. However, we hardcoded fake reviews to show proof of concept.
+
 
 # ADMIN USER
 
-From the admin view, they can delete and view users. They can also delete itineraries. These features will be used by an admin to remove inappropriate users/itineraries.
+From the admin view, an admin user can view all users and itineraries. These show up as cards with buttons to view and delete. On clicking view, the user will be brought to their user page. On clicking delete, the user or itinerary will be deleted from the database. These features will be used by an admin to remove inappropriate users/itineraries.
 
 # SEARCH VIEW
 
-By default, the search view is configured to search through users. Just type in a user (such as User) and press enter to retrieve the user.
+By default, the search view is configured to search through users. Type in the search bar and click enter to find users in the system. The users will be displayed on cards with two options: View Profile and Add Friend. Clicking the view profile button will bring the user to their user page.
 
-# PLACE SEARCH
+*Note: As mentioned earlier, adding a friend on the front end is not implemented*
 
-Place search will occur in the create an itinerary page where addresses are autofilled thanks to google maps API
 
-# USER SEARCH
+# OTHER USER
 
-After a user has been searched (For this demo, search for "Kate"), one can view their profile or add them as a friend. *Note: As mentioned earlier, adding a friend on the front end is not implemented*
+The other user page takes a given user and retrieves their itineraries, favourites, and friends. These are displayed on cards hidden in tabs that the user can click through.
 
 # USER SETTINGS
 
-Here, the user can change their profile picture, name, email, location and password.
+Here, the user can change their profile picture, first name, last name, email, and password.
+
+*Note: Changing profile picture works on the front end, but does not save to the backend. There was a bug where password was not hashing when being updated in the database. Front end works, however, changing password will not save to the database.*
+
 
 # EXPRESS ROUTES
 * POST "/users/login" - A route that sends a JSON that looks like this:
@@ -110,6 +115,51 @@ It returns the created user
    
 It returns...
 
+* GET "/api/itineraries" - A route that gets all itineraries. It returns all itineraries in JSON format
+
+* GET “/api/user/:id/itineraries” - A route that returns all itineraries for a specific user.  “:id” is the id of the user.
+
+* GET “/api/users/:id/friends” - A route that returns all friends of a specific user. “:id” is the id of the user.
+
+* GET “/api/users/:id/friends/:friendid” - A route that returns a specific friend of a specific user.   “:id” is the id of the user and “friendid” is the id of the friend.
+
+* GET “/api/users/:id/favourites” - A route that returns an array of favourites of a specific user.  “:id” is the id of the user.
+
+* GET “/api/user/itineraries” - A route that returns an array of all the itineraries for the current user
+
+* GET “/api/itineraries/:id” - A route that returns a specific itinerary. “:id” is the itinerary id.
+ 
+* GET “/api/users” - A route that returns all users.
+
+* GET “/api/users/:id” - A route that returns the user with the userid “:id”.
+
+* PATCH “/api/users/:id” - A route that updates the user. It expects a JSON that looks like this: 
+        {
+            {“op”:”replace”, “path”:”/friends”, “value”: [<Some userid strings here>]
+        }
+
+
+
+* PATCH "'/api/itineraries/:id/comments''" - A route that updates itinerary comments
+        {
+            "id": "userID"
+        }
+        
+* DELETE "'/api/users/:id'" - A route that deletes a user. It expects a JSON that looks like this:
+        {
+            "id": "userID"
+        }
+
+
+* DELETE "'/api/itineraries/:id'" - A route that deletes an itinerary. It expects a JSON that looks like this:
+        {
+            "id": "itineraryID"
+        }
+
+
+
+
 ### Additional libraries/frameworks used: 
-- material ui
+- Material-UI
 - simple-react-comments
+- Google Cloud Platform
