@@ -17,8 +17,10 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Collapse from '@material-ui/core/Collapse'
 import {Tabs, Tab, CardContent, Container} from "@material-ui/core";
 
-import {logout, getUsers, getSpecificUser,  getFavouritesFromUser, getFriendsFromUser, replaceFriendsList} from "../../actions/user"
-import { getItinerariesFromUser } from "../../actions/itinerary";
+import {logout, getUsers, getSpecificUser,  getFavouritesFromUser, 
+        getFriendsFromUser, replaceFriendsList, replaceItineraryList} from "../../actions/user"
+
+import { getItinerariesFromUser, deleteItinerary } from "../../actions/itinerary";
 
 
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -84,6 +86,7 @@ class User extends React.Component {
         this.props.history.push("/user");
         this.state={
             userList: [],
+            nextUser:{},
             userId: 0,
             username:"",
             firstName:"",
@@ -151,26 +154,25 @@ class User extends React.Component {
         })
     }
 
-    removeItinerary(id){
+    showUser(user){
+        console.log(user)
+    }
+
+    removeItinerary(id, app){
         //Code below should make a server call and update the itinerary section of the database on the server as well
         const itineraryList=[...this.state.itineraryList];
-        const updatedItineraryList = itineraryList.filter(currentItinerary => currentItinerary.id !== id)
+        const updatedItineraryList = itineraryList.filter(currentItinerary => currentItinerary._id !== id)
         this.setState({itineraryList: updatedItineraryList})
+        replaceItineraryList(updatedItineraryList, this.state.userId)
+        deleteItinerary(id, app)
     }
 
     removeFriend(id){
         //Code below should make a server call and update the friends section of the database on the server as well
         const friendsList=[...this.state.friendsList];
-        const updatedFriendList = friendsList.filter(currentFriend => currentFriend["userId"] !== id)
+        const updatedFriendList = friendsList.filter(currentFriend => currentFriend._id !== id)
         this.setState({friendsList: updatedFriendList})
-        console.log(updatedFriendList)
-        const newArray = []
-        for (let i = 0; i < updatedFriendList.length; i++){
-            newArray.push(updatedFriendList._id.toString())
-        }
-        console.log(newArray)
-        replaceFriendsList(newArray, this.state.userId)
-
+        replaceFriendsList(updatedFriendList, this.state.userId)
     }
 
     removeFromFavourites(id){
@@ -256,29 +258,30 @@ class User extends React.Component {
                             <Grid container spacing = {5}>
                             {this.state.itineraryList.map(itinerary => {
                                 return (
-                                <Grid item key={itinerary.id} md={3}>
+                                <Grid item key={itinerary._id} md={3}>
                                         <Card>
                                             <CardActionArea onClick={this.handleItineraryCardClick}>
                                                     <CardContent>
                                                         <Typography variant="h5" component="h2">
-                                                            Itinerary: {this.state.itineraryList[0].name}
+                                                            {itinerary.name}
                                                         </Typography>
                                                         <Typography>
-                                                            Starting Location:{this.state.itineraryList[0].starting}
+                                                            Starting location: {itinerary.source.address}
                                                         </Typography>
                                                         <Typography>
-                                                            Destination: {this.state.itineraryList[0].ending}
+                                                            Destination: {itinerary.destination.address}
                                                         </Typography>
                                                     </CardContent>
                                             </CardActionArea>
                                             <CardActions>
-                                                <Link to={{pathname:`/user/itinerary/5fd2623c716bf81d4c4d7907`}}>
+                                                <Link to={{pathname:`/user/itinerary/${itinerary._id}`}}>
                                                 <Button size="small" color="primary">View</Button>
                                                 </Link>
                                                 <Button size="small" color="primary" onClick={()=>this.addToFavourites()}>Favourite this itinerary</Button>
-                                                <Button size="small" color="secondary" onClick={()=>this.removeItinerary(itinerary.id)}>Delete this itinerary</Button>
+                                                <Button size="small" color="secondary" onClick={()=>this.removeItinerary(itinerary._id)}>Delete this itinerary</Button>
                                             </CardActions>
                                         <Collapse in={this.state.itineraryCardsExpanded} timeout="auto" unmountOnExit>
+                                            {/*
                                             <CardContent>
                                                 <Typography paragraph variant="h5">
                                                     Stops in between:
@@ -290,6 +293,7 @@ class User extends React.Component {
                                                     {this.state.itineraryList[0].destinations[1]}
                                                 </Typography>
                                             </CardContent>
+                                            */}
                                         </Collapse>
                                     </Card>
 
@@ -300,38 +304,40 @@ class User extends React.Component {
                         <TabPanel value={this.state.value} index={1}>
                         <Grid container spacing = {5}>
                             {this.state.favouritesList.map(itinerary => {
+                                console.log(itinerary)
                                 return (
-                                    <Grid item key={itinerary.id} md={3}>
+                                    <Grid item key={itinerary._id} md={3}>
                                         <Card>
                                             <CardActionArea onClick={this.handleFavouritesCardClick}>
                                                     {<CardContent>
                                                         <Typography variant="h5" component="h2">
-                                                            {this.state.favouritesList[0].name}
+                                                            {itinerary.name}
                                                         </Typography>
                                                         <Typography>
-                                                            Starting location: {this.state.favouritesList[0].starting}
+                                                            Starting location: {itinerary.source.address}
                                                         </Typography>
                                                         <Typography>
-                                                            Destination: {this.state.favouritesList[0].ending}
+                                                            Destination: {itinerary.destination.address}
                                                         </Typography>
                                                     </CardContent>}
                                             </CardActionArea>
                                             <CardActions>
-                                                <Button size="small" color="secondary" onClick={()=>this.removeFromFavourites(itinerary.id)}>Remove this itinerary from favourites</Button>
+                                                <Button size="small" color="secondary" onClick={()=>this.removeFromFavourites(itinerary._id)}>Remove this itinerary from favourites</Button>
                                             </CardActions>
                                             <Collapse in={this.state.favouritesCardsExpanded} timeout="auto" unmountOnExit>
+                                            {/*
                                             <CardContent>
                                                 <Typography paragraph variant="h5">
                                                     Stops in between:
                                                 </Typography>
                                                 <Typography paragraph>
-                                                    {this.state.favouritesList[0].destinations[0]}
+                                                    {this.state.itineraryList[0].destinations[0]}
                                                 </Typography>
                                                 <Typography paragraph>
-                                                    {this.state.favouritesList[0].destinations[1]}
+                                                    {this.state.itineraryList[0].destinations[1]}
                                                 </Typography>
-                                                
                                             </CardContent>
+                                            */}
                                         </Collapse>
                                         </Card>
                                     </Grid>)
@@ -346,18 +352,16 @@ class User extends React.Component {
                                     return (
                                         <Grid item md={2.5}>
                                             <Card>
-                                                <CardHeader
-                                                    avatar={
-                                                        <Avatar className="friend-avatar" src={friend["profilePic"]}/>}
-                                                    title={friend["name"]}
-                                                        subheader={friend["currLocation"]}
-                                                />
-                                                <CardActions>
-                                                    <Link to={`../User/${friend["userId"]}`}>
-                                                        <Button size="small" color="secondary">View Profile</Button>
-                                                    </Link>
-                                                    <Button size="small" color="secondary" onClick={()=>this.removeFriend(friend["userId"])}>Remove this friend</Button>
-                                                </CardActions>
+                                                    <CardHeader
+                                                        avatar={<Avatar className="friend-avatar" src={friend["profilePic"]}/>}
+                                                        title={`${friend.firstName} ${friend.lastName}`}
+                                                    />
+                                                    <CardActions>
+                                                        <Link className="signout_button_link" to={{pathname:"../User2", state:{user:this.state.nextUser}}}>
+                                                            <Button size="small" color="secondary" onClick={()=>this.showUser(friend)}>View Profile</Button>
+                                                        </Link>
+                                                        <Button size="small" color="secondary" onClick={()=>this.removeFriend(friend._id)}>Remove this friend</Button>
+                                                    </CardActions>
                                             </Card>
                                         </Grid>)
                                     })}
@@ -414,41 +418,44 @@ class User extends React.Component {
                             <TabPanel value={this.state.value} index={0}>
                                 <Grid container spacing = {5}>
                                 {this.state.itineraryList.map(itinerary => {
+                                    console.log(itinerary)
                                     return (
-                                    <Grid item key={itinerary.id} md={3}>
+                                    <Grid item key={itinerary._id} md={3}>
                                             <Card>
                                                 <CardActionArea onClick={this.handleItineraryCardClick}>
-                                                        <CardContent>
-                                                            <Typography variant="h5" component="h2">
-                                                                Itinerary: {this.state.itineraryList[0].name}
-                                                            </Typography>
-                                                            <Typography>
-                                                                Starting Location:{this.state.itineraryList[0].starting}
-                                                            </Typography>
-                                                            <Typography>
-                                                                Destination: {this.state.itineraryList[0].ending}
-                                                            </Typography>
-                                                        </CardContent>
+                                                    <CardContent>
+                                                        <Typography variant="h5" component="h2">
+                                                            {itinerary.name}
+                                                        </Typography>
+                                                        <Typography>
+                                                            Starting location: {itinerary.source.address}
+                                                        </Typography>
+                                                        <Typography>
+                                                            Destination: {itinerary.destination.address}
+                                                        </Typography>
+                                                    </CardContent>
                                                 </CardActionArea>
                                                 <CardActions>
-                                                    <Link to={{pathname:"/user/itinerary/0"}}>
+                                                    <Link to={{pathname:`/user/itinerary/${itinerary._id}`}}>
                                                     <Button size="small" color="primary">View</Button>
                                                     </Link>
                                                     <Button size="small" color="primary" onClick={()=>this.addToFavourites()}>Favourite this itinerary</Button>
-                                                    <Button size="small" color="secondary" onClick={()=>this.removeItinerary(itinerary.id)}>Delete this itinerary</Button>
+                                                    <Button size="small" color="secondary" onClick={()=>this.removeItinerary(itinerary._id)}>Delete this itinerary</Button>
                                                 </CardActions>
                                             <Collapse in={this.state.itineraryCardsExpanded} timeout="auto" unmountOnExit>
-                                                <CardContent>
-                                                    <Typography paragraph variant="h5">
-                                                        Stops in between:
-                                                    </Typography>
-                                                    <Typography paragraph>
-                                                        {this.state.itineraryList[0].destinations[0]}
-                                                    </Typography>
-                                                    <Typography paragraph>
-                                                        {this.state.itineraryList[0].destinations[1]}
-                                                    </Typography>
-                                                </CardContent>
+                                            {/*
+                                            <CardContent>
+                                                <Typography paragraph variant="h5">
+                                                    Stops in between:
+                                                </Typography>
+                                                <Typography paragraph>
+                                                    {this.state.itineraryList[0].destinations[0]}
+                                                </Typography>
+                                                <Typography paragraph>
+                                                    {this.state.itineraryList[0].destinations[1]}
+                                                </Typography>
+                                            </CardContent>
+                                            */}
                                             </Collapse>
                                         </Card>
     
@@ -460,23 +467,23 @@ class User extends React.Component {
                             <Grid container spacing = {5}>
                                 {this.state.favouritesList.map(itinerary => {
                                     return (
-                                        <Grid item key={itinerary.id} md={3}>
+                                        <Grid item key={itinerary._id} md={3}>
                                             <Card>
                                                 <CardActionArea onClick={this.handleFavouritesCardClick}>
                                                         {<CardContent>
-                                                            <Typography variant="h5" component="h2">
-                                                                {this.state.favouritesList[0].name}
-                                                            </Typography>
-                                                            <Typography>
-                                                                Starting location: {this.state.favouritesList[0].starting}
-                                                            </Typography>
-                                                            <Typography>
-                                                                Destination: {this.state.favouritesList[0].ending}
-                                                            </Typography>
-                                                        </CardContent>}
+                                                        <Typography variant="h5" component="h2">
+                                                            {itinerary.name}
+                                                        </Typography>
+                                                        <Typography>
+                                                            Starting location: {itinerary.source}
+                                                        </Typography>
+                                                        <Typography>
+                                                            Destination: {itinerary.destination}
+                                                        </Typography>
+                                                    </CardContent>}
                                                 </CardActionArea>
                                                 <CardActions>
-                                                    <Button size="small" color="secondary" onClick={()=>this.removeFromFavourites(itinerary.id)}>Remove this itinerary from favourites</Button>
+                                                    <Button size="small" color="secondary" onClick={()=>this.removeFromFavourites(itinerary._id)}>Remove this itinerary from favourites</Button>
                                                 </CardActions>
                                                 <Collapse in={this.state.favouritesCardsExpanded} timeout="auto" unmountOnExit>
                                                 <CardContent>
@@ -509,10 +516,10 @@ class User extends React.Component {
                                                         title={`${friend.firstName} ${friend.lastName}`}
                                                     />
                                                     <CardActions>
-                                                        <Link to={"../User2"}>
+                                                        <Link className="signout_button_link" to={"../User2"}>
                                                             <Button size="small" color="secondary">View Profile</Button>
                                                         </Link>
-                                                        <Button size="small" color="secondary" onClick={()=>this.removeFriend(friend["userId"])}>Remove this friend</Button>
+                                                        <Button size="small" color="secondary" onClick={()=>this.removeFriend(friend._id)}>Remove this friend</Button>
                                                     </CardActions>
                                                 </Card>
                                             </Grid>)
