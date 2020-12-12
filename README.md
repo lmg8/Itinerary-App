@@ -166,3 +166,4 @@ It returns...
 - Material-UI
 - simple-react-comments
 - Google Cloud Platform
+- React-Google-Maps
