@@ -321,3 +321,55 @@ export const deleteUser = (userID, app) => {
             alert("Error deleting user")
         });
 };
+
+//for user settings
+export const getUserForSettings = (page, userId) => {
+    const url = `/api/users/${userId}`;
+    fetch(url)
+        .then(res => {
+            if (res.status === 200) {
+                // console.log(res.clone().json()); // debugging
+                // return a promise that resolves with the JSON body
+                return res.json();
+            } else {
+                alert("Could not get users");
+            }
+        })
+        .then(json => {
+            // the resolved promise with the JSON body
+            const user = {"firstName": json.firstName, "lastName": json.lastName, "email": json.email, "password": json.password, "open": [false,false,false,false] };
+            page.setState({ user: user });
+
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
+export const updateUserInfo = (type, value, userId, page) => {
+
+    const request = new Request(`/api/users/${userId}`, {
+        method: "PATCH",
+        body: JSON.stringify([
+            {"op": "replace", "path": "/"+type, "value": value}
+            ]
+        ),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .catch(error => {
+            alert("Error updating user settings.")
+        });
+
+
+
+}

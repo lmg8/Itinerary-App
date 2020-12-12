@@ -10,6 +10,7 @@ class UserSettingsChange extends React.Component {
     render() {
         const {type, value, open, handleSettingsChange, handleClose, handleAccept} = this.props;
         return (
+            type != "password" ?
             <div>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                     <DialogTitle className={"DialogTitlePrompt"} text-transform={"uppercase"} id="form-dialog-title">Edit {type}</DialogTitle>
@@ -33,6 +34,28 @@ class UserSettingsChange extends React.Component {
                     </DialogActions>
                 </Dialog>
             </div>
+
+                :
+
+                <div>
+                    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                        <DialogTitle className={"DialogTitlePrompt"} text-transform={"uppercase"} id="form-dialog-title">Edit {type}</DialogTitle>
+                        <DialogContent>
+
+                            <TextField autoFocus id="password-input" label="Enter Password" type="password" fullWidth margin="dense" onChange={handleSettingsChange}/>
+
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose} color="primary">
+                                Cancel
+                            </Button>
+                            <Button onClick={handleAccept} color="primary">
+                                Accept
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                </div>
+
         );
     }
 }

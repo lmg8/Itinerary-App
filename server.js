@@ -170,7 +170,6 @@ app.post('/api/itineraries', mongoChecker, authenticate, async (req, res)=> {
     // async-await version:
     try {
         const result = await itinerary.save()
-        log("did it work")
         res.send(result)
     } catch(error) {
         log(error) // log server error to the console, not to the client.
@@ -446,7 +445,6 @@ app.patch('/api/users/:id', async (req, res) => {
 	// Find the fields to update and their values.
 	const fieldsToUpdate = {}
 	req.body.map((change) => {
-        console.log(change)
 		const propertyToChange = change.path.substr(1) // getting rid of the '/' character
 		fieldsToUpdate[propertyToChange] = change.value
 	})
@@ -486,7 +484,6 @@ app.patch('/api/users/:id/itineraries', async (req, res) => {
         return;
     }
 
-    console.log(req)
     // Update the user by their id.
     try {
         const user = await User.findOneAndUpdate({_id: id}, {$push: {itineraries: req.body.value} }, {new: true, useFindAndModify: false})
@@ -663,6 +660,8 @@ app.get("*", (req, res) => {
     // send index.html
     res.sendFile(path.join(__dirname, "itinerary_app/build/index.html"));
 });
+
+
 
 /*************************************************/
 // Express server listening...

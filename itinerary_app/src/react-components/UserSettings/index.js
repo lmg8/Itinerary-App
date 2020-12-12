@@ -12,16 +12,20 @@ import InputBase from "@material-ui/core/InputBase";
 import {ArrowForwardIos} from "@material-ui/icons";
 import UserSettingsChange from "../UserSettingsChange";
 import Header from "../Header";
+import {
+    getUserForSettings,
+    getUsers, updateUserInfo
+} from "../../actions/user";
 
 
 class UserSettings extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { file: "", imagePreviewUrl:props.source,
-            user: {name: props.name, email: props.email, location: props.location, password: props.password,
-                open:[false,false,false,false]},
-            value: ""
-
+        this.state = { userList: [], userId: null, file: "", imagePreviewUrl:"./../SearchPics/profilePic1.jpeg",
+            user: null,
+            value: "",
+            loaded: false,
+            userKeys: null
         };
         this.handleImageUpload = this.handleImageUpload.bind(this);
 
@@ -64,15 +68,42 @@ class UserSettings extends React.Component {
         const user = this.state.user;
         user["open"][i] = false;
         user[type] = this.state.value;
+        //update in database
+        if (type !== "password") {
+            const newUpdate = updateUserInfo(type, this.state.value, this.state.userId, this)
+        }
+        //update in front end
         this.setState({user})
     }
     handleSettingsChange(e){
         this.setState({value:e.target.value})
     }
 
+    componentDidMount(){
+        getUsers(this);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const {app} = this.props;
+        if(prevState.userList != this.state.userList){
+            for (let i = 0; i < this.state.userList.length; i++){
+                if(app.state.currentUser == this.state.userList[i].username){
+                    getUserForSettings(this, this.state.userList[i]._id)
+                    this.setState({userId: this.state.userList[i]._id})
+                }
+            }
+        }
+        if(prevState.user != this.state.user) {
+            this.setState({userKeys: Object.keys(this.state.user)});
+            this.setState({loaded: true})
+        }
+
+    }
+
     render() {
-        const userKeys= Object.keys(this.state.user);
+        console.log(this.state)
         return (
+            this.state.loaded ?
             <div>
                 <Header/>
                 <Container maxWidth="md" justify="center">
@@ -117,10 +148,10 @@ class UserSettings extends React.Component {
                                     <Button onClick={() => this.handleClickOpen(0)}>
                                         <Grid item container xs={12} direction={"row"}>
                                             <Grid className={"settingInfo"} item xs={3} >
-                                                Name
+                                                Change First Name
                                             </Grid>
                                             <Grid item xs={8} >
-                                                {this.state.user[userKeys[0]]}
+                                                {this.state.user[this.state.userKeys[0]]}
 
                                             </Grid>
                                             <Grid className={"arrowIcon"} item xs={1} float={"right"}>
@@ -131,10 +162,10 @@ class UserSettings extends React.Component {
                                     <Button onClick={()=>this.handleClickOpen(1)}>
                                         <Grid  item container xs={12} direction={"row"} >
                                             <Grid className={"settingInfo"} item xs={3} >
-                                                Email Address
+                                                Change Last Name
                                             </Grid>
                                             <Grid item xs={8} >
-                                                {this.state.user[userKeys[1]]}
+                                                {this.state.user[this.state.userKeys[1]]}
                                             </Grid>
                                             <Grid className={"arrowIcon"} item xs={1} float={"right"}>
                                                 <ArrowForwardIos />
@@ -144,20 +175,20 @@ class UserSettings extends React.Component {
                                     <Button onClick={()=>this.handleClickOpen(2)}>
                                         <Grid  item container xs={12} direction={"row"} >
                                             <Grid className={"settingInfo"} item xs={3} >
-                                                Location
+                                                Change Email Address
                                             </Grid>
                                             <Grid item xs={8} >
-                                                {this.state.user[userKeys[2]]}
+                                                {this.state.user[this.state.userKeys[2]]}
                                             </Grid>
                                             <Grid className={"arrowIcon"} item xs={1} float={"right"}>
                                                 <ArrowForwardIos />
                                             </Grid>
                                         </Grid>
                                     </Button>
-                                    <Button>
+                                    <Button onClick={()=>this.handleClickOpen(3)}>
                                         <Grid  item container xs={12} direction={"row"} >
                                             <Grid className={"settingInfo"} item xs={3} >
-                                                Password
+                                                Change Password
                                             </Grid>
                                             <Grid item xs={8} >
                                                 <InputBase
@@ -181,20 +212,24 @@ class UserSettings extends React.Component {
 
                 </Container>
 
-                <UserSettingsChange type= {userKeys[0]} value={this.state.user[userKeys[0]]} open={this.state.user[userKeys[4]][0]}
+                <UserSettingsChange type= {this.state.userKeys[0]} value={this.state.user[this.state.userKeys[0]]} open={this.state.user[this.state.userKeys[4]][0]}
                                     handleClose={()=>this.handleClickClose(0)}
-                                    handleAccept={() => this.handleClickAccept(userKeys[0],0)}
+                                    handleAccept={() => this.handleClickAccept(this.state.userKeys[0],0)}
                                     handleSettingsChange={this.handleSettingsChange}/>
-                <UserSettingsChange type= {userKeys[1]} value={this.state.user[userKeys[1]]} open={this.state.user[userKeys[4]][1]}
+                <UserSettingsChange type= {this.state.userKeys[1]} value={this.state.user[this.state.userKeys[1]]} open={this.state.user[this.state.userKeys[4]][1]}
                                     handleClose={()=>this.handleClickClose(1)}
-                                    handleAccept={() => this.handleClickAccept(userKeys[1],1)}
+                                    handleAccept={() => this.handleClickAccept(this.state.userKeys[1],1)}
                                     handleSettingsChange={this.handleSettingsChange}/>
-                <UserSettingsChange type= {userKeys[2]} value={this.state.user[userKeys[2]]} open={this.state.user[userKeys[4]][2]}
+                <UserSettingsChange type= {this.state.userKeys[2]} value={this.state.user[this.state.userKeys[2]]} open={this.state.user[this.state.userKeys[4]][2]}
                                     handleClose={()=>this.handleClickClose(2)}
-                                    handleAccept={() => this.handleClickAccept(userKeys[2],2)}
+                                    handleAccept={() => this.handleClickAccept(this.state.userKeys[2],2)}
+                                    handleSettingsChange={this.handleSettingsChange}/>
+                <UserSettingsChange type= {this.state.userKeys[3]} value={this.state.user[this.state.userKeys[3]]} open={this.state.user[this.state.userKeys[4]][3]}
+                                    handleClose={()=>this.handleClickClose(3)}
+                                    handleAccept={() => this.handleClickAccept(this.state.userKeys[3],3)}
                                     handleSettingsChange={this.handleSettingsChange}/>
 
-            </div>
+            </div> : null
         );
     };
 }
