@@ -18,7 +18,7 @@ import Collapse from '@material-ui/core/Collapse'
 import {Tabs, Tab, CardContent, Container} from "@material-ui/core";
 
 import {logout, getUsers, getSpecificUser,  getFavouritesFromUser, 
-        getFriendsFromUser, replaceFriendsList, replaceItineraryList} from "../../actions/user"
+        getFriendsFromUser, replaceFriendsList, replaceItineraryList, replaceFavouritesList} from "../../actions/user"
 
 import { getItinerariesFromUser, deleteItinerary } from "../../actions/itinerary";
 
@@ -65,16 +65,6 @@ function TabPanel(props) {
     );
 }
 
-//Below are two hardcoded items to fill the state arrays. In the full release, the server should populate the arrays
-// and these should be removed
-const hardCodedItinerary = {id:1,
-    name:"Beach Trip",
-    starting:"Adam's home, Toronto",
-    ending:'Centre Island Beach, Toronto',
-    destinations: ["Starbucks, Toronto", "Jack Layton Ferry Terminal, Toronto"],
-    startDate:'August 12, 2020'
-}
-
 class User extends React.Component {
 
     handleChange(event, value) {
@@ -119,14 +109,15 @@ class User extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    addToFavourites(){
+    addToFavourites(itinerary){
+        console.log(`addtofav: ${itinerary}`)
         const newFavourite = {
-            id: hardCodedItinerary.id,
-            name: hardCodedItinerary.name,
-            starting: hardCodedItinerary.starting,
-            ending: hardCodedItinerary.ending,
-            destinations: hardCodedItinerary.destinations,
-            startDate:hardCodedItinerary.startdate
+            id: itinerary._id,
+            name: itinerary.name,
+            starting: itinerary.starting,
+            ending: itinerary.ending,
+            destinations: itinerary.destinations,
+            startDate:itinerary.startdate
         }
 
         const favouritesList = [...this.state.favouritesList];
@@ -139,6 +130,8 @@ class User extends React.Component {
         if (flag == true){
             favouritesList.push(newFavourite);
         }
+
+        replaceFavouritesList(favouritesList, this.state.userId)
 
         //reset the state
         this.setState({
@@ -162,6 +155,7 @@ class User extends React.Component {
         //Code below should make a server call and update the itinerary section of the database on the server as well
         const itineraryList=[...this.state.itineraryList];
         const updatedItineraryList = itineraryList.filter(currentItinerary => currentItinerary._id !== id)
+        console.log(updatedItineraryList)
         this.setState({itineraryList: updatedItineraryList})
         replaceItineraryList(updatedItineraryList, this.state.userId)
         deleteItinerary(id, app)
@@ -257,6 +251,8 @@ class User extends React.Component {
                         <TabPanel value={this.state.value} index={0}>
                             <Grid container spacing = {5}>
                             {this.state.itineraryList.map(itinerary => {
+                                console.log(itinerary)
+
                                 return (
                                 <Grid item key={itinerary._id} md={3}>
                                         <Card>
@@ -277,7 +273,7 @@ class User extends React.Component {
                                                 <Link to={{pathname:`/user/itinerary/${itinerary._id}`}}>
                                                 <Button size="small" color="primary">View</Button>
                                                 </Link>
-                                                <Button size="small" color="primary" onClick={()=>this.addToFavourites()}>Favourite this itinerary</Button>
+                                                <Button size="small" color="primary" onClick={()=>this.addToFavourites(itinerary)}>Favourite this itinerary</Button>
                                                 <Button size="small" color="secondary" onClick={()=>this.removeItinerary(itinerary._id)}>Delete this itinerary</Button>
                                             </CardActions>
                                         <Collapse in={this.state.itineraryCardsExpanded} timeout="auto" unmountOnExit>
@@ -439,7 +435,7 @@ class User extends React.Component {
                                                     <Link to={{pathname:`/user/itinerary/${itinerary._id}`}}>
                                                     <Button size="small" color="primary">View</Button>
                                                     </Link>
-                                                    <Button size="small" color="primary" onClick={()=>this.addToFavourites()}>Favourite this itinerary</Button>
+                                                    <Button size="small" color="primary" onClick={()=>this.addToFavourites(itinerary)}>Favourite this itinerary</Button>
                                                     <Button size="small" color="secondary" onClick={()=>this.removeItinerary(itinerary._id)}>Delete this itinerary</Button>
                                                 </CardActions>
                                             <Collapse in={this.state.itineraryCardsExpanded} timeout="auto" unmountOnExit>

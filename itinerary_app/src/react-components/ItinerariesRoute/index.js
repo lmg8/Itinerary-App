@@ -39,7 +39,7 @@ class ItinerariesRoute extends React.Component {
             if (typeof window !== 'undefined' && !this.myRef.current) {
                 if (!document.querySelector('#google-maps')) {
                     loadScript(
-                        `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_API_KEY}&libraries=places`,
+                        `https://maps.googleapis.com/maps/api/js?key=AIzaSyC5-loC2sPq9yQUzHMO3tWWi10snJlFwCo&libraries=places`,
                         document.querySelector('head'),
                         'google-maps',
                     );

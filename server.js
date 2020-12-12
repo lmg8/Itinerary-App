@@ -506,6 +506,42 @@ app.patch('/api/users/:id/itineraries', async (req, res) => {
     }
 });
 
+//update favourites to user
+app.patch('/api/users/:id/favourites', async (req, res) => {
+    const id = req.params.id
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send()
+        return;  // so that we don't run the rest of the handler.
+    }
+
+    // check mongoose connection established.
+    if (mongoose.connection.readyState != 1) {
+        log('Issue with mongoose connection')
+        res.status(500).send('Internal server error')
+        return;
+    }
+
+    console.log(req)
+    // Update the user by their id.
+    try {
+        const user = await User.findOneAndUpdate({_id: id}, {$push: {itineraries: req.body.value} }, {new: true, useFindAndModify: false})
+        if (!user) {
+            res.status(404).send('Resource not found')
+        } else {
+            res.send(user)
+        }
+
+    } catch (error) {
+        log(error)
+        if (isMongoError(error)) { // check for if mongo server suddenly disonnected before this request.
+            res.status(500).send('Internal server error')
+        } else {
+            res.status(400).send('Bad Request') // bad request for changing the user.
+        }
+    }
+});
+
 //update itineraries data - specifically for comments
 app.patch('/api/itineraries/:id/comments', async (req, res) => {
     const id = req.params.id

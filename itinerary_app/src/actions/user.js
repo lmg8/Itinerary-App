@@ -197,6 +197,7 @@ export const getFavouritesFromUser = (userID, page) => {
         });
 };
 
+
 // A function to send a POST request to the web server,
 // and then loop through them and add a list element for each user
 export const createUser = (creationComp, app) => {
@@ -254,7 +255,31 @@ export const replaceItineraryList = (newItineraryList,currUserId,app) => {
     const request = new Request(`/api/users/${currUserId}`, {
         method: "PATCH",
         body: JSON.stringify([
-            { "op": "replace", "path": "/friends", "value": newItineraryList }
+            { "op": "replace", "path": "/itineraries", "value": newItineraryList }
+          ]),
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        }
+    });
+    // Send the request with fetch()
+    fetch(request)
+        .then(res => {
+            if (res.status === 200) {
+                return res.json();
+            }
+        })
+        .catch(error => {
+            alert("Error updating itinerary list.")
+        });
+};
+
+export const replaceFavouritesList = (newFavouritesList,currUserId,app) => {
+    console.log(currUserId)
+    const request = new Request(`/api/users/${currUserId}`, {
+        method: "PATCH",
+        body: JSON.stringify([
+            { "op": "replace", "path": "/favourites", "value": newFavouritesList }
           ]),
         headers: {
             Accept: "application/json, text/plain, */*",
