@@ -1,17 +1,16 @@
-# team08 Itinerary Application
+# Itinerary Application
 
-# How to run:
-        
-## Phase 2 Instructions
-1. Go to [our deployed website](https://calm-citadel-31828.herokuapp.com)
-1. Sign in details are as follows (Make sure to press the submit button when signing on):
-    1. Regular user: 
-        1. Username: user
-        1. Password: user
-    1. Admin user:
-        1. Username: admin
-        1. Password: admin
-        
+# Example of optimized Itinerary Map usage:
+  
+This video shows the web app finding the optimal route between five locations.
+
+User input: Union Station (Starting Location), CN Tower, Distillery District, Royal Ontario Museum, Ripley's Aquarium (Destination)
+Map Output: Union Station, Distillery District, Royal Ontario Museum, CN Tower, Ripley's Aquarium
+
+https://user-images.githubusercontent.com/37385317/124187600-1060fb80-da8c-11eb-8942-26bd91b47c81.mp4
+
+
+
 # ACCOUNT CREATION
 
 Here, the new user can create an account by filling in the appropriate fields. After creating a user, you will need to sign in again with your newly created account.
