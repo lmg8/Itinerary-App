@@ -5,6 +5,7 @@
 This video shows the web app finding the optimal route between five locations.
 
 User input: Union Station (Starting Location), CN Tower, Distillery District, Royal Ontario Museum, Ripley's Aquarium (Destination)
+
 Map Output: Union Station, Distillery District, Royal Ontario Museum, CN Tower, Ripley's Aquarium
 
 https://user-images.githubusercontent.com/37385317/124187600-1060fb80-da8c-11eb-8942-26bd91b47c81.mp4
